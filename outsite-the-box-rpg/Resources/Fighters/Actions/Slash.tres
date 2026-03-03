@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Action" format=3 uid="uid://cmj6afvwaioec"]
+
+[ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="1_n2w8t"]
+
+[resource]
+script = ExtResource("1_n2w8t")
+actionName = "Slash"
+description = "The user swings a blade for little damage."
+type = null
+hits = null
+strength = 30
+heal = null
+metadata/_custom_type_script = "uid://cdj6bk5s6344v"

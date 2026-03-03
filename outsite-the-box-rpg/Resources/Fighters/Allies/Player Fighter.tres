@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Fighter" format=3 uid="uid://bp8eckn1vqn61"]
+
+[ext_resource type="Resource" uid="uid://yld7yuy0cu2j" path="res://Resources/Fighters/Actions/Bash.tres" id="1_6bgf5"]
+[ext_resource type="Resource" uid="uid://o3wxvq2pvf3u" path="res://Resources/Fighters/Stats/Player Stats.tres" id="1_gefgg"]
+[ext_resource type="Resource" uid="uid://cmj6afvwaioec" path="res://Resources/Fighters/Actions/Slash.tres" id="2_se8sy"]
+[ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="4_mrsvr"]
+
+[resource]
+resource_local_to_scene = true
+script = ExtResource("4_mrsvr")
+fighterName = "Player"
+description = "This is you"
+baseStats = ExtResource("1_gefgg")
+action1 = ExtResource("1_6bgf5")
+action2 = ExtResource("2_se8sy")
+metadata/_custom_type_script = "uid://c1vcxghrix662"

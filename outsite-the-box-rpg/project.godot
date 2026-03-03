@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Outsite The Box RPG"
+run/main_scene="uid://c0x7qnto71x0m"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 

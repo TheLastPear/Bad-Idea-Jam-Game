@@ -1,3 +1,10 @@
 [gd_scene format=3 uid="uid://c0x7qnto71x0m"]
 
+[ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
+[ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
+
 [node name="Node2D" type="Node2D" unique_id=1985206844]
+
+[node name="Node2D" type="Node2D" parent="." unique_id=374637247]
+script = ExtResource("1_wvl2i")
+fighter = ExtResource("2_vr6xi")
