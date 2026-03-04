@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
 [ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
-[ext_resource type="Script" uid="uid://b7n1w076uoteb" path="res://Scripts/simplemovement.gd" id="3_2h7oj"]
+[ext_resource type="Script" uid="uid://b7n1w076uoteb" path="res://Scripts/movement/simplemovement.gd" id="3_1samx"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="4_1samx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1samx"]
@@ -14,7 +14,7 @@ script = ExtResource("1_wvl2i")
 fighter = ExtResource("2_vr6xi")
 
 [node name="player" type="CharacterBody2D" parent="." unique_id=813384730]
-script = ExtResource("3_2h7oj")
+script = ExtResource("3_1samx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="player" unique_id=1568883153]
 shape = SubResource("CircleShape2D_1samx")
