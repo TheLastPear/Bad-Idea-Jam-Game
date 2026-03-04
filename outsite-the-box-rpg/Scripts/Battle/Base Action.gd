@@ -6,12 +6,12 @@ enum Type {
 	mod # Maybe
 }
 
-@export var actionName: String
-@export var description: String
-@export var type: Type = Type.attack
-@export var hits: int = 1
-@export var strength: int = 0
-@export var heal: int = 0
-@export var speed: int = 0
-var modifier = 0
-var stacks: int = 0
+@export var action_name : String
+@export var description : String
+@export var type := Type.attack
+@export var hits := 1
+@export var strength := 0
+@export var heal := 0
+@export var speed := 0
+var modifier := 0
+var stacks := 0

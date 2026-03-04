@@ -1,6 +1,6 @@
 class_name BaseStats extends Resource
 
-@export var levelCurve: Curve
+@export var level_curve: Curve
 
 @export var stats: Dictionary[String, int] = {
 	"health": 0,
@@ -11,10 +11,10 @@ class_name BaseStats extends Resource
 }
 
 
-func CalculateStats(level: int) -> Dictionary[String, int]:
+func calculate_stats(level: int) -> Dictionary[String, int]:
 	var ret: Dictionary[String, int] = {}
-	var statNames = ["health", "attack", "defense", "speed", "luck"]
-	for stat in statNames:
-		ret.get_or_add(stat, stats[stat] * levelCurve.sample(level))
+	var stat_names = ["health", "attack", "defense", "speed", "luck"]
+	for stat in stat_names:
+		ret[stat] = stats[stat] * level_curve.sample(level)
 	
 	return ret
