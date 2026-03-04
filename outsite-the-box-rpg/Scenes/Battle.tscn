@@ -115,17 +115,102 @@ script = ExtResource("1_wvl2i")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="GUI" type="HBoxContainer" parent="." unique_id=96342802]
+[node name="GUI" type="Control" parent="." unique_id=1161201848]
 layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.70987654
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 0
-metadata/_edit_use_anchors_ = true
+grow_vertical = 2
 
-[node name="Box" type="NinePatchRect" parent="GUI" unique_id=1456434341]
+[node name="Box" type="HBoxContainer" parent="GUI" unique_id=96342802]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -178.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Options" type="NinePatchRect" parent="GUI/Box" unique_id=1456434341]
 texture_filter = 1
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("10_qxnh6")
+region_rect = Rect2(0, 0, 16, 16)
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="Action Select" type="Control" parent="GUI/Box/Options" unique_id=1526693352]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Return" type="Button" parent="GUI/Box/Options/Action Select" unique_id=414014074]
+layout_mode = 0
+offset_left = 270.0
+offset_top = 70.0
+offset_right = 390.0
+offset_bottom = 110.0
+text = "Basic Attack"
+autowrap_mode = 2
+
+[node name="Basic Action" type="Button" parent="GUI/Box/Options/Action Select" unique_id=909261955]
+layout_mode = 0
+offset_left = 90.0
+offset_top = 70.0
+offset_right = 210.0
+offset_bottom = 110.0
+text = "Back"
+autowrap_mode = 2
+
+[node name="Special Action 1" type="Button" parent="GUI/Box/Options/Action Select" unique_id=1738099436]
+layout_mode = 0
+offset_left = 450.0
+offset_top = 70.0
+offset_right = 550.0
+offset_bottom = 110.0
+text = "Bash"
+
+[node name="Special Action 2" type="Button" parent="GUI/Box/Options/Action Select" unique_id=1649544229]
+layout_mode = 0
+offset_left = 610.0
+offset_top = 70.0
+offset_right = 710.0
+offset_bottom = 110.0
+text = "Slash"
+
+[node name="Description" type="NinePatchRect" parent="GUI" unique_id=1139227537]
+layout_mode = 0
+offset_left = 769.0
+offset_top = 470.0
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 3
+patch_margin_top = 3
+patch_margin_right = 3
+patch_margin_bottom = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Description" unique_id=2088067659]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -170.0
+offset_top = -70.0
+offset_right = 170.0
+offset_bottom = 70.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "This is where the descriptions for moves, items, etc will be displayed."
