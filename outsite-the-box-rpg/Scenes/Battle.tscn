@@ -1,10 +1,131 @@
 [gd_scene format=3 uid="uid://c0x7qnto71x0m"]
 
+[ext_resource type="Script" uid="uid://bc5u4dtuk0gos" path="res://Scripts/State Machine.gd" id="1_1samx"]
+[ext_resource type="Script" uid="uid://c0qpo0pbr1ulg" path="res://Scripts/Battle/Battle Manager.gd" id="1_6yjxy"]
 [ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
+[ext_resource type="Script" uid="uid://nr6sp3nikjqt" path="res://Scripts/Battle/States/Planning.gd" id="2_p46lj"]
+[ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="2_qxnh6"]
 [ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
+[ext_resource type="Script" uid="uid://dgn1octlqbbtr" path="res://Scripts/Battle/States/Action.gd" id="3_8teo4"]
+[ext_resource type="Script" uid="uid://bed01tgf7gxve" path="res://Scripts/Battle/States/Victory.gd" id="4_c5ef4"]
+[ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="6_8teo4"]
+[ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="10_qxnh6"]
 
-[node name="Node2D" type="Node2D" unique_id=1985206844]
+[node name="Battle" type="Control" unique_id=624704362]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Node2D" type="Node2D" parent="." unique_id=374637247]
+[node name="Battle Manager" type="Node" parent="." unique_id=1405131880 node_paths=PackedStringArray("active_allies", "active_enemies")]
+script = ExtResource("1_6yjxy")
+ally_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi")])
+active_allies = [NodePath("Fighters/Allies/ActiveAlly1"), NodePath("Fighters/Allies/ActiveAlly2"), NodePath("Fighters/Allies/ActiveAlly3"), NodePath("Fighters/Allies/ActiveAlly4")]
+active_enemies = [NodePath("Fighters/Enemies/ActiveEnemy1"), NodePath("Fighters/Enemies/ActiveEnemy2"), NodePath("Fighters/Enemies/ActiveEnemy3"), NodePath("Fighters/Enemies/ActiveEnemy4")]
+
+[node name="StateMachine" type="Node" parent="Battle Manager" unique_id=1354686101]
+script = ExtResource("1_1samx")
+metadata/_custom_type_script = "uid://bc5u4dtuk0gos"
+
+[node name="PlanningState" type="Node" parent="Battle Manager/StateMachine" unique_id=237958094]
+script = ExtResource("2_p46lj")
+metadata/_custom_type_script = "uid://nr6sp3nikjqt"
+
+[node name="ActionState" type="Node" parent="Battle Manager/StateMachine" unique_id=1603545697]
+script = ExtResource("3_8teo4")
+metadata/_custom_type_script = "uid://dgn1octlqbbtr"
+
+[node name="VictoryState" type="Node" parent="Battle Manager/StateMachine" unique_id=1407171122]
+script = ExtResource("4_c5ef4")
+metadata/_custom_type_script = "uid://bed01tgf7gxve"
+
+[node name="Fighters" type="Node" parent="Battle Manager" unique_id=627518092]
+
+[node name="Allies" type="Node" parent="Battle Manager/Fighters" unique_id=475084931]
+
+[node name="ActiveAlly1" type="Node2D" parent="Battle Manager/Fighters/Allies" unique_id=2047700697]
+position = Vector2(-100, 100)
 script = ExtResource("1_wvl2i")
-fighter = ExtResource("2_vr6xi")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly1" unique_id=1712840099]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="ActiveAlly2" type="Node2D" parent="Battle Manager/Fighters/Allies" unique_id=1140937360]
+position = Vector2(-100, 200)
+script = ExtResource("1_wvl2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly2" unique_id=1042077113]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="ActiveAlly3" type="Node2D" parent="Battle Manager/Fighters/Allies" unique_id=1543947881]
+position = Vector2(-100, 300)
+script = ExtResource("1_wvl2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly3" unique_id=4037461]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="ActiveAlly4" type="Node2D" parent="Battle Manager/Fighters/Allies" unique_id=410689159]
+position = Vector2(-100, 400)
+script = ExtResource("1_wvl2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly4" unique_id=642587944]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="Enemies" type="Node" parent="Battle Manager/Fighters" unique_id=363471561]
+
+[node name="ActiveEnemy1" type="Node2D" parent="Battle Manager/Fighters/Enemies" unique_id=937457723]
+position = Vector2(1250, 100)
+scale = Vector2(-1, 1)
+script = ExtResource("1_wvl2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy1" unique_id=2004956545]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="ActiveEnemy2" type="Node2D" parent="Battle Manager/Fighters/Enemies" unique_id=458195613]
+position = Vector2(1250, 200)
+scale = Vector2(-1, 1)
+script = ExtResource("1_wvl2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy2" unique_id=930591347]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="ActiveEnemy3" type="Node2D" parent="Battle Manager/Fighters/Enemies" unique_id=43366418]
+position = Vector2(1250, 300)
+scale = Vector2(-1, 1)
+script = ExtResource("1_wvl2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy3" unique_id=1095272446]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="ActiveEnemy4" type="Node2D" parent="Battle Manager/Fighters/Enemies" unique_id=311251917]
+position = Vector2(1250, 400)
+scale = Vector2(-1, 1)
+script = ExtResource("1_wvl2i")
+
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy4" unique_id=862915171]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_8teo4")
+
+[node name="GUI" type="HBoxContainer" parent="." unique_id=96342802]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.70987654
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Box" type="NinePatchRect" parent="GUI" unique_id=1456434341]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("10_qxnh6")
