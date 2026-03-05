@@ -13,18 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="10_qxnh6"]
 [ext_resource type="Script" uid="uid://dhl036adb3gu3" path="res://Scripts/UI/UI Window.gd" id="12_l0uqe"]
 [ext_resource type="Script" uid="uid://b185vcuaasc5q" path="res://Scripts/UI/Button.gd" id="13_xmk5i"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_262jj"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l0uqe"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xmk5i"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_tiokb"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0qgg5"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n5y6x"]
+[ext_resource type="AudioStream" uid="uid://q3e0uaac4122" path="res://Art/Sound Effects/ui_change.mp3" id="14_0qgg5"]
+[ext_resource type="AudioStream" uid="uid://c0weerar6o6cy" path="res://Art/Sound Effects/ui_back.mp3" id="15_n5y6x"]
 
 [node name="Battle" type="Control" unique_id=624704362]
 layout_mode = 3
@@ -131,6 +121,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
 [node name="GUI" type="Control" parent="." unique_id=1161201848]
+z_index = 10
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -155,7 +146,7 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="Action Select" type="HBoxContainer" parent="GUI/Main Box" unique_id=1712471866]
+[node name="Action Select" type="HBoxContainer" parent="GUI/Main Box" unique_id=1712471866 node_paths=PackedStringArray("previous_window", "first_focus")]
 visible = false
 custom_minimum_size = Vector2(200, 180)
 layout_mode = 1
@@ -165,6 +156,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_l0uqe")
+previous_window = NodePath("../Options")
+first_focus = NodePath("Actions/HBox/Return")
 
 [node name="Actions" type="MarginContainer" parent="GUI/Main Box/Action Select" unique_id=1585254157]
 layout_mode = 2
@@ -199,6 +192,7 @@ text = "Basic Attack"
 flat = true
 alignment = 0
 autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
 [node name="Special Action 1" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1738099436]
 custom_minimum_size = Vector2(120, 40)
@@ -208,6 +202,7 @@ size_flags_vertical = 4
 text = "Bash"
 flat = true
 alignment = 0
+script = ExtResource("13_xmk5i")
 
 [node name="Special Action 2" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1649544229]
 custom_minimum_size = Vector2(120, 40)
@@ -218,6 +213,7 @@ focus_neighbor_right = NodePath("../Return")
 text = "Slash"
 flat = true
 alignment = 0
+script = ExtResource("13_xmk5i")
 
 [node name="Description" type="NinePatchRect" parent="GUI/Main Box/Action Select" unique_id=1139227537]
 layout_mode = 2
@@ -245,12 +241,13 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 text = "This is where the descriptions for moves, items, etc will be displayed."
 
-[node name="Options" type="MarginContainer" parent="GUI/Main Box" unique_id=682631306]
+[node name="Options" type="MarginContainer" parent="GUI/Main Box" unique_id=682631306 node_paths=PackedStringArray("first_focus")]
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 178.0
 size_flags_horizontal = 3
 script = ExtResource("12_l0uqe")
+first_focus = NodePath("VBox/View Attacks")
 
 [node name="VBox" type="HBoxContainer" parent="GUI/Main Box/Options" unique_id=127938823]
 layout_mode = 2
@@ -260,7 +257,7 @@ custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-focus_neighbor_left = NodePath("../../../Action Select/Actions/HBox/Special Action 2")
+focus_neighbor_left = NodePath("../Run")
 text = "Action"
 flat = true
 alignment = 0
@@ -298,8 +295,9 @@ focus_neighbor_right = NodePath("../../../Action Select/Actions/HBox/Return")
 text = "Run"
 flat = true
 alignment = 0
+script = ExtResource("13_xmk5i")
 
-[node name="Item Options" type="NinePatchRect" parent="GUI/Main Box" unique_id=78025918]
+[node name="Item Options" type="NinePatchRect" parent="GUI/Main Box" unique_id=78025918 node_paths=PackedStringArray("previous_window", "first_focus")]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -314,6 +312,8 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 script = ExtResource("12_l0uqe")
+previous_window = NodePath("../Options")
+first_focus = NodePath("MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return")
 
 [node name="MarginContainer" type="MarginContainer" parent="GUI/Main Box/Item Options" unique_id=571521625]
 layout_mode = 1
@@ -322,99 +322,107 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("12_l0uqe")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="ScrollContainer" type="ScrollContainer" parent="GUI/Main Box/Item Options/MarginContainer" unique_id=1806138893]
+[node name="ScrollContainer" type="ScrollContainer" parent="GUI/Main Box/Item Options/MarginContainer" unique_id=866661575]
 layout_mode = 2
+follow_focus = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer" unique_id=519019388]
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer" unique_id=1030609380]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer" unique_id=519019388]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Item" type="RichTextLabel" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/VBoxContainer" unique_id=475511797]
-custom_minimum_size = Vector2(60, 40)
+[node name="Return" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=467609111]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+text = "Return"
+flat = true
+alignment = 0
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
+
+[node name="Item 1" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=114148845]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
-vertical_alignment = 1
+flat = true
+alignment = 0
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Item2" type="RichTextLabel" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/VBoxContainer" unique_id=391769826]
-custom_minimum_size = Vector2(60, 40)
+[node name="Item 2" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=793867569]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
-vertical_alignment = 1
+flat = true
+alignment = 0
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Item3" type="RichTextLabel" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1172441716]
-custom_minimum_size = Vector2(60, 40)
+[node name="Item 3" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=885867683]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
-vertical_alignment = 1
+flat = true
+alignment = 0
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Item4" type="RichTextLabel" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/VBoxContainer" unique_id=436336553]
-custom_minimum_size = Vector2(60, 40)
+[node name="Item 4" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=761994159]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
-vertical_alignment = 1
+flat = true
+alignment = 0
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Item5" type="RichTextLabel" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/VBoxContainer" unique_id=1093468864]
-custom_minimum_size = Vector2(60, 40)
+[node name="Item 5" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=584210865]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
-vertical_alignment = 1
+flat = true
+alignment = 0
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Item6" type="RichTextLabel" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/VBoxContainer" unique_id=414597712]
-custom_minimum_size = Vector2(60, 40)
+[node name="Item 6" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1442223176]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
-vertical_alignment = 1
+flat = true
+alignment = 0
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Party View" type="NinePatchRect" parent="GUI" unique_id=408353909]
+[node name="Party View" type="HBoxContainer" parent="GUI" unique_id=684742917 node_paths=PackedStringArray("previous_window")]
 visible = false
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = -1
+anchor_left = 0.3472222
+anchor_top = 0.030864198
+anchor_right = 0.9809028
+anchor_bottom = 0.6944444
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
+script = ExtResource("12_l0uqe")
+previous_window = NodePath("../Main Box/Options")
+metadata/_edit_use_anchors_ = true
 
-[node name="Character 1" type="MarginContainer" parent="GUI/Party View" unique_id=1362271171]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TabContainer" type="TabContainer" parent="GUI/Party View/Character 1" unique_id=81073228]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_262jj")
-theme_override_styles/tab_unselected = SubResource("StyleBoxEmpty_l0uqe")
-theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_xmk5i")
-theme_override_styles/tab_selected = SubResource("StyleBoxEmpty_tiokb")
-theme_override_styles/tab_disabled = SubResource("StyleBoxEmpty_0qgg5")
-theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_n5y6x")
-current_tab = 0
-tab_0/title = "Character"
-tab_0/icon = ExtResource("6_8teo4")
-
-[node name="Description" type="HBoxContainer" parent="GUI/Party View/Character 1/TabContainer" unique_id=1510766221]
-layout_mode = 2
-metadata/_tab_index = 0
-metadata/_tab_name = "Character"
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 1/TabContainer/Description" unique_id=603654464]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer" unique_id=684742917]
-layout_mode = 2
-
-[node name="Stats" type="NinePatchRect" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=253600503]
+[node name="Stats" type="NinePatchRect" parent="GUI/Party View" unique_id=253600503]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -424,7 +432,7 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="MarginContainer2" type="MarginContainer" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats" unique_id=852470205]
+[node name="MarginContainer2" type="MarginContainer" parent="GUI/Party View/Stats" unique_id=852470205]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -433,11 +441,11 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
-[node name="Stats" type="VBoxContainer" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2" unique_id=2124212165]
+[node name="Stats" type="VBoxContainer" parent="GUI/Party View/Stats/MarginContainer2" unique_id=2124212165]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Header" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1439137043]
+[node name="Header" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1439137043]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_vertical = 0
@@ -445,49 +453,49 @@ theme_override_font_sizes/normal_font_size = 20
 text = "Stats:"
 vertical_alignment = 1
 
-[node name="Hp" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1905530426]
+[node name="Hp" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1905530426]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Health: 10/10"
 vertical_alignment = 1
 
-[node name="Stamina" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=562241117]
+[node name="Stamina" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=562241117]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Stamina: 10/10"
 vertical_alignment = 1
 
-[node name="Attack" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=2088927434]
+[node name="Attack" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=2088927434]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Attack: 10"
 vertical_alignment = 1
 
-[node name="Defense" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=607082827]
+[node name="Defense" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=607082827]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Defense: 10"
 vertical_alignment = 1
 
-[node name="Speed" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1196907268]
+[node name="Speed" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1196907268]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Speed: 10"
 vertical_alignment = 1
 
-[node name="Luck" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1489145506]
+[node name="Luck" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1489145506]
 custom_minimum_size = Vector2(80, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Luck: 10"
 vertical_alignment = 1
 
-[node name="Attacks" type="NinePatchRect" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=1259489803]
+[node name="Attacks" type="NinePatchRect" parent="GUI/Party View" unique_id=1259489803]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 20.0
@@ -497,7 +505,7 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks" unique_id=1887164998]
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Attacks" unique_id=1887164998]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -505,36 +513,39 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Action List" type="MarginContainer" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=1255908486]
+[node name="Action List" type="MarginContainer" parent="GUI/Party View/Attacks/HBoxContainer" unique_id=1255908486]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List" unique_id=315341295]
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Party View/Attacks/HBoxContainer/Action List" unique_id=315341295]
 layout_mode = 2
 
-[node name="Basic Attack" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1230376262]
-custom_minimum_size = Vector2(80, 40)
+[node name="Basic Attack" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=92141896]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Basic Attack"
-vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Attack 1" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=2068531245]
-custom_minimum_size = Vector2(80, 40)
+[node name="Attack 1" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=711246745]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Attack 1"
-vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="Attack 2" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=122699894]
-custom_minimum_size = Vector2(80, 40)
+[node name="Attack 2" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1046133408]
+custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Attack 2"
-vertical_alignment = 1
+autowrap_mode = 2
+script = ExtResource("13_xmk5i")
 
-[node name="NinePatchRect" type="NinePatchRect" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=670263858]
+[node name="NinePatchRect" type="NinePatchRect" parent="GUI/Party View/Attacks/HBoxContainer" unique_id=670263858]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 4.0
@@ -544,7 +555,7 @@ patch_margin_top = 3
 patch_margin_right = 3
 patch_margin_bottom = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect" unique_id=1505534309]
+[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Attacks/HBoxContainer/NinePatchRect" unique_id=1505534309]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -552,533 +563,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Party View/Character 1/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect/MarginContainer" unique_id=224791527]
+[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Party View/Attacks/HBoxContainer/NinePatchRect/MarginContainer" unique_id=224791527]
 layout_mode = 2
 text = "The description of the hovered attack goes here."
 
-[node name="Character 2" type="MarginContainer" parent="GUI/Party View" unique_id=1651562074]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TabContainer" type="TabContainer" parent="GUI/Party View/Character 2" unique_id=1635929957]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_262jj")
-theme_override_styles/tab_unselected = SubResource("StyleBoxEmpty_l0uqe")
-theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_xmk5i")
-theme_override_styles/tab_selected = SubResource("StyleBoxEmpty_tiokb")
-theme_override_styles/tab_disabled = SubResource("StyleBoxEmpty_0qgg5")
-theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_n5y6x")
-current_tab = 0
-tab_0/title = "Character"
-tab_0/icon = ExtResource("6_8teo4")
-
-[node name="Description" type="HBoxContainer" parent="GUI/Party View/Character 2/TabContainer" unique_id=1656579609]
-layout_mode = 2
-metadata/_tab_index = 0
-metadata/_tab_name = "Character"
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 2/TabContainer/Description" unique_id=1628566982]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer" unique_id=2137699492]
-layout_mode = 2
-
-[node name="Stats" type="NinePatchRect" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=1161726670]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer2" type="MarginContainer" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats" unique_id=667693602]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="Stats" type="VBoxContainer" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2" unique_id=1675536231]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Header" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1682392020]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/normal_font_size = 20
-text = "Stats:"
-vertical_alignment = 1
-
-[node name="Hp" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=366870831]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Health: 10/10"
-vertical_alignment = 1
-
-[node name="Stamina" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=888475855]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Stamina: 10/10"
-vertical_alignment = 1
-
-[node name="Attack" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1766869291]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack: 10"
-vertical_alignment = 1
-
-[node name="Defense" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=534922580]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Defense: 10"
-vertical_alignment = 1
-
-[node name="Speed" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=533673400]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Speed: 10"
-vertical_alignment = 1
-
-[node name="Luck" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1931163756]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Luck: 10"
-vertical_alignment = 1
-
-[node name="Attacks" type="NinePatchRect" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=1511544599]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 20.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks" unique_id=1553069955]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Action List" type="MarginContainer" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=2136407556]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List" unique_id=1754726176]
-layout_mode = 2
-
-[node name="Basic Attack" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1008570829]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Basic Attack"
-vertical_alignment = 1
-
-[node name="Attack 1" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1199168075]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 1"
-vertical_alignment = 1
-
-[node name="Attack 2" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=515515457]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 2"
-vertical_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=392711962]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 4.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect" unique_id=1725929760]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Party View/Character 2/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect/MarginContainer" unique_id=1995157712]
-layout_mode = 2
-text = "The description of the hovered attack goes here."
-
-[node name="Character 3" type="MarginContainer" parent="GUI/Party View" unique_id=1001175757]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TabContainer" type="TabContainer" parent="GUI/Party View/Character 3" unique_id=1315171705]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_262jj")
-theme_override_styles/tab_unselected = SubResource("StyleBoxEmpty_l0uqe")
-theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_xmk5i")
-theme_override_styles/tab_selected = SubResource("StyleBoxEmpty_tiokb")
-theme_override_styles/tab_disabled = SubResource("StyleBoxEmpty_0qgg5")
-theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_n5y6x")
-current_tab = 0
-tab_0/title = "Character"
-tab_0/icon = ExtResource("6_8teo4")
-
-[node name="Description" type="HBoxContainer" parent="GUI/Party View/Character 3/TabContainer" unique_id=961513148]
-layout_mode = 2
-metadata/_tab_index = 0
-metadata/_tab_name = "Character"
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 3/TabContainer/Description" unique_id=196704918]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer" unique_id=1466850728]
-layout_mode = 2
-
-[node name="Stats" type="NinePatchRect" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=952688494]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer2" type="MarginContainer" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats" unique_id=492935860]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="Stats" type="VBoxContainer" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2" unique_id=1376115107]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Header" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=178348957]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/normal_font_size = 20
-text = "Stats:"
-vertical_alignment = 1
-
-[node name="Hp" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1746687175]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Health: 10/10"
-vertical_alignment = 1
-
-[node name="Stamina" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=2105641524]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Stamina: 10/10"
-vertical_alignment = 1
-
-[node name="Attack" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=485999308]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack: 10"
-vertical_alignment = 1
-
-[node name="Defense" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=443610117]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Defense: 10"
-vertical_alignment = 1
-
-[node name="Speed" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=52187867]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Speed: 10"
-vertical_alignment = 1
-
-[node name="Luck" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=917545347]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Luck: 10"
-vertical_alignment = 1
-
-[node name="Attacks" type="NinePatchRect" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=296875606]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 20.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks" unique_id=998894091]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Action List" type="MarginContainer" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=1208405728]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List" unique_id=400811305]
-layout_mode = 2
-
-[node name="Basic Attack" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=509034252]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Basic Attack"
-vertical_alignment = 1
-
-[node name="Attack 1" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=691788266]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 1"
-vertical_alignment = 1
-
-[node name="Attack 2" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1866389213]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 2"
-vertical_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=425351691]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 4.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect" unique_id=1813546126]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Party View/Character 3/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect/MarginContainer" unique_id=1373820505]
-layout_mode = 2
-text = "The description of the hovered attack goes here."
-
-[node name="Character 4" type="MarginContainer" parent="GUI/Party View" unique_id=944663962]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="TabContainer" type="TabContainer" parent="GUI/Party View/Character 4" unique_id=1151813979]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_262jj")
-theme_override_styles/tab_unselected = SubResource("StyleBoxEmpty_l0uqe")
-theme_override_styles/tab_hovered = SubResource("StyleBoxEmpty_xmk5i")
-theme_override_styles/tab_selected = SubResource("StyleBoxEmpty_tiokb")
-theme_override_styles/tab_disabled = SubResource("StyleBoxEmpty_0qgg5")
-theme_override_styles/tab_focus = SubResource("StyleBoxEmpty_n5y6x")
-current_tab = 0
-tab_0/title = "Character"
-tab_0/icon = ExtResource("6_8teo4")
-
-[node name="Description" type="HBoxContainer" parent="GUI/Party View/Character 4/TabContainer" unique_id=438479056]
-layout_mode = 2
-metadata/_tab_index = 0
-metadata/_tab_name = "Character"
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 4/TabContainer/Description" unique_id=746296256]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer" unique_id=321064965]
-layout_mode = 2
-
-[node name="Stats" type="NinePatchRect" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=837653908]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer2" type="MarginContainer" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats" unique_id=1932184627]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="Stats" type="VBoxContainer" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2" unique_id=487160315]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Header" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=71644986]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/normal_font_size = 20
-text = "Stats:"
-vertical_alignment = 1
-
-[node name="Hp" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1825340325]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Health: 10/10"
-vertical_alignment = 1
-
-[node name="Stamina" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1749271572]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Stamina: 10/10"
-vertical_alignment = 1
-
-[node name="Attack" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=871373286]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack: 10"
-vertical_alignment = 1
-
-[node name="Defense" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=916015917]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Defense: 10"
-vertical_alignment = 1
-
-[node name="Speed" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=2088167953]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Speed: 10"
-vertical_alignment = 1
-
-[node name="Luck" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Stats/MarginContainer2/Stats" unique_id=1067849411]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Luck: 10"
-vertical_alignment = 1
-
-[node name="Attacks" type="NinePatchRect" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer" unique_id=2004373891]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 20.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks" unique_id=1479802073]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Action List" type="MarginContainer" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=1460735622]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List" unique_id=1556957367]
-layout_mode = 2
-
-[node name="Basic Attack" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=937712468]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Basic Attack"
-vertical_alignment = 1
-
-[node name="Attack 1" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=814424056]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 1"
-vertical_alignment = 1
-
-[node name="Attack 2" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1392154010]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 2"
-vertical_alignment = 1
-
-[node name="NinePatchRect" type="NinePatchRect" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer" unique_id=819124285]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 4.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect" unique_id=1331977539]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Party View/Character 4/TabContainer/Description/MarginContainer/HBoxContainer/Attacks/HBoxContainer/NinePatchRect/MarginContainer" unique_id=1086004430]
-layout_mode = 2
-text = "The description of the hovered attack goes here."
-
-[connection signal="on_pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Options" method="open_window"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Action Select" method="next_window"]
-[connection signal="on_pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Action Select" method="open_window"]
+[node name="UI Audio" type="Node" parent="." unique_id=1880107458]
+
+[node name="main" type="AudioStreamPlayer" parent="UI Audio" unique_id=231068350]
+stream = ExtResource("14_0qgg5")
+volume_db = -6.0
+
+[node name="back" type="AudioStreamPlayer" parent="UI Audio" unique_id=2063757196]
+stream = ExtResource("15_n5y6x")
+volume_db = -6.0
+
+[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Action Select" method="return_to_other_window"]
+[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Action Select" method="open_window"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Options" method="next_window"]
+[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Items" to="GUI/Main Box/Options" method="next_window"]
+[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Items" to="GUI/Main Box/Item Options" method="open_window"]
+[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Party" to="GUI/Main Box/Options" method="next_window"]
+[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Party" to="GUI/Party View" method="open_window"]
+[connection signal="pressed" from="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pressed" from="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return" to="GUI/Main Box/Item Options" method="return_to_other_window"]
