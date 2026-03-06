@@ -32,6 +32,6 @@ func next_window() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and previous_window != null and is_visible_in_tree():
+	if event.is_action_pressed("ui_menu") and previous_window != null and is_visible_in_tree():
 		return_to_other_window()
 	pass

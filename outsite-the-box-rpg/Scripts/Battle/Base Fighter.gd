@@ -31,6 +31,7 @@ class_name Fighter extends Resource
 		assign_stats()
 
 @export_group("Attacks")
+@export var basic_attack : Action
 @export var action_1 : Action
 @export var action_2 : Action
 

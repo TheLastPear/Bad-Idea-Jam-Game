@@ -1,15 +1,12 @@
 [gd_scene format=3 uid="uid://c0x7qnto71x0m"]
 
-[ext_resource type="Script" uid="uid://bc5u4dtuk0gos" path="res://Scripts/State Machine.gd" id="1_1samx"]
 [ext_resource type="Script" uid="uid://c0qpo0pbr1ulg" path="res://Scripts/Battle/Battle Manager.gd" id="1_6yjxy"]
 [ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
-[ext_resource type="Script" uid="uid://nr6sp3nikjqt" path="res://Scripts/Battle/States/Planning.gd" id="2_p46lj"]
 [ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="2_qxnh6"]
 [ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
-[ext_resource type="Script" uid="uid://dgn1octlqbbtr" path="res://Scripts/Battle/States/Action.gd" id="3_8teo4"]
-[ext_resource type="Script" uid="uid://bed01tgf7gxve" path="res://Scripts/Battle/States/Victory.gd" id="4_c5ef4"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="6_8teo4"]
 [ext_resource type="Theme" uid="uid://cf2u73paxhgyy" path="res://Art/UI/Battle UI Theme.tres" id="10_262jj"]
+[ext_resource type="Texture2D" uid="uid://bgh34a4wukvgr" path="res://Art/UI/Return Arrow.jpg" id="10_l0uqe"]
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="10_qxnh6"]
 [ext_resource type="Script" uid="uid://dhl036adb3gu3" path="res://Scripts/UI/UI Window.gd" id="12_l0uqe"]
 [ext_resource type="Script" uid="uid://b185vcuaasc5q" path="res://Scripts/UI/Button.gd" id="13_xmk5i"]
@@ -24,27 +21,14 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Battle Manager" type="Node" parent="." unique_id=1405131880 node_paths=PackedStringArray("active_allies", "active_enemies")]
+[node name="Battle Manager" type="Node" parent="." unique_id=1405131880 node_paths=PackedStringArray("active_allies", "active_enemies", "main_ui", "action_buttons")]
 script = ExtResource("1_6yjxy")
+battle_speed = 1.0
 ally_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi")])
 active_allies = [NodePath("Fighters/Allies/ActiveAlly1"), NodePath("Fighters/Allies/ActiveAlly2"), NodePath("Fighters/Allies/ActiveAlly3"), NodePath("Fighters/Allies/ActiveAlly4")]
 active_enemies = [NodePath("Fighters/Enemies/ActiveEnemy1"), NodePath("Fighters/Enemies/ActiveEnemy2"), NodePath("Fighters/Enemies/ActiveEnemy3"), NodePath("Fighters/Enemies/ActiveEnemy4")]
-
-[node name="StateMachine" type="Node" parent="Battle Manager" unique_id=1354686101]
-script = ExtResource("1_1samx")
-metadata/_custom_type_script = "uid://bc5u4dtuk0gos"
-
-[node name="PlanningState" type="Node" parent="Battle Manager/StateMachine" unique_id=237958094]
-script = ExtResource("2_p46lj")
-metadata/_custom_type_script = "uid://nr6sp3nikjqt"
-
-[node name="ActionState" type="Node" parent="Battle Manager/StateMachine" unique_id=1603545697]
-script = ExtResource("3_8teo4")
-metadata/_custom_type_script = "uid://dgn1octlqbbtr"
-
-[node name="VictoryState" type="Node" parent="Battle Manager/StateMachine" unique_id=1407171122]
-script = ExtResource("4_c5ef4")
-metadata/_custom_type_script = "uid://bed01tgf7gxve"
+main_ui = NodePath("../GUI/Main Box/Dialogue")
+action_buttons = [NodePath("../GUI/Main Box/Action Select/Actions/HBox/Basic Action"), NodePath("../GUI/Main Box/Action Select/Actions/HBox/Special Action 1"), NodePath("../GUI/Main Box/Action Select/Actions/HBox/Special Action 2")]
 
 [node name="Fighters" type="Node" parent="Battle Manager" unique_id=627518092]
 
@@ -58,6 +42,16 @@ script = ExtResource("1_wvl2i")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
+[node name="Button" type="Button" parent="Battle Manager/Fighters/Allies/ActiveAlly1" unique_id=169825829]
+visible = false
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+flat = true
+script = ExtResource("13_xmk5i")
+start_with_focus = true
+
 [node name="ActiveAlly2" type="Node2D" parent="Battle Manager/Fighters/Allies" unique_id=1140937360]
 position = Vector2(-100, 200)
 script = ExtResource("1_wvl2i")
@@ -65,6 +59,13 @@ script = ExtResource("1_wvl2i")
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly2" unique_id=1042077113]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
+
+[node name="Button" type="Button" parent="Battle Manager/Fighters/Allies/ActiveAlly2" unique_id=2007452715]
+visible = false
+offset_left = -60.0
+offset_top = -60.0
+flat = true
+script = ExtResource("13_xmk5i")
 
 [node name="ActiveAlly3" type="Node2D" parent="Battle Manager/Fighters/Allies" unique_id=1543947881]
 position = Vector2(-100, 300)
@@ -74,6 +75,15 @@ script = ExtResource("1_wvl2i")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
+[node name="Button" type="Button" parent="Battle Manager/Fighters/Allies/ActiveAlly3" unique_id=2015142647]
+visible = false
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+flat = true
+script = ExtResource("13_xmk5i")
+
 [node name="ActiveAlly4" type="Node2D" parent="Battle Manager/Fighters/Allies" unique_id=410689159]
 position = Vector2(-100, 400)
 script = ExtResource("1_wvl2i")
@@ -81,6 +91,15 @@ script = ExtResource("1_wvl2i")
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly4" unique_id=642587944]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
+
+[node name="Button" type="Button" parent="Battle Manager/Fighters/Allies/ActiveAlly4" unique_id=1527099836]
+visible = false
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+flat = true
+script = ExtResource("13_xmk5i")
 
 [node name="Enemies" type="Node" parent="Battle Manager/Fighters" unique_id=363471561]
 
@@ -171,49 +190,56 @@ theme_override_constants/margin_bottom = 20
 [node name="HBox" type="HBoxContainer" parent="GUI/Main Box/Action Select/Actions" unique_id=131200300]
 layout_mode = 2
 
-[node name="Return" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=414014074]
+[node name="Return" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=414014074 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 focus_neighbor_left = NodePath("../Special Action 2")
 text = "Return"
+icon = ExtResource("10_l0uqe")
 flat = true
 alignment = 0
 autowrap_mode = 2
+expand_icon = true
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../UI Audio/main")
+start_with_focus = true
 
-[node name="Basic Action" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=909261955]
+[node name="Basic Action" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=909261955 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-text = "Basic Attack"
+text = "null"
 flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../UI Audio/main")
 
-[node name="Special Action 1" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1738099436]
+[node name="Special Action 1" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1738099436 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-text = "Bash"
+text = "null"
 flat = true
 alignment = 0
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../UI Audio/main")
 
-[node name="Special Action 2" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1649544229]
+[node name="Special Action 2" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1649544229 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 focus_neighbor_right = NodePath("../Return")
-text = "Slash"
+text = "null"
 flat = true
 alignment = 0
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../UI Audio/main")
 
 [node name="Description" type="NinePatchRect" parent="GUI/Main Box/Action Select" unique_id=1139227537]
 layout_mode = 2
@@ -241,31 +267,34 @@ theme_override_constants/margin_bottom = 20
 layout_mode = 2
 text = "This is where the descriptions for moves, items, etc will be displayed."
 
-[node name="Options" type="MarginContainer" parent="GUI/Main Box" unique_id=682631306 node_paths=PackedStringArray("first_focus")]
+[node name="Options" type="MarginContainer" parent="GUI/Main Box" unique_id=682631306 node_paths=PackedStringArray("previous_window", "first_focus")]
+visible = false
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 178.0
 size_flags_horizontal = 3
 script = ExtResource("12_l0uqe")
+previous_window = NodePath("../Dialogue")
 first_focus = NodePath("VBox/View Attacks")
 
 [node name="VBox" type="HBoxContainer" parent="GUI/Main Box/Options" unique_id=127938823]
 layout_mode = 2
 
-[node name="View Attacks" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=1057647758]
+[node name="View Attacks" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=1057647758 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
-focus_neighbor_left = NodePath("../Run")
+focus_neighbor_left = NodePath("../View Party")
 text = "Action"
 flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../UI Audio/main")
 start_with_focus = true
 
-[node name="View Items" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=1881896522]
+[node name="View Items" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=1881896522 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -275,27 +304,19 @@ flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../UI Audio/main")
 
-[node name="View Party" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=223818609]
+[node name="View Party" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=223818609 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
+focus_neighbor_right = NodePath("../View Attacks")
 text = "Party"
 flat = true
 alignment = 0
 script = ExtResource("13_xmk5i")
-
-[node name="Run" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=474321693]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-focus_neighbor_right = NodePath("../../../Action Select/Actions/HBox/Return")
-text = "Run"
-flat = true
-alignment = 0
-script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../UI Audio/main")
 
 [node name="Item Options" type="NinePatchRect" parent="GUI/Main Box" unique_id=78025918 node_paths=PackedStringArray("previous_window", "first_focus")]
 visible = false
@@ -345,16 +366,19 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Return" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=467609111]
+[node name="Return" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=467609111 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Return"
+icon = ExtResource("10_l0uqe")
 flat = true
 alignment = 0
 autowrap_mode = 2
+expand_icon = true
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../../UI Audio/main")
 
-[node name="Item 1" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=114148845]
+[node name="Item 1" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=114148845 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
@@ -362,8 +386,9 @@ flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../../UI Audio/main")
 
-[node name="Item 2" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=793867569]
+[node name="Item 2" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=793867569 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
@@ -371,8 +396,9 @@ flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../../UI Audio/main")
 
-[node name="Item 3" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=885867683]
+[node name="Item 3" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=885867683 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
@@ -380,8 +406,9 @@ flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../../UI Audio/main")
 
-[node name="Item 4" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=761994159]
+[node name="Item 4" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=761994159 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
@@ -389,8 +416,9 @@ flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../../UI Audio/main")
 
-[node name="Item 5" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=584210865]
+[node name="Item 5" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=584210865 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
@@ -398,8 +426,9 @@ flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../../UI Audio/main")
 
-[node name="Item 6" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1442223176]
+[node name="Item 6" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1442223176 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 text = "Item"
@@ -407,6 +436,26 @@ flat = true
 alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../../UI Audio/main")
+
+[node name="Dialogue" type="MarginContainer" parent="GUI/Main Box" unique_id=2050691694]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+script = ExtResource("12_l0uqe")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Main Box/Dialogue" unique_id=2080484385]
+layout_mode = 2
+text = "Dialogue will go here when prompted."
+scroll_active = false
+shortcut_keys_enabled = false
 
 [node name="Party View" type="HBoxContainer" parent="GUI" unique_id=684742917 node_paths=PackedStringArray("previous_window")]
 visible = false
@@ -521,29 +570,44 @@ size_flags_horizontal = 3
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/Party View/Attacks/HBoxContainer/Action List" unique_id=315341295]
 layout_mode = 2
 
-[node name="Basic Attack" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=92141896]
+[node name="Return" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1877108702 node_paths=PackedStringArray("on_focused")]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+size_flags_vertical = 8
+text = "Return"
+icon = ExtResource("10_l0uqe")
+autowrap_mode = 2
+expand_icon = true
+script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../UI Audio/main")
+start_with_focus = true
+
+[node name="Basic Attack" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=92141896 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Basic Attack"
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../UI Audio/main")
 
-[node name="Attack 1" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=711246745]
+[node name="Attack 1" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=711246745 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Attack 1"
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../UI Audio/main")
 
-[node name="Attack 2" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1046133408]
+[node name="Attack 2" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1046133408 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(100, 40)
 layout_mode = 2
 size_flags_vertical = 0
 text = "Attack 2"
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
+on_focused = NodePath("../../../../../../../UI Audio/main")
 
 [node name="NinePatchRect" type="NinePatchRect" parent="GUI/Party View/Attacks/HBoxContainer" unique_id=670263858]
 layout_mode = 2
@@ -577,8 +641,27 @@ volume_db = -6.0
 stream = ExtResource("15_n5y6x")
 volume_db = -6.0
 
+[connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly1" to="Battle Manager/Fighters/Allies/ActiveAlly1/Button" method="show"]
+[connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly1/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly1/Button" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly1/Button" to="GUI/Main Box/Dialogue" method="next_window"]
+[connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly2" to="Battle Manager/Fighters/Allies/ActiveAlly2/Button" method="show"]
+[connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly2/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly2/Button" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly2/Button" to="GUI/Main Box/Dialogue" method="next_window"]
+[connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly3" to="Battle Manager/Fighters/Allies/ActiveAlly3/Button" method="show"]
+[connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly3/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly3/Button" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly3/Button" to="GUI/Main Box/Dialogue" method="next_window"]
+[connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly4" to="Battle Manager/Fighters/Allies/ActiveAlly4/Button" method="show"]
+[connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly4/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly4/Button" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly4/Button" to="GUI/Main Box/Dialogue" method="next_window"]
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Action Select" method="return_to_other_window"]
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="assign_action"]
+[connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="assign_action"]
+[connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="assign_action"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Action Select" method="open_window"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Options" method="next_window"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Items" to="GUI/Main Box/Options" method="next_window"]
@@ -587,3 +670,5 @@ volume_db = -6.0
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Party" to="GUI/Party View" method="open_window"]
 [connection signal="pressed" from="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return" to="GUI/Main Box/Options" method="open_window"]
 [connection signal="pressed" from="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return" to="GUI/Main Box/Item Options" method="return_to_other_window"]
+[connection signal="pressed" from="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer/Return" to="GUI/Main Box/Options" method="open_window"]
+[connection signal="pressed" from="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer/Return" to="GUI/Party View" method="return_to_other_window"]

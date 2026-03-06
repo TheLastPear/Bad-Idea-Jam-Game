@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Action" format=3 uid="uid://4bthpxwgofhy"]
+
+[ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="1_ty0wc"]
+
+[resource]
+script = ExtResource("1_ty0wc")
+action_name = "Basic Attack"
+description = "The user attacks weakly 3 times with their weapon."
+hits = 3
+strength = 10
+metadata/_custom_type_script = "uid://cdj6bk5s6344v"
