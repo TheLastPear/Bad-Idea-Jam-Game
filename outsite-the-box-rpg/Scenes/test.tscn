@@ -8,14 +8,14 @@ size = Vector2(102, 101)
 
 [node name="test for interactions and movements" type="Node2D" unique_id=257966402]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." unique_id=1400115516]
+[node name="player" type="CharacterBody2D" parent="." unique_id=1400115516]
 position = Vector2(572, 304)
 script = ExtResource("1_8od7v")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D" unique_id=1237320729]
+[node name="Collisionplayer" type="CollisionShape2D" parent="player" unique_id=1237320729]
 position = Vector2(1, -1)
 shape = SubResource("RectangleShape2D_8od7v")
 
-[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D/CollisionShape2D" unique_id=1996957963]
+[node name="player sprite" type="Sprite2D" parent="player/Collisionplayer" unique_id=1996957963]
 scale = Vector2(1, 1.0078125)
 texture = ExtResource("2_qc4db")
