@@ -4,6 +4,7 @@ class_name BaseStats extends Resource
 
 @export var stats: Dictionary[String, int] = {
 	"health": 0,
+	"stamina": 0,
 	"attack": 0,
 	"defense": 0,
 	"speed": 0,

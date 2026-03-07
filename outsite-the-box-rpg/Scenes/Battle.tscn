@@ -43,7 +43,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
 [node name="Button" type="Button" parent="Battle Manager/Fighters/Allies/ActiveAlly1" unique_id=169825829]
-visible = false
 offset_left = -30.0
 offset_top = -30.0
 offset_right = 30.0
@@ -204,7 +203,6 @@ autowrap_mode = 2
 expand_icon = true
 script = ExtResource("13_xmk5i")
 on_focused = NodePath("../../../../../../UI Audio/main")
-start_with_focus = true
 
 [node name="Basic Action" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=909261955 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
@@ -292,7 +290,6 @@ alignment = 0
 autowrap_mode = 2
 script = ExtResource("13_xmk5i")
 on_focused = NodePath("../../../../../UI Audio/main")
-start_with_focus = true
 
 [node name="View Items" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=1881896522 node_paths=PackedStringArray("on_focused")]
 custom_minimum_size = Vector2(120, 40)
@@ -457,7 +454,7 @@ text = "Dialogue will go here when prompted."
 scroll_active = false
 shortcut_keys_enabled = false
 
-[node name="Party View" type="HBoxContainer" parent="GUI" unique_id=684742917 node_paths=PackedStringArray("previous_window")]
+[node name="Party View" type="HBoxContainer" parent="GUI" unique_id=684742917 node_paths=PackedStringArray("previous_window", "first_focus")]
 visible = false
 layout_mode = 1
 anchors_preset = -1
@@ -469,6 +466,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("12_l0uqe")
 previous_window = NodePath("../Main Box/Options")
+first_focus = NodePath("Attacks/HBoxContainer/Action List/VBoxContainer/Return")
 metadata/_edit_use_anchors_ = true
 
 [node name="Stats" type="NinePatchRect" parent="GUI/Party View" unique_id=253600503]
@@ -641,20 +639,32 @@ volume_db = -6.0
 stream = ExtResource("15_n5y6x")
 volume_db = -6.0
 
+[connection signal="hide_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly1/Button" method="hide"]
+[connection signal="hide_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly2/Button" method="hide"]
+[connection signal="hide_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly3/Button" method="hide"]
+[connection signal="hide_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly4/Button" method="hide"]
+[connection signal="show_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly1/Button" method="show"]
+[connection signal="show_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly2/Button" method="show"]
+[connection signal="show_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly3/Button" method="show"]
+[connection signal="show_buttons" from="Battle Manager" to="Battle Manager/Fighters/Allies/ActiveAlly4/Button" method="show"]
 [connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly1" to="Battle Manager/Fighters/Allies/ActiveAlly1/Button" method="show"]
 [connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly1/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly1/Button" to="Battle Manager" method="on_hide_buttons"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly1/Button" to="GUI/Main Box/Options" method="open_window"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly1/Button" to="GUI/Main Box/Dialogue" method="next_window"]
 [connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly2" to="Battle Manager/Fighters/Allies/ActiveAlly2/Button" method="show"]
 [connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly2/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly2/Button" to="Battle Manager" method="on_hide_buttons"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly2/Button" to="GUI/Main Box/Options" method="open_window"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly2/Button" to="GUI/Main Box/Dialogue" method="next_window"]
 [connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly3" to="Battle Manager/Fighters/Allies/ActiveAlly3/Button" method="show"]
 [connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly3/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly3/Button" to="Battle Manager" method="on_hide_buttons"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly3/Button" to="GUI/Main Box/Options" method="open_window"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly3/Button" to="GUI/Main Box/Dialogue" method="next_window"]
 [connection signal="has_slid_in" from="Battle Manager/Fighters/Allies/ActiveAlly4" to="Battle Manager/Fighters/Allies/ActiveAlly4/Button" method="show"]
 [connection signal="pass_on_focus" from="Battle Manager/Fighters/Allies/ActiveAlly4/Button" to="Battle Manager" method="change_selected_fighter"]
+[connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly4/Button" to="Battle Manager" method="on_hide_buttons"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly4/Button" to="GUI/Main Box/Options" method="open_window"]
 [connection signal="pressed" from="Battle Manager/Fighters/Allies/ActiveAlly4/Button" to="GUI/Main Box/Dialogue" method="next_window"]
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Action Select" method="return_to_other_window"]
@@ -662,6 +672,7 @@ volume_db = -6.0
 [connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="assign_action"]
 [connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="assign_action"]
 [connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="assign_action"]
+[connection signal="on_return" from="GUI/Main Box/Options" to="Battle Manager" method="on_show_buttons"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Action Select" method="open_window"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Options" method="next_window"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Items" to="GUI/Main Box/Options" method="next_window"]

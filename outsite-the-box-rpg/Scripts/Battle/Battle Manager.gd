@@ -2,6 +2,9 @@ class_name BattleManager extends Node
 
 signal on_planning_phase
 signal undo_action_select
+signal hide_buttons
+signal show_buttons
+signal set_button
 
 enum Phase {
 	attack_phase,
@@ -49,6 +52,9 @@ func set_fighters(allies : Array[Fighter], enemies : Array[Fighter]) -> void:
 	while a < active_allies.size():
 		if a < ally_data.size():
 			active_allies[a].fighter = ally_data[a]
+			var button = active_allies[a].get_child(1)
+			set_button.connect(button.set_held_item)
+			set_button.emit(active_allies[a])
 		else:
 			active_allies[a].free()
 			active_allies.remove_at(a)
@@ -79,6 +85,12 @@ func set_fighters(allies : Array[Fighter], enemies : Array[Fighter]) -> void:
 func change_phase(to_phase : Phase):
 	await get_tree().create_timer(phase_transition_time).timeout
 	current_phase = to_phase
+	
+	match current_phase:
+		Phase.plan_phase:
+			planning_phase()
+		Phase.attack_phase:
+			attack_phase()
 	pass
 
 
@@ -88,7 +100,7 @@ func planning_phase():
 			selected_actions.get_or_add(fighter)
 			pass
 	
-	while selected_actions[active_allies[active_allies.size()]] == null:
+	while selected_actions[active_allies[active_allies.size() - 1]] == null:
 		await get_tree().process_frame
 	
 	change_phase(Phase.attack_phase)
@@ -127,9 +139,7 @@ func change_selected_fighter(fighter : ActiveFighter):
 			button.held_object = selected_fighter.actions[i]
 			button.text = button.held_object.action_name
 		else:
-			action_buttons[i].hide()
-	
-	
+			button.hide()
 	
 	pass
 
@@ -147,7 +157,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and selected_fighter != active_allies[0] and main_ui.is_visible_in_tree():
 		selected_actions[selected_fighter] = null
 		undo_action_select.emit()
-		$Fighters/Allies/ActiveAlly1/Button.grab_focus()
+		print("Action select undone")
 	pass
 
 # Custom Sorts
@@ -164,3 +174,14 @@ func speed_ascending(a, b):
 		return false
 	else:
 		return true
+
+
+# UI
+func on_hide_buttons():
+	hide_buttons.emit()
+	pass
+
+
+func on_show_buttons():
+	show_buttons.emit()
+	pass

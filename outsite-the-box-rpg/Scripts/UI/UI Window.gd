@@ -16,13 +16,13 @@ func _ready() -> void:
 func open_window() -> void:
 	self.show()
 	if first_focus != null:
-		first_focus.grab_focus()
+		first_focus.grab_focus.call_deferred()
 	pass
 
 
 func return_to_other_window() -> void:
 	self.hide()
-	on_return.emit()
+	on_return.emit.call_deferred()
 	pass
 
 
@@ -32,6 +32,6 @@ func next_window() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_menu") and previous_window != null and is_visible_in_tree():
+	if event.is_action_pressed("ui_cancel") and previous_window != null and is_visible_in_tree():
 		return_to_other_window()
 	pass
