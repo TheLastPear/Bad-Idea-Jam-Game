@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c8p2hgemp031d"
+path="res://.godot/imported/BattleUINeutral.ogg-a257fe2ca3642dff22c865d2feb412d6.oggvorbisstr"
+
+[deps]
+
+source_file="res://Art/Sound Effects/BattleUINeutral.ogg"
+dest_files=["res://.godot/imported/BattleUINeutral.ogg-a257fe2ca3642dff22c865d2feb412d6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

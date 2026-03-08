@@ -4,12 +4,10 @@ signal pass_on_press
 signal pass_on_focus
 
 @export var on_focused : AudioStreamPlayer
+@export var on_pressed : AudioStreamPlayer
 
 @export var start_with_focus : bool
-var held_object:
-	set(value):
-		held_object = value
-		print(held_object)
+var held_object
 
 
 func _ready() -> void:
@@ -17,15 +15,11 @@ func _ready() -> void:
 	
 	if on_focused != null:
 		focus_exited.connect(on_focused.play)
+	if on_pressed != null:
+		pressed.connect(on_pressed.play)
 	
 	if is_visible_in_tree() and start_with_focus:
 		grab_focus.call_deferred()
-	pass
-
-
-func set_held_item(object):
-	held_object = object
-	print("item stored in " + str(self.get_path()))
 	pass
 
 
@@ -41,8 +35,12 @@ func _grab_focus():
 
 func on_focus():
 	if held_object:
-		print("passed")
 		pass_on_focus.emit(held_object)
+	pass
+
+
+func set_held_object(object):
+	held_object = object
 	pass
 
 

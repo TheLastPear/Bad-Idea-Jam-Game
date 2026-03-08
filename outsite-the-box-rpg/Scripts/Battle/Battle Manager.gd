@@ -2,8 +2,6 @@ class_name BattleManager extends Node
 
 signal on_planning_phase
 signal undo_action_select
-signal hide_buttons
-signal show_buttons
 signal set_button
 
 enum Phase {
@@ -12,13 +10,25 @@ enum Phase {
 	victory_phase,
 }
 
+enum Selecting {
+	character,
+	option,
+	summary,
+	item,
+	action,
+	target,
+}
+
 @export_group("Battle Settings")
-@export var battle_speed : float:
+@export var battle_speed : int:
 	set(value):
-		clampf(value, 0.5, 4)
+		clampi(value, 1, 2)
 		battle_speed = value
+@export var slide_speed : float
+@export var text_step : float
 
 @export_group("Variables")
+@export var current_input : Selecting
 @export var current_phase : Phase
 @export var selected_fighter : ActiveFighter
 @export var ally_data : Array[Fighter]
@@ -33,28 +43,27 @@ var selected_actions : Dictionary[ActiveFighter, Action]
 @export var between_action_time : float = 0.25
 
 @export_group("References")
-@export var main_ui : Control
+@export var dialogue : RichTextLabel
 @export var action_buttons : Array[Button]
+@export var char_positions : Array[Control]
+@export var ally_buttons : Array[Button]
+@export var enemy_buttons : Array[Button]
 @export var action_description : RichTextLabel
-@onready var sound_cancel = $"/root/Battle/UI Audio/back"
+@export var sound_cancel : AudioStreamPlayer
 
 func _ready() -> void:
-	set_fighters(ally_data, enemy_data) # For loading a battle without passing fighters
-	change_phase(Phase.plan_phase)
-	pass
-
-
-func set_fighters(allies : Array[Fighter], enemies : Array[Fighter]) -> void:
-	ally_data = allies
-	enemy_data = enemies
+	selecting_character()
 	
 	var a = 0
 	while a < active_allies.size():
 		if a < ally_data.size():
 			active_allies[a].fighter = ally_data[a]
-			var button = active_allies[a].get_child(1)
-			set_button.connect(button.set_held_item)
+			active_allies[a].start_position = char_positions[a].position + Vector2(30, 30)
+			
+			var button = ally_buttons[a]
+			set_button.connect(button.get_fighter)
 			set_button.emit(active_allies[a])
+			set_button.disconnect(button.get_fighter)
 		else:
 			active_allies[a].free()
 			active_allies.remove_at(a)
@@ -69,6 +78,12 @@ func set_fighters(allies : Array[Fighter], enemies : Array[Fighter]) -> void:
 	while b < active_enemies.size():
 		if b < enemy_data.size():
 			active_enemies[b].fighter = enemy_data[b]
+			active_enemies[b].start_position = char_positions[4 + b].position  + Vector2(30, 30)
+			
+			var button = enemy_buttons[b]
+			set_button.connect(button.get_fighter)
+			set_button.emit(active_enemies[b])
+			set_button.disconnect(button.get_fighter)
 		else:
 			active_enemies[b].free()
 			active_enemies.remove_at(b)
@@ -79,6 +94,7 @@ func set_fighters(allies : Array[Fighter], enemies : Array[Fighter]) -> void:
 		b += 1
 		pass
 	
+	change_phase(Phase.plan_phase)
 	pass
 
 
@@ -96,11 +112,22 @@ func change_phase(to_phase : Phase):
 
 func planning_phase():
 	print("Make your move")
+	on_show_buttons()
+	
+	for fighter in active_allies:
+		fighter.target = null
+	
+	selected_actions.clear()
+	
 	for fighter in active_allies:
 			selected_actions.get_or_add(fighter)
 			pass
 	
-	while selected_actions[active_allies[active_allies.size() - 1]] == null:
+	var has_chosen_targets := false
+	while !has_chosen_targets:
+		for fighter in active_allies:
+			if !fighter.target: break
+			has_chosen_targets = true
 		await get_tree().process_frame
 	
 	change_phase(Phase.attack_phase)
@@ -109,6 +136,8 @@ func planning_phase():
 
 func attack_phase():
 	print("Attacking")
+	on_hide_buttons()
+	
 	turn_order.clear()
 	turn_order.append_array(active_allies)
 	turn_order.append_array(active_enemies)
@@ -118,18 +147,29 @@ func attack_phase():
 		selected_actions.get_or_add(enemy, ai_choose_action(enemy))
 		pass
 	
+	await get_tree().create_timer(between_action_time).timeout
+	
 	for fighter in turn_order:
 		fighter.do_action(selected_actions[fighter])
-		await fighter.action_finished
-		print("Next attack")
+		
+		set_text(fighter.fighter.fighter_name + " used " + selected_actions[fighter].action_name)
+		
+		var done = fighter.action_finished
+		await done
 		await get_tree().create_timer(between_action_time).timeout
 		pass
 	
+	change_phase(Phase.plan_phase)
 	pass
 
 
 func change_selected_fighter(fighter : ActiveFighter):
 	selected_fighter = fighter
+	
+	if selected_actions[selected_fighter]:
+		set_text(selected_fighter.fighter.fighter_name + " is going to use " + selected_actions[selected_fighter].action_name + ".", true)
+	else:
+		set_text(selected_fighter.fighter.fighter_name + " does not know what to do.", true)
 	
 	var i = 0
 	while i < action_buttons.size():
@@ -140,28 +180,60 @@ func change_selected_fighter(fighter : ActiveFighter):
 			button.text = button.held_object.action_name
 		else:
 			button.hide()
-	
+		
+		i += 1
+		pass
 	pass
 
 
 func assign_action(action : Action):
 	selected_actions[selected_fighter] = action
+	print("Assigned action " + selected_actions[selected_fighter].action_name + " to " + selected_fighter.fighter.fighter_name)
+	pass
+
+
+func assign_target(target : ActiveFighter):
+	selected_fighter.target = target
+	print("Assigned " + target.name + " as the target.")
 	pass
 
 
 func ai_choose_action(fighter : ActiveFighter) -> Action: # Expand the ai later
+	fighter.target = active_allies.pick_random()
 	return fighter.actions.pick_random()
 
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and selected_fighter != active_allies[0] and main_ui.is_visible_in_tree():
-		selected_actions[selected_fighter] = null
-		undo_action_select.emit()
-		print("Action select undone")
+	if event.is_action_pressed("ui_cancel"):
+		if current_input == Selecting.character:
+			selected_actions[selected_fighter] = null
+			change_selected_fighter(selected_fighter)
+			print("Action select undone")
+		elif current_input == Selecting.target:
+			selected_actions[selected_fighter] = null
 	pass
 
+# Setting current_input
+func selecting_character():
+	current_input = Selecting.character
+
+func selecting_option():
+	current_input = Selecting.option
+
+func selecting_summary():
+	current_input = Selecting.summary
+
+func selecting_item():
+	current_input = Selecting.item
+
+func selecting_action():
+	current_input = Selecting.action
+
+func selecting_target():
+	current_input = Selecting.target
+
 # Custom Sorts
-func speed_ascending(a, b):
+static func speed_ascending(a, b):
 	a = a as ActiveFighter
 	b = b as ActiveFighter
 	
@@ -177,11 +249,31 @@ func speed_ascending(a, b):
 
 
 # UI
+func set_text(text : String, skip_char_time := false):
+	dialogue.text = text
+	
+	if !skip_char_time:
+		dialogue.visible_characters = 0
+		for _char in dialogue.text:
+			await get_tree().create_timer(text_step).timeout
+			dialogue.visible_characters += 1
+	pass
+
 func on_hide_buttons():
-	hide_buttons.emit()
+	ally_buttons.all(ally_buttons[0].hide)
 	pass
 
 
 func on_show_buttons():
-	show_buttons.emit()
+	ally_buttons.all(ally_buttons[0].show)
+	pass
+
+
+func on_show_enemy_buttons():
+	enemy_buttons.all(enemy_buttons[0].show)
+	pass
+
+
+func on_hide_enemy_buttons():
+	enemy_buttons.all(enemy_buttons[0].hide)
 	pass

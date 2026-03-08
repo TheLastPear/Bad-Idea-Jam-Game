@@ -196,6 +196,7 @@ offset_right = -960.0
 offset_bottom = -520.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Ally1" type="Button" parent="Spacial UI/Character Buttons/Ally1 Pos" unique_id=169825829]
 visible = false
@@ -221,6 +222,7 @@ offset_right = -960.0
 offset_bottom = -420.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Ally2" type="Button" parent="Spacial UI/Character Buttons/Ally2 Pos" unique_id=2007452715]
 visible = false
@@ -246,6 +248,7 @@ offset_right = -960.0
 offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Ally3" type="Button" parent="Spacial UI/Character Buttons/Ally3 Pos" unique_id=2015142647]
 visible = false
@@ -271,6 +274,7 @@ offset_right = -960.0
 offset_bottom = -220.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Ally4" type="Button" parent="Spacial UI/Character Buttons/Ally4 Pos" unique_id=1527099836]
 visible = false
@@ -295,6 +299,7 @@ offset_right = -100.0
 offset_bottom = -520.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Enemy1" type="Button" parent="Spacial UI/Character Buttons/Enemy1 Pos" unique_id=1466854876 node_paths=PackedStringArray("on_focused", "on_pressed")]
 visible = false
@@ -322,6 +327,7 @@ offset_right = -100.0
 offset_bottom = -420.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Enemy2" type="Button" parent="Spacial UI/Character Buttons/Enemy2 Pos" unique_id=1334720510 node_paths=PackedStringArray("on_focused", "on_pressed")]
 visible = false
@@ -349,6 +355,7 @@ offset_right = -100.0
 offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Enemy3" type="Button" parent="Spacial UI/Character Buttons/Enemy3 Pos" unique_id=1493065054 node_paths=PackedStringArray("on_focused", "on_pressed")]
 visible = false
@@ -376,6 +383,7 @@ offset_right = -100.0
 offset_bottom = -220.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(30, 30)
 
 [node name="Enemy4" type="Button" parent="Spacial UI/Character Buttons/Enemy4 Pos" unique_id=598356162 node_paths=PackedStringArray("on_focused", "on_pressed")]
 visible = false

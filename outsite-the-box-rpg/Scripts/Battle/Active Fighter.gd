@@ -1,4 +1,4 @@
-class_name ActiveFighter extends Node2D
+class_name ActiveFighter extends Control
 
 signal has_slid_in
 signal action_finished
@@ -12,9 +12,11 @@ enum Alignment {
 	set(value):
 		fighter = value
 		fighter.assign_stats()
-
+@export var target : ActiveFighter
 @export var alignment : Alignment
 @export var actions : Array[Action]
+@export var manager : BattleManager
+var start_position : Vector2
 
 
 func start() -> void:
@@ -26,17 +28,14 @@ func start() -> void:
 	
 	if fighter.action_2:
 		actions.append(fighter.action_2)
-	
-	if alignment == Alignment.ally:
-		var button = $Button
-		if button:
-			button.held_object = get_script() as ActiveFighter
 	pass
 
 
 func move_in():
+	position = Vector2(start_position.x - 250 * scale.x, start_position.y)
+	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", Vector2(position.x + 250 * scale.x, position.y), 0.5)
+	tween.tween_property(self, "position", start_position, 0.5)
 	
 	await tween.finished
 	
@@ -45,6 +44,18 @@ func move_in():
 
 
 func do_action(action : Action):
-	print("Doing action: " + action.action_name)
-	await get_tree().create_timer(2).timout
+	print(name + "is doing action: " + action.action_name)
+	
+	var to_tween = get_tree().create_tween()
+	print(self)
+	to_tween.tween_property(self, "position", Vector2(target.position.x + (150 * scale.x * -1), target.position.y), manager.slide_speed)
+	await to_tween.finished
+	
+	await get_tree().create_timer(1).timeout
+	
+	var back_tween = get_tree().create_tween()
+	back_tween.tween_property(self, "position", start_position, manager.slide_speed)
+	await back_tween.finished
+	
+	action_finished.emit()
 	pass

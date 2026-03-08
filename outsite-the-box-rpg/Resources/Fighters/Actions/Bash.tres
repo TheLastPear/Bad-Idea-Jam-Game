@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_b10vh")
-actionName = "Bash"
+action_name = "Bash"
 description = "The user hits the enemy with the pomel of their sword. Deals low damage, but is faster than most attacks."
 strength = 20
 speed = 1

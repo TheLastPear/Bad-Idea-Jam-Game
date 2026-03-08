@@ -1,13 +1,15 @@
 extends Control
 
-@onready var on_back = $"/root/Battle/UI Audio/back"
+@export var on_back : AudioStreamPlayer
 
 @export var previous_window : Control
 @export var first_focus : Control
 signal on_return
+signal on_open
 
 func _ready() -> void:
-	on_return.connect(on_back.play)
+	if on_back:
+		on_return.connect(on_back.play)
 	if previous_window != null:
 		on_return.connect(previous_window.open_window)
 	pass
@@ -17,6 +19,7 @@ func open_window() -> void:
 	self.show()
 	if first_focus != null:
 		first_focus.grab_focus.call_deferred()
+	on_open.emit()
 	pass
 
 
@@ -35,3 +38,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel") and previous_window != null and is_visible_in_tree():
 		return_to_other_window()
 	pass
+
+
+func _on_button_pressed() -> void:
+	pass # Replace with function body.
