@@ -18,3 +18,11 @@ func _pressed():
 		pass_on_press.connect($"/root/Battle/Battle Manager".assign_target)
 		pass_on_press.emit(fighter)
 	pass
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_VISIBILITY_CHANGED:
+		if is_visible_in_tree():
+			print("showing")
+		else:
+			print("hiding")

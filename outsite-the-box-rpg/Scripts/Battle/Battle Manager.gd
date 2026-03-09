@@ -125,8 +125,7 @@ func planning_phase():
 	
 	var has_chosen_targets := false
 	while !has_chosen_targets:
-		for fighter in active_allies:
-			if !fighter.target: break
+		if active_allies.all(func(element): return element.target != null):
 			has_chosen_targets = true
 		await get_tree().process_frame
 	
@@ -260,20 +259,26 @@ func set_text(text : String, skip_char_time := false):
 	pass
 
 func on_hide_buttons():
-	ally_buttons.all(ally_buttons[0].hide)
+	for button in ally_buttons:
+		print("hide attempt")
+		button.hide()
 	pass
 
 
 func on_show_buttons():
-	ally_buttons.all(ally_buttons[0].show)
+	for button in ally_buttons:
+		print("show attempt")
+		button.show()
 	pass
 
 
 func on_show_enemy_buttons():
-	enemy_buttons.all(enemy_buttons[0].show)
+	for button in enemy_buttons:
+		button.hide()
 	pass
 
 
 func on_hide_enemy_buttons():
-	enemy_buttons.all(enemy_buttons[0].hide)
+	for button in enemy_buttons:
+		button.show()
 	pass
