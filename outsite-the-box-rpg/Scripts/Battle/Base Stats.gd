@@ -1,6 +1,6 @@
 class_name BaseStats extends Resource
 
-@export var level_curve: Curve
+@export var stat_curve: Curve
 
 @export var stats: Dictionary[String, int] = {
 	"health": 0,
@@ -11,11 +11,10 @@ class_name BaseStats extends Resource
 	"luck": 0
 }
 
-
 func calculate_stats(level: int) -> Dictionary[String, int]:
 	var ret: Dictionary[String, int] = {}
 	var stat_names = ["health", "attack", "defense", "speed", "luck"]
 	for stat in stat_names:
-		ret[stat] = stats[stat] * level_curve.sample(level)
+		ret[stat] = roundi(stats[stat] * stat_curve.sample(level))
 	
 	return ret

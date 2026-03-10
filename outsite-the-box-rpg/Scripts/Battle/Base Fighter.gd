@@ -1,18 +1,40 @@
 class_name Fighter extends Resource
 
+signal level_up
+
 @export var fighter_name : String
 @export var description : String
 @export var base_stats : BaseStats
 
 @export_group("Stats")
+@export var hp : int:
+	set(v):
+		if v == hp: return
+		clampi(v, 0, stats["health"])
+		hp = v
+
+@export var bp : int
 @export var level := 1:
 	set(value):
 		if value == level: return
 		level = value
 		assign_stats()
-@export var exp := 0
+
+@export var exp := 0:
+	set(v):
+		if v == exp: return
+		if v >= next_exp:
+			v -= next_exp
+			level_up.emit()
+			exp = v
+
+@export var next_exp := BattleMath.xp_curve.get_xp_for_level(level + 1):
+	get():
+		return BattleMath.xp_curve.get_xp_for_level(level + 1)
+
 @export var stats := {
 	"health": 0,
+	"stamina": 0,
 	"attack": 0,
 	"defense": 0,
 	"speed": 0,
@@ -20,6 +42,7 @@ class_name Fighter extends Resource
 }
 @export var stat_bonuses := {
 	"health": 0,
+	"stamina": 0,
 	"attack": 0,
 	"defense": 0,
 	"speed": 0,

@@ -51,11 +51,19 @@ func do_action(action : Action):
 	to_tween.tween_property(self, "position", Vector2(target.position.x + (150 * scale.x * -1), target.position.y), manager.slide_speed)
 	await to_tween.finished
 	
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.5).timeout
+	
+	for hit in action.hits:
+		target.deal_damage(fighter.stats["attack"], action.strength)
 	
 	var back_tween = get_tree().create_tween()
 	back_tween.tween_property(self, "position", start_position, manager.slide_speed)
 	await back_tween.finished
 	
 	action_finished.emit()
+	pass
+
+
+func deal_damage(atk_stat : int, power : int):
+	fighter.
 	pass

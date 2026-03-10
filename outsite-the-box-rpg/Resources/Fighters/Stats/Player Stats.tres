@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BaseStats" format=3 uid="uid://o3wxvq2pvf3u"]
 
-[ext_resource type="Curve" uid="uid://dol0mjd0gtgnb" path="res://Scripts/Battle/Level Curve.tres" id="1_5amwc"]
+[ext_resource type="Curve" uid="uid://dol0mjd0gtgnb" path="res://Scripts/Battle/Stat Curve.tres" id="1_5amwc"]
 [ext_resource type="Script" uid="uid://c1vcxghrix662" path="res://Scripts/Battle/Base Stats.gd" id="1_e4xdw"]
 
 [resource]

@@ -55,6 +55,9 @@ offset_top = 100.0
 offset_right = -100.0
 offset_bottom = 100.0
 script = ExtResource("1_wvl2i")
+fighter = ExtResource("2_vr6xi")
+alignment = null
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly1" unique_id=1712840099]
@@ -69,6 +72,8 @@ offset_top = 200.0
 offset_right = -100.0
 offset_bottom = 200.0
 script = ExtResource("1_wvl2i")
+alignment = null
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly2" unique_id=1042077113]
@@ -83,6 +88,8 @@ offset_top = 300.0
 offset_right = -100.0
 offset_bottom = 300.0
 script = ExtResource("1_wvl2i")
+alignment = null
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly3" unique_id=4037461]
@@ -97,6 +104,8 @@ offset_top = 400.0
 offset_right = -100.0
 offset_bottom = 400.0
 script = ExtResource("1_wvl2i")
+alignment = null
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly4" unique_id=642587944]
@@ -115,6 +124,7 @@ offset_bottom = 100.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy1" unique_id=2105897014]
@@ -131,6 +141,7 @@ offset_bottom = 200.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy2" unique_id=417690020]
@@ -147,6 +158,7 @@ offset_bottom = 300.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy3" unique_id=644595762]
@@ -163,6 +175,7 @@ offset_bottom = 400.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
+actions = null
 manager = NodePath("../../..")
 
 [node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy4" unique_id=1007903931]
@@ -170,6 +183,7 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
 [node name="Spacial UI" type="Control" parent="." unique_id=2013751011]
+visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 15
@@ -393,6 +407,7 @@ on_focused = NodePath("../../../../Audio/neutral")
 on_pressed = NodePath("../../../../Audio/forward")
 
 [node name="GUI" type="Control" parent="." unique_id=1161201848]
+visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 15
