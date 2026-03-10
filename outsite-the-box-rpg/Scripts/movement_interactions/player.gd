@@ -2,7 +2,6 @@ extends CharacterBody2D
 
 @export var speed = 400
 
-
 @export var inv: Inv
 
 func get_input():
@@ -12,3 +11,7 @@ func get_input():
 func _physics_process(_delta):
 	get_input()
 	move_and_slide()
+
+
+func collect(item):
+	inv.insert(item)

@@ -21,7 +21,7 @@ position = Vector2(3, -1)
 texture = ExtResource("2_vgqql")
 
 [node name="Inv_UI" parent="." unique_id=1598540736 instance=ExtResource("3_fkybt")]
-offset_left = -81.0
+offset_left = -80.0
 offset_top = -149.0
-offset_right = 79.0
-offset_bottom = -57.0
+offset_right = 77.0
+offset_bottom = -65.0
