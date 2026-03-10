@@ -1,4 +1,4 @@
-class_name Fighter extends Resource
+@tool class_name Fighter extends Resource
 
 signal level_up
 
@@ -15,18 +15,26 @@ signal level_up
 
 @export var bp : int
 @export var level := 1:
-	set(value):
-		if value == level: return
-		level = value
+	set(v):
+		if v == level: return
+		clampi(v, 1, 20)
+		level = v
 		assign_stats()
 
 @export var exp := 0:
 	set(v):
 		if v == exp: return
-		if v >= next_exp:
-			v -= next_exp
-			level_up.emit()
-			exp = v
+		clampi(v, 0, BattleMath.xp_curve.get_cumulative_xp(BattleMath.xp_curve.max_level))
+		var can_level = true
+		while can_level == true:
+			if v >= next_exp:
+				v -= next_exp
+				level += 1
+				level_up.emit()
+				exp = v
+			else:
+				can_level = false
+				exp = v
 
 @export var next_exp := BattleMath.xp_curve.get_xp_for_level(level + 1):
 	get():
@@ -48,9 +56,9 @@ signal level_up
 	"speed": 0,
 	"luck": 0
 }:  
-	set(value):
-		if value == stat_bonuses: return
-		stat_bonuses = value
+	set(v):
+		if v == stat_bonuses: return
+		stat_bonuses = v
 		assign_stats()
 
 @export_group("Attacks")

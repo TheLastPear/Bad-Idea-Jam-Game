@@ -6,35 +6,35 @@ class_name XPCurve
 extends Resource
 
 ## Curve Configuration
-@export var formula_type: String = "polynomial"
-@export var max_level: int = 20
+static var formula_type: String = "polynomial"
+static var max_level: int = 20
 
 ## Pre-calculated XP Tables
-var xp_per_level: Array[int] = [
+static var xp_per_level: Array[int] = [
 	0, 40, 46, 56, 71, 88, 107, 128, 151, 175, 202, 229, 258, 289, 321, 354, 388, 424, 460, 498
 ]
 
-var cumulative_xp: Array[int] = [
+static var cumulative_xp: Array[int] = [
 	0, 40, 86, 142, 213, 301, 408, 536, 687, 862, 1064, 1293, 1551, 1840, 2161, 2515, 2903, 3327, 3787, 4285
 ]
 
 
 ## Get XP required to reach a specific level
-func get_xp_for_level(level: int) -> int:
+static func get_xp_for_level(level: int) -> int:
 	if level < 1 or level > max_level:
 		return 0
 	return xp_per_level[level - 1]
 
 
 ## Get total XP accumulated at a specific level
-func get_cumulative_xp(level: int) -> int:
+static func get_cumulative_xp(level: int) -> int:
 	if level < 1 or level > max_level:
 		return 0
 	return cumulative_xp[level - 1]
 
 
 ## Get level for a given amount of total XP
-func get_level_for_xp(total_xp: int) -> int:
+static func get_level_for_xp(total_xp: int) -> int:
 	for i in range(max_level - 1, -1, -1):
 		if cumulative_xp[i] <= total_xp:
 			return i + 1
@@ -42,7 +42,7 @@ func get_level_for_xp(total_xp: int) -> int:
 
 
 ## Get progress percentage toward next level (0.0 to 1.0)
-func get_level_progress(total_xp: int) -> float:
+static func get_level_progress(total_xp: int) -> float:
 	var current_level := get_level_for_xp(total_xp)
 	if current_level >= max_level:
 		return 1.0

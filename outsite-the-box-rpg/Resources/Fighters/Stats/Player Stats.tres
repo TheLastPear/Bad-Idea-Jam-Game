@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_e4xdw")
-level_curve = ExtResource("1_5amwc")
+stat_curve = ExtResource("1_5amwc")
 stats = Dictionary[String, int]({
 "attack": 4,
 "defense": 3,

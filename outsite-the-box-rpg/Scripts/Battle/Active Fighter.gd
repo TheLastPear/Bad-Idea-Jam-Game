@@ -9,8 +9,8 @@ enum Alignment {
 }
 
 @export var fighter : Fighter:
-	set(value):
-		fighter = value
+	set(v):
+		fighter = v
 		fighter.assign_stats()
 @export var target : ActiveFighter
 @export var alignment : Alignment
@@ -65,5 +65,5 @@ func do_action(action : Action):
 
 
 func deal_damage(atk_stat : int, power : int):
-	fighter.
+	fighter.hp -= BattleMath.CalculateDamage(power, atk_stat, fighter.stats["defense"])
 	pass
