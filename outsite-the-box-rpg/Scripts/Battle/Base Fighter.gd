@@ -24,7 +24,7 @@ signal level_up
 @export var exp := 0:
 	set(v):
 		if v == exp: return
-		clampi(v, 0, BattleMath.xp_curve.get_cumulative_xp(BattleMath.xp_curve.max_level))
+		clampi(v, 0, BattleMath.xp_curve.get_cumulative_xp(BattleMath.xp_curve.max_level) - BattleMath.xp_curve.get_cumulative_xp(level))
 		var can_level = true
 		while can_level == true:
 			if v >= next_exp:
