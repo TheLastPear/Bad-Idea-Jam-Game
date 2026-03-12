@@ -1,6 +1,6 @@
 class_name BMath extends Node
 
-static var xp_curve = XPCurve
+static var xp_curve := XPCurve
 
 # Formulas
 static var xp_formula = "XP(Level) = 40 + 6 × (Level - 2)^1.5"

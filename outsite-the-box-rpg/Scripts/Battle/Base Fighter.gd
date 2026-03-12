@@ -1,4 +1,4 @@
-@tool class_name Fighter extends Resource
+class_name Fighter extends Resource
 
 signal level_up
 
@@ -13,7 +13,12 @@ signal level_up
 		clampi(v, 0, stats["health"])
 		hp = v
 
-@export var bp : int
+@export var bp : int:
+	set(v):
+		if v == bp: return
+		clampi(v, 0, stats["stamina"])
+		bp = v
+
 @export var level := 1:
 	set(v):
 		if v == level: return
@@ -36,26 +41,13 @@ signal level_up
 				can_level = false
 				exp = v
 
-@export var next_exp := BattleMath.xp_curve.get_xp_for_level(level + 1):
+@export var next_exp : int:
 	get():
-		return BattleMath.xp_curve.get_xp_for_level(level + 1)
+		next_exp = BattleMath.xp_curve.get_xp_for_level(level + 1)
+		return next_exp
 
-@export var stats := {
-	"health": 0,
-	"stamina": 0,
-	"attack": 0,
-	"defense": 0,
-	"speed": 0,
-	"luck": 0
-}
-@export var stat_bonuses := {
-	"health": 0,
-	"stamina": 0,
-	"attack": 0,
-	"defense": 0,
-	"speed": 0,
-	"luck": 0
-}:  
+@export var stats : Dictionary[String, int]
+@export var stat_bonuses : Dictionary[String, int]:  
 	set(v):
 		if v == stat_bonuses: return
 		stat_bonuses = v
@@ -66,8 +58,19 @@ signal level_up
 @export var action_1 : Action
 @export var action_2 : Action
 
+
+func _ready() -> void:
+	for key in base_stats:
+		stats.get_or_add(key)
+		stat_bonuses.get_or_add(key)
+	
+	assign_stats()
+	pass
+
+
 func assign_stats() -> void:
-	var new_stats = base_stats.calculate_stats(level)
+	var new_stats : Dictionary = base_stats.calculate_stats(level)
+	print(stat_bonuses)
 	for key in new_stats:
 		new_stats[key] += stat_bonuses[key]
 	
