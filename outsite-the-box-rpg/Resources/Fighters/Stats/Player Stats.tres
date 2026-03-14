@@ -11,6 +11,7 @@ stats = Dictionary[String, int]({
 "defense": 3,
 "health": 10,
 "luck": 6,
-"speed": 4
+"speed": 4,
+"stamina": 8
 })
 metadata/_custom_type_script = "uid://c1vcxghrix662"

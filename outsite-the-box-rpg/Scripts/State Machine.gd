@@ -20,7 +20,7 @@ func _ready() -> void:
 func on_transition(new_state_name : String):
 	var new_state = states[new_state_name.to_lower()]
 	if !new_state or new_state == current_state: return
-	
+	print("Changed state to " + new_state_name)
 	if current_state:
 		current_state.exit()
 	

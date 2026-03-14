@@ -9,23 +9,9 @@ enum Alignment {
 }
 
 @export var fighter : Fighter
-@export var target : ActiveFighter
 @export var alignment : Alignment
-@export var actions : Array[Action]
 @export var manager : BattleManager
 var start_position : Vector2
-
-
-func start() -> void:
-	if fighter.basic_attack:
-		actions.append(fighter.basic_attack)
-	
-	if fighter.action_1:
-		actions.append(fighter.action_1)
-	
-	if fighter.action_2:
-		actions.append(fighter.action_2)
-	pass
 
 
 func move_in():
@@ -40,18 +26,17 @@ func move_in():
 	pass
 
 
-func do_action(action : Action):
-	print(name + "is doing action: " + action.action_name)
+func do_action(action : Action, target : ActiveFighter):
+	print(fighter.fighter_name + "is doing action: " + action.action_name)
 	
 	var to_tween = get_tree().create_tween()
-	print(self)
 	to_tween.tween_property(self, "position", Vector2(target.position.x + (150 * scale.x * -1), target.position.y), manager.slide_speed)
 	await to_tween.finished
 	
 	await get_tree().create_timer(0.5).timeout
 	
 	for hit in action.hits:
-		target.deal_damage(fighter.stats["attack"], action.strength)
+		target.take_damage(self, action)
 	
 	var back_tween = get_tree().create_tween()
 	back_tween.tween_property(self, "position", start_position, manager.slide_speed)
@@ -61,6 +46,8 @@ func do_action(action : Action):
 	pass
 
 
-func take_damage(atk_stat : int, power : int):
-	fighter.hp -= BattleMath.CalculateDamage(power, atk_stat, fighter.stats["defense"])
+func take_damage(user : ActiveFighter, action : Action):
+	var damage = BMath.calculate_damage(action, user, self)
+	fighter.hp -= damage
+	print(fighter.fighter_name + " took " + str(damage))
 	pass

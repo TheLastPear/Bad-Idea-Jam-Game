@@ -12,6 +12,5 @@ enum Type {
 @export var hits := 1
 @export var strength := 0
 @export var heal := 0
-@export var speed := 0
 var modifier := 0
 var stacks := 0

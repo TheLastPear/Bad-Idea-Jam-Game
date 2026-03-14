@@ -46,8 +46,25 @@ signal level_up
 		next_exp = BattleMath.xp_curve.get_xp_for_level(level + 1)
 		return next_exp
 
-@export var stats : Dictionary[String, int]
-@export var stat_bonuses : Dictionary[String, int]:  
+@export var stats : Dictionary[String, int] = {
+	"health": 0,
+	"stamina": 0,
+	"attack": 0,
+	"defense": 0,
+	"speed": 0,
+	"luck": 0,
+}:
+	get():
+		return assign_stats()
+
+@export var stat_bonuses : Dictionary[String, int] = {
+	"health": 0,
+	"stamina": 0,
+	"attack": 0,
+	"defense": 0,
+	"speed": 0,
+	"luck": 0
+}:
 	set(v):
 		if v == stat_bonuses: return
 		stat_bonuses = v
@@ -55,24 +72,12 @@ signal level_up
 
 @export_group("Attacks")
 @export var basic_attack : Action
-@export var action_1 : Action
-@export var action_2 : Action
+@export var specials : Array[Action]
 
 
-func _ready() -> void:
-	for key in base_stats:
-		stats.get_or_add(key)
-		stat_bonuses.get_or_add(key)
-	
-	assign_stats()
-	pass
-
-
-func assign_stats() -> void:
-	var new_stats : Dictionary = base_stats.calculate_stats(level)
-	print(stat_bonuses)
+func assign_stats() -> Dictionary[String, int]:
+	var new_stats := base_stats.calculate_stats(level)
 	for key in new_stats:
 		new_stats[key] += stat_bonuses[key]
 	
-	stats = new_stats
-	pass
+	return new_stats

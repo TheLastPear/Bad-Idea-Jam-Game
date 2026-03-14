@@ -1,4 +1,4 @@
-class_name TargetSelect extends State
+class_name AllySelect extends State
 
 @export var battle_manager : BattleManager
 var loaded_action : Action
@@ -7,18 +7,20 @@ var targets : Array[ActiveFighter]
 var previous_window : String
 
 func enter():
+	get_child(0).show()
 	
+	targets.append_array(battle_manager.active_allies)
 	pass
 
 
 func exit():
-	
+	get_child(0).hide()
 	pass
 
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("action"):
-		battle_manager.attack_phase() # must pass the action and the target
+		battle_manager.attack_phase(loaded_action, targets[current_target]) # must pass the action and the target
 		
 	elif event.is_action_pressed("back"):
 		transition.emit(previous_window)

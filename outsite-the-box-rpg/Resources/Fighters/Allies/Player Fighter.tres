@@ -3,6 +3,7 @@
 [ext_resource type="Resource" uid="uid://o3wxvq2pvf3u" path="res://Resources/Fighters/Stats/Player Stats.tres" id="1_gefgg"]
 [ext_resource type="Resource" uid="uid://cmj6afvwaioec" path="res://Resources/Fighters/Actions/Slash.tres" id="1_se8sy"]
 [ext_resource type="Resource" uid="uid://yld7yuy0cu2j" path="res://Resources/Fighters/Actions/Bash.tres" id="2_mrsvr"]
+[ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="4_6bgf5"]
 [ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="4_mrsvr"]
 [ext_resource type="Resource" uid="uid://4bthpxwgofhy" path="res://Resources/Fighters/Actions/Player Basic Attack.tres" id="4_xankg"]
 
@@ -13,6 +14,5 @@ fighter_name = "Player"
 description = "This is you"
 base_stats = ExtResource("1_gefgg")
 basic_attack = ExtResource("4_xankg")
-action_1 = ExtResource("1_se8sy")
-action_2 = ExtResource("2_mrsvr")
+specials = Array[ExtResource("4_6bgf5")]([ExtResource("2_mrsvr"), ExtResource("1_se8sy")])
 metadata/_custom_type_script = "uid://c1vcxghrix662"

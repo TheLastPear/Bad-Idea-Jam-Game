@@ -20,7 +20,6 @@
 [ext_resource type="AudioStream" uid="uid://c8p2hgemp031d" path="res://Art/Sound Effects/BattleUINeutral.ogg" id="12_tiokb"]
 [ext_resource type="AudioStream" uid="uid://b87qi0vtvxbra" path="res://Art/Sound Effects/BattleUIPositive.ogg" id="12_xmk5i"]
 [ext_resource type="AudioStream" uid="uid://b8ed2ciu6fw6j" path="res://Art/Sound Effects/BattleUINegative.ogg" id="13_0qgg5"]
-[ext_resource type="Script" uid="uid://h4a4ot22t1p1" path="res://Scripts/UI/Battle UI/Summary View.gd" id="13_dfi4p"]
 [ext_resource type="AudioStream" uid="uid://d1eegbmsc88yx" path="res://Art/Sound Effects/ShowMenu.ogg" id="13_tiokb"]
 [ext_resource type="Script" uid="uid://b185vcuaasc5q" path="res://Scripts/UI/Button.gd" id="13_xmk5i"]
 
@@ -62,16 +61,13 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Battle Manager" type="Node" parent="." unique_id=1405131880 node_paths=PackedStringArray("active_allies", "active_enemies", "ui")]
+[node name="Battle Manager" type="Node" parent="." unique_id=1405131880]
 script = ExtResource("1_6yjxy")
 battle_speed = 1
 slide_speed = 0.75
 text_step = 0.025
 ally_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi")])
 enemy_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi")])
-active_allies = [NodePath("Fighters/Allies/ActiveAlly1"), NodePath("Fighters/Allies/ActiveAlly2"), NodePath("Fighters/Allies/ActiveAlly3"), NodePath("Fighters/Allies/ActiveAlly4")]
-active_enemies = [NodePath("Fighters/Enemies/ActiveEnemy1"), NodePath("Fighters/Enemies/ActiveEnemy2"), NodePath("Fighters/Enemies/ActiveEnemy3"), NodePath("Fighters/Enemies/ActiveEnemy4")]
-ui = NodePath("../UI/GUI")
 
 [node name="Fighters" type="Node" parent="Battle Manager" unique_id=627518092]
 
@@ -272,16 +268,6 @@ metadata/_custom_type_script = "uid://cu3fde5oadtu6"
 
 [node name="Control" type="Control" parent="UI/GUI/AllySelect" unique_id=1846231244]
 visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SummaryView" type="Node" parent="UI/GUI" unique_id=1602715111]
-script = ExtResource("13_dfi4p")
-metadata/_custom_type_script = "uid://h4a4ot22t1p1"
-
-[node name="Control" type="Control" parent="UI/GUI/SummaryView" unique_id=171783405]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
