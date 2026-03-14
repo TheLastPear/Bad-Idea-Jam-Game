@@ -31,6 +31,7 @@ func _ready() -> void:
 	while a < active_allies.size():
 		if a < ally_data.size():
 			active_allies[a].fighter = ally_data[a]
+			active_allies[a].start_position = Vector2(150, 200 * (a + 1))
 		else:
 			active_allies[a].free()
 			active_allies.remove_at(a)
@@ -42,6 +43,7 @@ func _ready() -> void:
 	while b < active_enemies.size():
 		if b < enemy_data.size():
 			active_enemies[b].fighter = enemy_data[b]
+			active_enemies[b].start_position = Vector2(1000, 200 * (b + 1))
 		else:
 			active_enemies[b].free()
 			active_enemies.remove_at(b)
@@ -59,24 +61,21 @@ func _ready() -> void:
 	for fighter in turn_order:
 		fighter.move_in()
 	
-	current_fighter = turn_order[0]
-	
-	var done := current_fighter.has_slid_in
+	var done := active_allies[0].has_slid_in
 	await done
 	
 	await get_tree().create_timer(phase_transition_time).timeout
 	
-	planning_phase()
+	planning_phase(-1)
 	pass
 
 
-func planning_phase():
-	var index = turn_order.find(current_fighter)
+func planning_phase(index := turn_order.find(current_fighter)):
 	if index == turn_order.size() - 1:
 		current_fighter = turn_order[0]
 	else:
 		current_fighter = turn_order[index + 1]
-	
+	print(str(current_fighter.name) + "'s turn")
 	ui.current_fighter = current_fighter
 	
 	if current_fighter.alignment == ActiveFighter.Alignment.enemy:
@@ -86,19 +85,20 @@ func planning_phase():
 	
 	await get_tree().create_timer(phase_transition_time).timeout
 	
-	print("Make your move")
 	ui.on_transition("optionselect")
 	pass
 
 
 func attack_phase(action : Action, target : ActiveFighter):
-	await get_tree().create_timer(phase_transition_time).timeout
-	
-	print("Attacking")
 	ui.on_transition("hidden")
+	await get_tree().create_timer(phase_transition_time).timeout
 	
 	current_fighter.do_action(action, target)
 	
+	var done = current_fighter.action_finished
+	await done
+	
+	planning_phase()
 	pass
 
 
@@ -108,7 +108,7 @@ func ai_choose_action() -> Action: # Expand the ai later
 	options.append_array(current_fighter.fighter.specials)
 	return options.pick_random()
 
-
+@warning_ignore("unused_parameter")
 func ai_choose_target(action : Action) -> ActiveFighter:
 	var target = active_allies.pick_random()
 	return target

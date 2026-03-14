@@ -67,8 +67,8 @@ script = ExtResource("1_6yjxy")
 battle_speed = 1
 slide_speed = 0.75
 text_step = 0.025
-ally_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi")])
-enemy_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi")])
+ally_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi"), ExtResource("2_vr6xi")])
+enemy_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi"), ExtResource("2_vr6xi")])
 active_allies = [NodePath("Fighters/Allies/ActiveAlly1"), NodePath("Fighters/Allies/ActiveAlly2"), NodePath("Fighters/Allies/ActiveAlly3"), NodePath("Fighters/Allies/ActiveAlly4")]
 active_enemies = [NodePath("Fighters/Enemies/ActiveEnemy1"), NodePath("Fighters/Enemies/ActiveEnemy2"), NodePath("Fighters/Enemies/ActiveEnemy3"), NodePath("Fighters/Enemies/ActiveEnemy4")]
 ui = NodePath("../UI/GUI")
@@ -226,9 +226,49 @@ metadata/_custom_type_script = "uid://c8cc3jmugwd40"
 [node name="Control" type="Control" parent="UI/GUI/OptionSelect" unique_id=1593086285]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/OptionSelect/Control" unique_id=79884555]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 20.0
+offset_right = 105.0
+offset_bottom = 120.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/OptionSelect/Control/NinePatchRect" unique_id=105109067]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/OptionSelect/Control/NinePatchRect/MarginContainer" unique_id=949695551]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Basic Attack: D key
+Special Select: S key
+View Summary: A key
+Item Select: C key
+Run: Q key"
 
 [node name="SpecialSelect" type="Node" parent="UI/GUI" unique_id=2098662280 node_paths=PackedStringArray("target_state")]
 script = ExtResource("8_u5lwd")
@@ -238,9 +278,45 @@ metadata/_custom_type_script = "uid://drv7mkwm7pj1g"
 [node name="Control" type="Control" parent="UI/GUI/SpecialSelect" unique_id=2125472857]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/SpecialSelect/Control" unique_id=1876577346]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 20.0
+offset_right = 105.0
+offset_bottom = 120.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/SpecialSelect/Control/NinePatchRect" unique_id=683847930]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/SpecialSelect/Control/NinePatchRect/MarginContainer" unique_id=1584677524]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Back: R key"
 
 [node name="ItemSelect" type="Node" parent="UI/GUI" unique_id=663506840]
 script = ExtResource("9_dfi4p")
@@ -249,9 +325,45 @@ metadata/_custom_type_script = "uid://covbotdoocv2a"
 [node name="Control" type="Control" parent="UI/GUI/ItemSelect" unique_id=746483715]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/ItemSelect/Control" unique_id=385849458]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 20.0
+offset_right = 105.0
+offset_bottom = 120.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/ItemSelect/Control/NinePatchRect" unique_id=1409979286]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/ItemSelect/Control/NinePatchRect/MarginContainer" unique_id=1150380521]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Back: R key"
 
 [node name="TargetSelect" type="Node" parent="UI/GUI" unique_id=368278568 node_paths=PackedStringArray("battle_manager")]
 script = ExtResource("10_yahm3")
@@ -261,9 +373,48 @@ metadata/_custom_type_script = "uid://ksrrfg8nespk"
 [node name="Control" type="Control" parent="UI/GUI/TargetSelect" unique_id=1051888103]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/TargetSelect/Control" unique_id=543911676]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 20.0
+offset_right = 105.0
+offset_bottom = 120.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/TargetSelect/Control/NinePatchRect" unique_id=1256216364]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/TargetSelect/Control/NinePatchRect/MarginContainer" unique_id=656513882]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Back: R key
+Select Target: D key
+Change Target:
+Up or Down key"
 
 [node name="AllySelect" type="Node" parent="UI/GUI" unique_id=1213257572 node_paths=PackedStringArray("battle_manager")]
 script = ExtResource("11_1s3yx")
@@ -273,19 +424,95 @@ metadata/_custom_type_script = "uid://cu3fde5oadtu6"
 [node name="Control" type="Control" parent="UI/GUI/AllySelect" unique_id=1846231244]
 visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/AllySelect/Control" unique_id=1567463410]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 20.0
+offset_right = 105.0
+offset_bottom = 120.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/AllySelect/Control/NinePatchRect" unique_id=575756344]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/AllySelect/Control/NinePatchRect/MarginContainer" unique_id=956767862]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Back: R key
+Select Target: D key
+Change Target:
+Up or Down key"
 
 [node name="SummaryView" type="Node" parent="UI/GUI" unique_id=1602715111]
 script = ExtResource("13_dfi4p")
 metadata/_custom_type_script = "uid://h4a4ot22t1p1"
 
 [node name="Control" type="Control" parent="UI/GUI/SummaryView" unique_id=171783405]
+visible = false
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/SummaryView/Control" unique_id=635169403]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -95.0
+offset_top = 20.0
+offset_right = 105.0
+offset_bottom = 120.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/SummaryView/Control/NinePatchRect" unique_id=1125373579]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/SummaryView/Control/NinePatchRect/MarginContainer" unique_id=523980622]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Back: R key"
 
 [node name="Status Window" type="VBoxContainer" parent="UI" unique_id=1363246495]
 layout_mode = 1
@@ -1013,17 +1240,17 @@ volume_db = -12.0
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Action Select" method="return_to_other_window"]
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Options" method="open_window"]
 [connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="assign_action"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="on_show_enemy_buttons"]
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="selecting_target"]
+[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="on_show_enemy_buttons"]
 [connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="assign_action"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="on_show_enemy_buttons"]
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="selecting_target"]
+[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="on_show_enemy_buttons"]
 [connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="assign_action"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="on_show_enemy_buttons"]
 [connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="selecting_target"]
+[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="on_show_enemy_buttons"]
 [connection signal="on_open" from="GUI/Main Box/Options" to="Battle Manager" method="selecting_option"]
-[connection signal="on_return" from="GUI/Main Box/Options" to="Battle Manager" method="on_show_buttons"]
 [connection signal="on_return" from="GUI/Main Box/Options" to="Battle Manager" method="selecting_character"]
+[connection signal="on_return" from="GUI/Main Box/Options" to="Battle Manager" method="on_show_buttons"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Action Select" method="open_window"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Options" method="next_window"]
 [connection signal="pressed" from="GUI/Main Box/Options/VBox/View Items" to="GUI/Main Box/Options" method="next_window"]

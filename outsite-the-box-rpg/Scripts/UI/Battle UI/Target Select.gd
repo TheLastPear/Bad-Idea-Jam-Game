@@ -7,6 +7,7 @@ var targets : Array[ActiveFighter]
 var previous_window : String
 
 func enter():
+	is_active = true
 	get_child(0).show()
 	
 	targets.append_array(battle_manager.active_enemies)
@@ -14,11 +15,14 @@ func enter():
 
 
 func exit():
+	is_active = false
 	get_child(0).hide()
 	pass
 
 
 func _input(event: InputEvent) -> void:
+	if !is_active: return
+	
 	if event.is_action_pressed("action"):
 		battle_manager.attack_phase(loaded_action, targets[current_target]) # must pass the action and the target
 		

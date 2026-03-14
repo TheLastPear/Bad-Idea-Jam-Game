@@ -6,9 +6,10 @@ var actions : Array[Action]
 var loaded_action
 
 func enter():
+	is_active = true
 	get_child(0).show()
 	
-	actions = controller.current_fighter.fighter.actions
+	actions = controller.current_fighter.fighter.specials
 	
 	var i = 0
 	while i < buttons.size():
@@ -22,11 +23,14 @@ func enter():
 
 
 func exit():
+	is_active = false
 	get_child(0).hide()
 	pass
 
 
 func assign_action(index : int):
+	if !is_active: return
+	
 	transition.emit("targetselect")
 	$"../TargetSelect".loaded_action = actions[index]
 	$"../TargetSelect".previous_window = "specialselect"
@@ -34,6 +38,8 @@ func assign_action(index : int):
 
 
 func _input(event: InputEvent) -> void:
+	if !is_active: return
+	
 	if event.is_action_pressed("back"):
 		transition.emit("optionselect")
 	pass

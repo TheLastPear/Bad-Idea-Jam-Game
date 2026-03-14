@@ -15,6 +15,8 @@ var start_position : Vector2
 
 
 func move_in():
+	fighter.assign_stats()
+	
 	position = Vector2(start_position.x - 250 * scale.x, start_position.y)
 	
 	var tween = get_tree().create_tween()
@@ -27,7 +29,7 @@ func move_in():
 
 
 func do_action(action : Action, target : ActiveFighter):
-	print(fighter.fighter_name + "is doing action: " + action.action_name)
+	print(fighter.fighter_name + " used " + action.action_name)
 	
 	var to_tween = get_tree().create_tween()
 	to_tween.tween_property(self, "position", Vector2(target.position.x + (150 * scale.x * -1), target.position.y), manager.slide_speed)
@@ -49,5 +51,5 @@ func do_action(action : Action, target : ActiveFighter):
 func take_damage(user : ActiveFighter, action : Action):
 	var damage = BMath.calculate_damage(action, user, self)
 	fighter.hp -= damage
-	print(fighter.fighter_name + " took " + str(damage))
+	print(name + " took " + str(damage) + " damage. Remaining hp: " + str(fighter.hp))
 	pass

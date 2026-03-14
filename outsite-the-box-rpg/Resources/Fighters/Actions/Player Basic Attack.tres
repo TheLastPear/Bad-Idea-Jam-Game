@@ -6,6 +6,5 @@
 script = ExtResource("1_ty0wc")
 action_name = "Basic Attack"
 description = "The user attacks weakly 3 times with their weapon."
-hits = 3
-strength = 10
+strength = 15
 metadata/_custom_type_script = "uid://cdj6bk5s6344v"

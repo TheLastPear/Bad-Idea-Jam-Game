@@ -5,6 +5,7 @@ signal level_up
 @export var fighter_name : String
 @export var description : String
 @export var base_stats : BaseStats
+@export var is_dead := false
 
 @export_group("Stats")
 @export var hp : int:
@@ -53,9 +54,7 @@ signal level_up
 	"defense": 0,
 	"speed": 0,
 	"luck": 0,
-}:
-	get():
-		return assign_stats()
+}
 
 @export var stat_bonuses : Dictionary[String, int] = {
 	"health": 0,
@@ -75,9 +74,16 @@ signal level_up
 @export var specials : Array[Action]
 
 
-func assign_stats() -> Dictionary[String, int]:
+func assign_stats():
+	var old_stats := stats
 	var new_stats := base_stats.calculate_stats(level)
 	for key in new_stats:
 		new_stats[key] += stat_bonuses[key]
 	
-	return new_stats
+	if !is_dead:
+		hp += new_stats["health"] - old_stats["health"]
+	
+	bp += new_stats["stamina"] - old_stats["stamina"]
+	
+	stats = new_stats
+	pass

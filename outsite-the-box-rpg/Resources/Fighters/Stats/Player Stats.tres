@@ -9,7 +9,7 @@ stat_curve = ExtResource("1_5amwc")
 stats = Dictionary[String, int]({
 "attack": 4,
 "defense": 3,
-"health": 10,
+"health": 16,
 "luck": 6,
 "speed": 4,
 "stamina": 8
