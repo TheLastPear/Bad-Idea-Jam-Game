@@ -10,19 +10,18 @@
 [ext_resource type="Script" uid="uid://b773o4chb6rq" path="res://Scripts/UI/Battle UI/Hidden.gd" id="7_u5lwd"]
 [ext_resource type="Script" uid="uid://drv7mkwm7pj1g" path="res://Scripts/UI/Battle UI/Special Select.gd" id="8_u5lwd"]
 [ext_resource type="Script" uid="uid://covbotdoocv2a" path="res://Scripts/UI/Battle UI/Item Select.gd" id="9_dfi4p"]
-[ext_resource type="Theme" uid="uid://cf2u73paxhgyy" path="res://Art/UI/Battle UI Theme.tres" id="10_262jj"]
-[ext_resource type="Texture2D" uid="uid://bgh34a4wukvgr" path="res://Art/UI/Return Arrow.jpg" id="10_l0uqe"]
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="10_qxnh6"]
 [ext_resource type="Script" uid="uid://ksrrfg8nespk" path="res://Scripts/UI/Battle UI/Target Select.gd" id="10_yahm3"]
 [ext_resource type="Script" uid="uid://cu3fde5oadtu6" path="res://Scripts/UI/Battle UI/Ally Select.gd" id="11_1s3yx"]
-[ext_resource type="Script" uid="uid://dhl036adb3gu3" path="res://Scripts/UI/UI Window.gd" id="12_l0uqe"]
 [ext_resource type="LabelSettings" uid="uid://bk3jhh880ci5g" path="res://Art/UI/Status Window Label Settings.tres" id="12_n5y6x"]
 [ext_resource type="AudioStream" uid="uid://c8p2hgemp031d" path="res://Art/Sound Effects/BattleUINeutral.ogg" id="12_tiokb"]
 [ext_resource type="AudioStream" uid="uid://b87qi0vtvxbra" path="res://Art/Sound Effects/BattleUIPositive.ogg" id="12_xmk5i"]
 [ext_resource type="AudioStream" uid="uid://b8ed2ciu6fw6j" path="res://Art/Sound Effects/BattleUINegative.ogg" id="13_0qgg5"]
 [ext_resource type="Script" uid="uid://h4a4ot22t1p1" path="res://Scripts/UI/Battle UI/Summary View.gd" id="13_dfi4p"]
 [ext_resource type="AudioStream" uid="uid://d1eegbmsc88yx" path="res://Art/Sound Effects/ShowMenu.ogg" id="13_tiokb"]
-[ext_resource type="Script" uid="uid://b185vcuaasc5q" path="res://Scripts/UI/Button.gd" id="13_xmk5i"]
+[ext_resource type="Script" uid="uid://svsd3u7lru4x" path="res://Scripts/UI/Battle UI/Level Up.gd" id="15_u5lwd"]
+[ext_resource type="Script" uid="uid://c7dt77yn7kpfs" path="res://Scripts/UI/Battle UI/Victory.gd" id="16_dfi4p"]
+[ext_resource type="Script" uid="uid://d4iqgfyg3hrvf" path="res://Scripts/UI/Battle UI/Defeat.gd" id="17_yahm3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jr0ro"]
 bg_color = Color(0.26293245, 0.26293248, 0.26293233, 1)
@@ -69,134 +68,172 @@ slide_speed = 0.75
 text_step = 0.025
 ally_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi"), ExtResource("2_vr6xi")])
 enemy_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi"), ExtResource("2_vr6xi")])
-active_allies = [NodePath("Fighters/Allies/ActiveAlly1"), NodePath("Fighters/Allies/ActiveAlly2"), NodePath("Fighters/Allies/ActiveAlly3"), NodePath("Fighters/Allies/ActiveAlly4")]
-active_enemies = [NodePath("Fighters/Enemies/ActiveEnemy1"), NodePath("Fighters/Enemies/ActiveEnemy2"), NodePath("Fighters/Enemies/ActiveEnemy3"), NodePath("Fighters/Enemies/ActiveEnemy4")]
+active_allies = [NodePath("Fighters/Ally Side/Ally1/ActiveAlly1"), NodePath("Fighters/Ally Side/Ally2/ActiveAlly2"), NodePath("Fighters/Ally Side/Ally3/ActiveAlly3"), NodePath("Fighters/Ally Side/Ally4/ActiveAlly4")]
+active_enemies = [NodePath("Fighters/Enemy Side/Enemy1/ActiveEnemy1"), NodePath("Fighters/Enemy Side/Enemy2/ActiveEnemy2"), NodePath("Fighters/Enemy Side/Enemy3/ActiveEnemy3"), NodePath("Fighters/Enemy Side/Enemy4/ActiveEnemy4")]
 ui = NodePath("../UI/GUI")
 
-[node name="Fighters" type="Node" parent="Battle Manager" unique_id=627518092]
-
-[node name="Allies" type="Node" parent="Battle Manager/Fighters" unique_id=475084931]
-
-[node name="ActiveAlly1" type="Control" parent="Battle Manager/Fighters/Allies" unique_id=344201536 node_paths=PackedStringArray("manager")]
+[node name="Fighters" type="Control" parent="Battle Manager" unique_id=1026806911]
 layout_mode = 3
-anchors_preset = 0
-offset_left = -100.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Ally Side" type="VBoxContainer" parent="Battle Manager/Fighters" unique_id=856561243]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 160.0
 offset_top = 100.0
-offset_right = -100.0
-offset_bottom = 100.0
+offset_right = -830.0
+offset_bottom = -100.0
+
+[node name="Ally1" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=265123238]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveAlly1" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally1" unique_id=344201536 node_paths=PackedStringArray("manager")]
+anchors_preset = 0
+offset_left = -300.0
+offset_right = -300.0
 script = ExtResource("1_wvl2i")
 fighter = ExtResource("2_vr6xi")
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly1" unique_id=1712840099]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally1/ActiveAlly1" unique_id=1712840099]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="ActiveAlly2" type="Control" parent="Battle Manager/Fighters/Allies" unique_id=2062213883 node_paths=PackedStringArray("manager")]
-layout_mode = 3
+[node name="Ally2" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=1229996079]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveAlly2" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally2" unique_id=2062213883 node_paths=PackedStringArray("manager")]
 anchors_preset = 0
-offset_left = -100.0
-offset_top = 200.0
-offset_right = -100.0
-offset_bottom = 200.0
+offset_left = -300.0
+offset_right = -300.0
 script = ExtResource("1_wvl2i")
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly2" unique_id=1042077113]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally2/ActiveAlly2" unique_id=1042077113]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="ActiveAlly3" type="Control" parent="Battle Manager/Fighters/Allies" unique_id=299587568 node_paths=PackedStringArray("manager")]
-layout_mode = 3
+[node name="Ally3" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=954323676]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveAlly3" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally3" unique_id=299587568 node_paths=PackedStringArray("manager")]
 anchors_preset = 0
-offset_left = -100.0
-offset_top = 300.0
-offset_right = -100.0
-offset_bottom = 300.0
+offset_left = -300.0
+offset_right = -300.0
 script = ExtResource("1_wvl2i")
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly3" unique_id=4037461]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally3/ActiveAlly3" unique_id=4037461]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="ActiveAlly4" type="Control" parent="Battle Manager/Fighters/Allies" unique_id=874239460 node_paths=PackedStringArray("manager")]
-layout_mode = 3
+[node name="Ally4" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=121099075]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveAlly4" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally4" unique_id=874239460 node_paths=PackedStringArray("manager")]
 anchors_preset = 0
-offset_left = -100.0
-offset_top = 400.0
-offset_right = -100.0
-offset_bottom = 400.0
+offset_left = -300.0
+offset_right = -300.0
 script = ExtResource("1_wvl2i")
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Allies/ActiveAlly4" unique_id=642587944]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally4/ActiveAlly4" unique_id=642587944]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="Enemies" type="Node" parent="Battle Manager/Fighters" unique_id=363471561]
-
-[node name="ActiveEnemy1" type="Control" parent="Battle Manager/Fighters/Enemies" unique_id=2098999983 node_paths=PackedStringArray("manager")]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1250.0
+[node name="Enemy Side" type="VBoxContainer" parent="Battle Manager/Fighters" unique_id=2121959216]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 830.0
 offset_top = 100.0
-offset_right = 1250.0
-offset_bottom = 100.0
+offset_right = -160.0
+offset_bottom = -100.0
+
+[node name="Enemy1" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=1073208047]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveEnemy1" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy1" unique_id=2098999983 node_paths=PackedStringArray("manager")]
+anchors_preset = 0
+offset_left = 300.0
+offset_right = 300.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy1" unique_id=2105897014]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy1/ActiveEnemy1" unique_id=2105897014]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="ActiveEnemy2" type="Control" parent="Battle Manager/Fighters/Enemies" unique_id=1415017731 node_paths=PackedStringArray("manager")]
-layout_mode = 3
+[node name="Enemy2" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=288162587]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveEnemy2" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy2" unique_id=1415017731 node_paths=PackedStringArray("manager")]
 anchors_preset = 0
-offset_left = 1250.0
-offset_top = 200.0
-offset_right = 1250.0
-offset_bottom = 200.0
+offset_left = 300.0
+offset_right = 300.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy2" unique_id=417690020]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy2/ActiveEnemy2" unique_id=417690020]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="ActiveEnemy3" type="Control" parent="Battle Manager/Fighters/Enemies" unique_id=206656034 node_paths=PackedStringArray("manager")]
-layout_mode = 3
+[node name="Enemy3" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=602500773]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveEnemy3" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy3" unique_id=206656034 node_paths=PackedStringArray("manager")]
 anchors_preset = 0
-offset_left = 1250.0
-offset_top = 300.0
-offset_right = 1250.0
-offset_bottom = 300.0
+offset_left = 300.0
+offset_right = 300.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy3" unique_id=644595762]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy3/ActiveEnemy3" unique_id=644595762]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="ActiveEnemy4" type="Control" parent="Battle Manager/Fighters/Enemies" unique_id=1837628930 node_paths=PackedStringArray("manager")]
-layout_mode = 3
+[node name="Enemy4" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=11205812]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="ActiveEnemy4" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy4" unique_id=1837628930 node_paths=PackedStringArray("manager")]
 anchors_preset = 0
-offset_left = 1250.0
-offset_top = 400.0
-offset_right = 1250.0
-offset_bottom = 400.0
+offset_left = 300.0
+offset_right = 300.0
 scale = Vector2(-1, 1)
 script = ExtResource("1_wvl2i")
 alignment = 1
-manager = NodePath("../../..")
+manager = NodePath("../../../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemies/ActiveEnemy4" unique_id=1007903931]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy4/ActiveEnemy4" unique_id=1007903931]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
@@ -210,9 +247,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="GUI" type="Node" parent="UI" unique_id=2138105000 node_paths=PackedStringArray("initial_state")]
+[node name="GUI" type="Node" parent="UI" unique_id=2138105000]
 script = ExtResource("6_nttxn")
-initial_state = NodePath("OptionSelect")
 metadata/_custom_type_script = "uid://gv4gy7bmohl7"
 
 [node name="Hidden" type="Node" parent="UI/GUI" unique_id=387328569]
@@ -514,6 +550,146 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Back: R key"
 
+[node name="LevelUp" type="Node" parent="UI/GUI" unique_id=390423655]
+script = ExtResource("15_u5lwd")
+metadata/_custom_type_script = "uid://svsd3u7lru4x"
+
+[node name="Control" type="Control" parent="UI/GUI/LevelUp" unique_id=1412794307]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/LevelUp/Control" unique_id=1340891509]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 350.0
+offset_right = 95.0
+offset_bottom = 550.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/LevelUp/Control/NinePatchRect" unique_id=1555425953]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/LevelUp/Control/NinePatchRect/MarginContainer" unique_id=1905007063]
+layout_mode = 2
+size_flags_vertical = 1
+text = "Leveled Up!
+
+Press D or R"
+
+[node name="Victory" type="Node" parent="UI/GUI" unique_id=1518609935]
+script = ExtResource("16_dfi4p")
+metadata/_custom_type_script = "uid://c7dt77yn7kpfs"
+
+[node name="Control" type="Control" parent="UI/GUI/Victory" unique_id=1950448291]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/Victory/Control" unique_id=418894589]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 350.0
+offset_right = 95.0
+offset_bottom = 550.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/Victory/Control/NinePatchRect" unique_id=14638064]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/Victory/Control/NinePatchRect/MarginContainer" unique_id=235826864]
+layout_mode = 2
+size_flags_vertical = 1
+text = "You Won!"
+
+[node name="Defeat" type="Node" parent="UI/GUI" unique_id=339833374]
+script = ExtResource("17_yahm3")
+metadata/_custom_type_script = "uid://d4iqgfyg3hrvf"
+
+[node name="Control" type="Control" parent="UI/GUI/Defeat" unique_id=1313640922]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/Defeat/Control" unique_id=920696643]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 350.0
+offset_right = 95.0
+offset_bottom = 550.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/Defeat/Control/NinePatchRect" unique_id=421568433]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/Defeat/Control/NinePatchRect/MarginContainer" unique_id=1261149793]
+layout_mode = 2
+size_flags_vertical = 1
+text = "You Lost"
+
 [node name="Status Window" type="VBoxContainer" parent="UI" unique_id=1363246495]
 layout_mode = 1
 anchors_preset = 1
@@ -703,521 +879,6 @@ size_flags_vertical = 3
 text = "Stamina"
 label_settings = ExtResource("12_n5y6x")
 
-[node name="GUI" type="Control" parent="." unique_id=1161201848]
-z_index = 10
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("10_262jj")
-
-[node name="Main Box" type="NinePatchRect" parent="GUI" unique_id=799583256]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -178.0
-grow_horizontal = 2
-grow_vertical = 0
-size_flags_horizontal = 3
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="Action Select" type="HBoxContainer" parent="GUI/Main Box" unique_id=1712471866 node_paths=PackedStringArray("on_back", "previous_window", "first_focus")]
-visible = false
-custom_minimum_size = Vector2(200, 180)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("12_l0uqe")
-on_back = NodePath("../../../Audio/back")
-previous_window = NodePath("../Options")
-first_focus = NodePath("Actions/HBox/Return")
-
-[node name="Actions" type="MarginContainer" parent="GUI/Main Box/Action Select" unique_id=1585254157]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 6.31
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="HBox" type="HBoxContainer" parent="GUI/Main Box/Action Select/Actions" unique_id=131200300]
-layout_mode = 2
-
-[node name="Return" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=414014074 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-focus_neighbor_left = NodePath("../Special Action 2")
-text = "Return"
-icon = ExtResource("10_l0uqe")
-flat = true
-alignment = 0
-autowrap_mode = 2
-expand_icon = true
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../Audio/back")
-
-[node name="Basic Action" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=909261955 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-text = "null"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../Audio/forward")
-
-[node name="Special Action 1" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1738099436 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-text = "null"
-flat = true
-alignment = 0
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../Audio/forward")
-
-[node name="Special Action 2" type="Button" parent="GUI/Main Box/Action Select/Actions/HBox" unique_id=1649544229 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-focus_neighbor_right = NodePath("../Return")
-text = "null"
-flat = true
-alignment = 0
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../Audio/forward")
-
-[node name="Description" type="NinePatchRect" parent="GUI/Main Box/Action Select" unique_id=1139227537]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 4.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Main Box/Action Select/Description" unique_id=299448273]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Main Box/Action Select/Description/MarginContainer" unique_id=2088067659]
-layout_mode = 2
-text = "This is where the descriptions for moves, items, etc will be displayed."
-
-[node name="Options" type="MarginContainer" parent="GUI/Main Box" unique_id=682631306 node_paths=PackedStringArray("on_back", "previous_window", "first_focus")]
-visible = false
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 178.0
-size_flags_horizontal = 3
-script = ExtResource("12_l0uqe")
-on_back = NodePath("../../../Audio/back")
-previous_window = NodePath("../Dialogue")
-first_focus = NodePath("VBox/View Attacks")
-
-[node name="VBox" type="HBoxContainer" parent="GUI/Main Box/Options" unique_id=127938823]
-layout_mode = 2
-
-[node name="View Attacks" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=1057647758 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-focus_neighbor_left = NodePath("../View Party")
-text = "Action"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../Audio/forward")
-
-[node name="View Items" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=1881896522 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-text = "Items"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../Audio/forward")
-
-[node name="View Party" type="Button" parent="GUI/Main Box/Options/VBox" unique_id=223818609 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(120, 40)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-focus_neighbor_right = NodePath("../View Attacks")
-text = "Party"
-flat = true
-alignment = 0
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../Audio/menu")
-
-[node name="Item Options" type="NinePatchRect" parent="GUI/Main Box" unique_id=78025918 node_paths=PackedStringArray("on_back", "previous_window", "first_focus")]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.347
-anchor_right = 0.347
-offset_left = -89.74402
-offset_top = -250.0
-offset_right = 90.25598
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-script = ExtResource("12_l0uqe")
-on_back = NodePath("../../../Audio/back")
-previous_window = NodePath("../Options")
-first_focus = NodePath("MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return")
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Main Box/Item Options" unique_id=571521625]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="ScrollContainer" type="ScrollContainer" parent="GUI/Main Box/Item Options/MarginContainer" unique_id=866661575]
-layout_mode = 2
-follow_focus = true
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer" unique_id=1030609380]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer" unique_id=519019388]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Return" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=467609111 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-text = "Return"
-icon = ExtResource("10_l0uqe")
-flat = true
-alignment = 0
-autowrap_mode = 2
-expand_icon = true
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../../Audio/back")
-
-[node name="Item 1" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=114148845 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-text = "Item"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../../Audio/forward")
-
-[node name="Item 2" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=793867569 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-text = "Item"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../../Audio/forward")
-
-[node name="Item 3" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=885867683 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-text = "Item"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../../Audio/forward")
-
-[node name="Item 4" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=761994159 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-text = "Item"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../../Audio/forward")
-
-[node name="Item 5" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=584210865 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-text = "Item"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../../Audio/forward")
-
-[node name="Item 6" type="Button" parent="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer" unique_id=1442223176 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-text = "Item"
-flat = true
-alignment = 0
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../../Audio/forward")
-
-[node name="Dialogue" type="MarginContainer" parent="GUI/Main Box" unique_id=2050691694 node_paths=PackedStringArray("on_back")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 40
-theme_override_constants/margin_top = 40
-theme_override_constants/margin_right = 40
-theme_override_constants/margin_bottom = 40
-script = ExtResource("12_l0uqe")
-on_back = NodePath("../../../Audio/back")
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Main Box/Dialogue" unique_id=2080484385]
-layout_mode = 2
-text = "Dialogue will go here when prompted."
-scroll_active = false
-shortcut_keys_enabled = false
-
-[node name="Party View" type="HBoxContainer" parent="GUI" unique_id=684742917 node_paths=PackedStringArray("on_back", "previous_window", "first_focus")]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.3472222
-anchor_top = 0.030864198
-anchor_right = 0.9809028
-anchor_bottom = 0.6944444
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("12_l0uqe")
-on_back = NodePath("../../Audio/back")
-previous_window = NodePath("../Main Box/Options")
-first_focus = NodePath("Attacks/HBoxContainer/Action List/VBoxContainer/Return")
-metadata/_edit_use_anchors_ = true
-
-[node name="Stats" type="NinePatchRect" parent="GUI/Party View" unique_id=253600503]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer2" type="MarginContainer" parent="GUI/Party View/Stats" unique_id=852470205]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-
-[node name="Stats" type="VBoxContainer" parent="GUI/Party View/Stats/MarginContainer2" unique_id=2124212165]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Header" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1439137043]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_font_sizes/normal_font_size = 20
-text = "Stats:"
-vertical_alignment = 1
-
-[node name="Hp" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1905530426]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Health: 10/10"
-vertical_alignment = 1
-
-[node name="Stamina" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=562241117]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Stamina: 10/10"
-vertical_alignment = 1
-
-[node name="Attack" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=2088927434]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack: 10"
-vertical_alignment = 1
-
-[node name="Defense" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=607082827]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Defense: 10"
-vertical_alignment = 1
-
-[node name="Speed" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1196907268]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Speed: 10"
-vertical_alignment = 1
-
-[node name="Luck" type="RichTextLabel" parent="GUI/Party View/Stats/MarginContainer2/Stats" unique_id=1489145506]
-custom_minimum_size = Vector2(80, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Luck: 10"
-vertical_alignment = 1
-
-[node name="Attacks" type="NinePatchRect" parent="GUI/Party View" unique_id=1259489803]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 20.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="HBoxContainer" type="HBoxContainer" parent="GUI/Party View/Attacks" unique_id=1887164998]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Action List" type="MarginContainer" parent="GUI/Party View/Attacks/HBoxContainer" unique_id=1255908486]
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Party View/Attacks/HBoxContainer/Action List" unique_id=315341295]
-layout_mode = 2
-
-[node name="Return" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1877108702 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-size_flags_vertical = 8
-text = "Return"
-icon = ExtResource("10_l0uqe")
-autowrap_mode = 2
-expand_icon = true
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../Audio/back")
-start_with_focus = true
-
-[node name="Basic Attack" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=92141896 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Basic Attack"
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../Audio/forward")
-
-[node name="Attack 1" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=711246745 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 1"
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../Audio/forward")
-
-[node name="Attack 2" type="Button" parent="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer" unique_id=1046133408 node_paths=PackedStringArray("on_focused", "on_pressed")]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-size_flags_vertical = 0
-text = "Attack 2"
-autowrap_mode = 2
-script = ExtResource("13_xmk5i")
-on_focused = NodePath("../../../../../../../Audio/neutral")
-on_pressed = NodePath("../../../../../../../Audio/forward")
-
-[node name="NinePatchRect" type="NinePatchRect" parent="GUI/Party View/Attacks/HBoxContainer" unique_id=670263858]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 4.0
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 3
-patch_margin_top = 3
-patch_margin_right = 3
-patch_margin_bottom = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="GUI/Party View/Attacks/HBoxContainer/NinePatchRect" unique_id=1505534309]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Party View/Attacks/HBoxContainer/NinePatchRect/MarginContainer" unique_id=224791527]
-layout_mode = 2
-text = "The description of the hovered attack goes here."
-
 [node name="Audio" type="Node" parent="." unique_id=1880107458]
 
 [node name="neutral" type="AudioStreamPlayer" parent="Audio" unique_id=231068350]
@@ -1236,30 +897,4 @@ volume_db = -12.0
 stream = ExtResource("13_tiokb")
 volume_db = -12.0
 
-[connection signal="on_open" from="GUI/Main Box/Action Select" to="Battle Manager" method="selecting_action"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Action Select" method="return_to_other_window"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Return" to="GUI/Main Box/Options" method="open_window"]
-[connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="assign_action"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="selecting_target"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Basic Action" to="Battle Manager" method="on_show_enemy_buttons"]
-[connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="assign_action"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="selecting_target"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 1" to="Battle Manager" method="on_show_enemy_buttons"]
-[connection signal="pass_on_press" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="assign_action"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="selecting_target"]
-[connection signal="pressed" from="GUI/Main Box/Action Select/Actions/HBox/Special Action 2" to="Battle Manager" method="on_show_enemy_buttons"]
-[connection signal="on_open" from="GUI/Main Box/Options" to="Battle Manager" method="selecting_option"]
-[connection signal="on_return" from="GUI/Main Box/Options" to="Battle Manager" method="selecting_character"]
-[connection signal="on_return" from="GUI/Main Box/Options" to="Battle Manager" method="on_show_buttons"]
-[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Action Select" method="open_window"]
-[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Attacks" to="GUI/Main Box/Options" method="next_window"]
-[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Items" to="GUI/Main Box/Options" method="next_window"]
-[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Items" to="GUI/Main Box/Item Options" method="open_window"]
-[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Party" to="GUI/Main Box/Options" method="next_window"]
-[connection signal="pressed" from="GUI/Main Box/Options/VBox/View Party" to="GUI/Party View" method="open_window"]
-[connection signal="on_open" from="GUI/Main Box/Item Options" to="Battle Manager" method="selecting_item"]
-[connection signal="pressed" from="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return" to="GUI/Main Box/Options" method="open_window"]
-[connection signal="pressed" from="GUI/Main Box/Item Options/MarginContainer/ScrollContainer/MarginContainer/VBoxContainer/Return" to="GUI/Main Box/Item Options" method="return_to_other_window"]
-[connection signal="on_open" from="GUI/Party View" to="Battle Manager" method="selecting_summary"]
-[connection signal="pressed" from="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer/Return" to="GUI/Main Box/Options" method="open_window"]
-[connection signal="pressed" from="GUI/Party View/Attacks/HBoxContainer/Action List/VBoxContainer/Return" to="GUI/Party View" method="return_to_other_window"]
+[connection signal="poll_level_up" from="Battle Manager" to="UI/GUI/LevelUp" method="on_poll"]

@@ -2,6 +2,8 @@ class_name ActiveFighter extends Control
 
 signal has_slid_in
 signal action_finished
+signal gained_exp
+signal died
 
 enum Alignment {
 	ally,
@@ -11,16 +13,14 @@ enum Alignment {
 @export var fighter : Fighter
 @export var alignment : Alignment
 @export var manager : BattleManager
-var start_position : Vector2
 
 
 func move_in():
 	fighter.assign_stats()
-	
-	position = Vector2(start_position.x - 250 * scale.x, start_position.y)
+	died.connect(manager.check_for_end)
 	
 	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", start_position, 0.5)
+	tween.tween_property(self, "position", Vector2(0, 0), 0.5)
 	
 	await tween.finished
 	
@@ -29,10 +29,10 @@ func move_in():
 
 
 func do_action(action : Action, target : ActiveFighter):
-	print(fighter.fighter_name + " used " + action.action_name)
+	print(name + " used " + action.action_name)
 	
 	var to_tween = get_tree().create_tween()
-	to_tween.tween_property(self, "position", Vector2(target.position.x + (150 * scale.x * -1), target.position.y), manager.slide_speed)
+	to_tween.tween_property(self, "global_position", Vector2(target.global_position.x + (150 * target.scale.x), target.global_position.y), manager.slide_speed)
 	await to_tween.finished
 	
 	await get_tree().create_timer(0.5).timeout
@@ -41,7 +41,7 @@ func do_action(action : Action, target : ActiveFighter):
 		target.take_damage(self, action)
 	
 	var back_tween = get_tree().create_tween()
-	back_tween.tween_property(self, "position", start_position, manager.slide_speed)
+	back_tween.tween_property(self, "position", Vector2(0, 0), manager.slide_speed)
 	await back_tween.finished
 	
 	action_finished.emit()
@@ -51,5 +51,29 @@ func do_action(action : Action, target : ActiveFighter):
 func take_damage(user : ActiveFighter, action : Action):
 	var damage = BMath.calculate_damage(action, user, self)
 	fighter.hp -= damage
+	
+	if fighter.hp <= 0:
+		die(user)
+		return
+	
 	print(name + " took " + str(damage) + " damage. Remaining hp: " + str(fighter.hp))
+	pass
+
+
+func die(user : ActiveFighter):
+	manager.turn_order.remove_at(manager.turn_order.find(self))
+	if alignment == Alignment.ally:
+		manager.active_allies.remove_at(manager.active_allies.find(self))
+	else:
+		manager.active_enemies.remove_at(manager.active_enemies.find(self))
+	print(name + " died")
+	if alignment == Alignment.enemy:
+		user.fighter.exp += fighter.exp_to_give
+		user.gained_exp.emit(fighter.exp_to_give)
+		print(user.name + " gained " + str(fighter.exp_to_give) + " exp")
+		manager.ui.on_transition("levelup")
+	
+	died.emit()
+	
+	free.call_deferred()
 	pass

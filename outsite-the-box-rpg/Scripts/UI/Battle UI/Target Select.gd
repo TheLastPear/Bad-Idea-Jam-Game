@@ -10,6 +10,7 @@ func enter():
 	is_active = true
 	get_child(0).show()
 	
+	targets.clear()
 	targets.append_array(battle_manager.active_enemies)
 	pass
 

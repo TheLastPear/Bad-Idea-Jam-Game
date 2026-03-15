@@ -8,8 +8,10 @@
 	"attack": 0,
 	"defense": 0,
 	"speed": 0,
-	"luck": 0
+	"luck": 0,
 }
+
+@export var exp_to_give : int
 
 func calculate_stats(level: int) -> Dictionary[String, int]:
 	var ret: Dictionary[String, int] = {}

@@ -1,5 +1,7 @@
 class_name BattleManager extends Node
 
+signal poll_level_up
+
 @export_group("Battle Settings")
 @export var battle_speed : int:
 	set(value):
@@ -9,6 +11,7 @@ class_name BattleManager extends Node
 @export var text_step : float
 
 @export_group("Variables")
+@export var is_battle_over := false
 @export var current_fighter : ActiveFighter
 @export var ally_data : Array[Fighter]
 @export var enemy_data : Array[Fighter]
@@ -27,13 +30,14 @@ var turn_order : Array[ActiveFighter]
 @export var char_positions : Array[Control]
 
 func _ready() -> void:
+	is_battle_over = false
+	
 	var a = 0
 	while a < active_allies.size():
 		if a < ally_data.size():
 			active_allies[a].fighter = ally_data[a]
-			active_allies[a].start_position = Vector2(150, 200 * (a + 1))
 		else:
-			active_allies[a].free()
+			active_allies[a].get_parent().free()
 			active_allies.remove_at(a)
 			continue
 		a += 1
@@ -43,9 +47,8 @@ func _ready() -> void:
 	while b < active_enemies.size():
 		if b < enemy_data.size():
 			active_enemies[b].fighter = enemy_data[b]
-			active_enemies[b].start_position = Vector2(1000, 200 * (b + 1))
 		else:
-			active_enemies[b].free()
+			active_enemies[b].get_parent().free()
 			active_enemies.remove_at(b)
 			continue
 		b += 1
@@ -71,6 +74,8 @@ func _ready() -> void:
 
 
 func planning_phase(index := turn_order.find(current_fighter)):
+	if is_battle_over: return
+	
 	if index == turn_order.size() - 1:
 		current_fighter = turn_order[0]
 	else:
@@ -90,18 +95,35 @@ func planning_phase(index := turn_order.find(current_fighter)):
 
 
 func attack_phase(action : Action, target : ActiveFighter):
+	if is_battle_over: return
+	
 	ui.on_transition("hidden")
 	await get_tree().create_timer(phase_transition_time).timeout
 	
 	current_fighter.do_action(action, target)
 	
-	var done = current_fighter.action_finished
-	await done
+	var action_done = current_fighter.action_finished
+	await action_done
+	
+	var level_up_done = $"../UI/GUI/LevelUp".done
+	poll_level_up.emit.call_deferred()
+	await level_up_done
 	
 	planning_phase()
 	pass
 
 
+func check_for_end():
+	if active_allies.size() == 0:
+		ui.on_transition("defeat")
+		is_battle_over = true
+	elif active_enemies.size() == 0:
+		ui.on_transition("victory")
+		is_battle_over = true
+	pass
+
+
+# Enemy AI
 func ai_choose_action() -> Action: # Expand the ai later
 	var options : Array[Action]
 	options.append(current_fighter.fighter.basic_attack)

@@ -69,6 +69,8 @@ signal level_up
 		stat_bonuses = v
 		assign_stats()
 
+@export var exp_to_give : int
+
 @export_group("Attacks")
 @export var basic_attack : Action
 @export var specials : Array[Action]
@@ -86,4 +88,6 @@ func assign_stats():
 	bp += new_stats["stamina"] - old_stats["stamina"]
 	
 	stats = new_stats
+	
+	exp_to_give = base_stats.exp_to_give * base_stats.stat_curve.sample(level)
 	pass
