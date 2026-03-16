@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Fighter" format=3 uid="uid://di088m71qpi21"]
+
+[ext_resource type="Resource" uid="uid://1e8jcdpkenx3" path="res://Resources/Fighters/Stats/Enemy Warrior.tres" id="1_cbafp"]
+[ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="1_x2aa3"]
+[ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="2_65jrp"]
+[ext_resource type="Resource" uid="uid://4bthpxwgofhy" path="res://Resources/Fighters/Actions/Basic Attack.tres" id="2_b3yre"]
+[ext_resource type="Resource" uid="uid://cmj6afvwaioec" path="res://Resources/Fighters/Actions/Slash.tres" id="4_8ndi0"]
+[ext_resource type="Resource" uid="uid://demy5ar885511" path="res://Resources/Fighters/Actions/Slam.tres" id="5_5ybec"]
+
+[resource]
+script = ExtResource("1_x2aa3")
+fighter_name = "Enemy Warrior"
+description = "Placeholder"
+base_stats = ExtResource("1_cbafp")
+level = 3
+basic_attack = ExtResource("2_b3yre")
+learnset = Dictionary[int, ExtResource("2_65jrp")]({
+1: ExtResource("4_8ndi0"),
+3: ExtResource("5_5ybec")
+})
+metadata/_custom_type_script = "uid://c0b5ljcpfxw1w"

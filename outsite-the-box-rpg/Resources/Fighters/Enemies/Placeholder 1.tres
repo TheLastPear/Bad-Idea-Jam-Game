@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="Fighter" format=3 uid="uid://bgpg8b6j7jkgk"]
+
+[ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="1_das13"]
+[ext_resource type="Resource" uid="uid://2yf0mjnytp06" path="res://Resources/Fighters/Stats/Enemy Tank.tres" id="1_gpuyi"]
+[ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="2_gpuyi"]
+[ext_resource type="Resource" uid="uid://4bthpxwgofhy" path="res://Resources/Fighters/Actions/Basic Attack.tres" id="2_lirgy"]
+[ext_resource type="Resource" uid="uid://yld7yuy0cu2j" path="res://Resources/Fighters/Actions/Bash.tres" id="4_w5tob"]
+[ext_resource type="Resource" uid="uid://demy5ar885511" path="res://Resources/Fighters/Actions/Slam.tres" id="5_16yqf"]
+
+[resource]
+script = ExtResource("1_das13")
+fighter_name = "Enemy Tank"
+description = "Placeholder"
+base_stats = ExtResource("1_gpuyi")
+level = 3
+basic_attack = ExtResource("2_lirgy")
+learnset = Dictionary[int, ExtResource("2_gpuyi")]({
+1: ExtResource("4_w5tob"),
+3: ExtResource("5_16yqf")
+})
+metadata/_custom_type_script = "uid://c0b5ljcpfxw1w"

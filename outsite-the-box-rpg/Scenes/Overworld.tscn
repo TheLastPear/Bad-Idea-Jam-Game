@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://byvdg3hfsmjk"]
+
+[ext_resource type="Script" uid="uid://ck0vdlpthvywd" path="res://Scripts/Overworld/Area Info.gd" id="1_7xrvl"]
+[ext_resource type="PackedScene" uid="uid://tqukpli0gp3h" path="res://Scenes/player.tscn" id="1_te3kf"]
+[ext_resource type="PackedScene" uid="uid://c0xlscaqb3lra" path="res://Scenes/Overworld Enemy.tscn" id="2_ctcok"]
+[ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="2_s7wd7"]
+[ext_resource type="Resource" uid="uid://bgpg8b6j7jkgk" path="res://Resources/Fighters/Enemies/Placeholder 1.tres" id="3_d6kyl"]
+[ext_resource type="Resource" uid="uid://di088m71qpi21" path="res://Resources/Fighters/Enemies/Placeholder 2.tres" id="4_7g7yc"]
+
+[node name="Node2D" type="Node2D" unique_id=1192634733]
+script = ExtResource("1_7xrvl")
+potential_enemies = Array[ExtResource("2_s7wd7")]([ExtResource("3_d6kyl"), ExtResource("4_7g7yc")])
+
+[node name="player" parent="." unique_id=1436684235 instance=ExtResource("1_te3kf")]
+position = Vector2(570, 500)
+
+[node name="Enemy" parent="." unique_id=769499427 node_paths=PackedStringArray("area_info") instance=ExtResource("2_ctcok")]
+position = Vector2(570, 170)
+area_info = NodePath("..")

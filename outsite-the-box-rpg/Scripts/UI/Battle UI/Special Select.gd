@@ -1,9 +1,13 @@
 class_name SpecialSelect extends State
 
+@export var on_next : AudioStreamPlayer
+@export var on_return : AudioStreamPlayer
+
 @export var target_state : State
 @export var buttons : Array[Button]
 var actions : Array[Action]
 var loaded_action
+
 
 func enter():
 	is_active = true
@@ -34,6 +38,7 @@ func assign_action(index : int):
 	transition.emit("targetselect")
 	$"../TargetSelect".loaded_action = actions[index]
 	$"../TargetSelect".previous_window = "specialselect"
+	on_next.play()
 	pass
 
 
@@ -42,4 +47,5 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("back"):
 		transition.emit("optionselect")
+		on_return.play()
 	pass

@@ -257,10 +257,8 @@ metadata/_custom_type_script = "uid://gv4gy7bmohl7"
 script = ExtResource("7_u5lwd")
 metadata/_custom_type_script = "uid://b773o4chb6rq"
 
-[node name="OptionSelect" type="Node" parent="UI/GUI" unique_id=2112399816 node_paths=PackedStringArray("on_next", "on_return")]
+[node name="OptionSelect" type="Node" parent="UI/GUI" unique_id=2112399816]
 script = ExtResource("7_nttxn")
-on_next = NodePath("../../../Audio/forward")
-on_return = NodePath("../../../Audio/back")
 metadata/_custom_type_script = "uid://c8cc3jmugwd40"
 
 [node name="Control" type="Control" parent="UI/GUI/OptionSelect" unique_id=1593086285]
@@ -310,10 +308,8 @@ View Summary: A key
 Item Select: C key
 Run: Q key"
 
-[node name="SpecialSelect" type="Node" parent="UI/GUI" unique_id=2098662280 node_paths=PackedStringArray("on_next", "on_return", "target_state")]
+[node name="SpecialSelect" type="Node" parent="UI/GUI" unique_id=2098662280 node_paths=PackedStringArray("target_state")]
 script = ExtResource("8_u5lwd")
-on_next = NodePath("../../../Audio/forward")
-on_return = NodePath("../../../Audio/back")
 target_state = NodePath("../TargetSelect")
 metadata/_custom_type_script = "uid://drv7mkwm7pj1g"
 
@@ -360,10 +356,8 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Back: R key"
 
-[node name="ItemSelect" type="Node" parent="UI/GUI" unique_id=663506840 node_paths=PackedStringArray("on_next", "on_return")]
+[node name="ItemSelect" type="Node" parent="UI/GUI" unique_id=663506840]
 script = ExtResource("9_dfi4p")
-on_next = NodePath("../../../Audio/forward")
-on_return = NodePath("../../../Audio/back")
 metadata/_custom_type_script = "uid://covbotdoocv2a"
 
 [node name="Control" type="Control" parent="UI/GUI/ItemSelect" unique_id=746483715]
@@ -409,10 +403,8 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Back: R key"
 
-[node name="TargetSelect" type="Node" parent="UI/GUI" unique_id=368278568 node_paths=PackedStringArray("on_next", "on_return", "battle_manager")]
+[node name="TargetSelect" type="Node" parent="UI/GUI" unique_id=368278568 node_paths=PackedStringArray("battle_manager")]
 script = ExtResource("10_yahm3")
-on_next = NodePath("../../../Audio/forward")
-on_return = NodePath("../../../Audio/back")
 battle_manager = NodePath("../../../Battle Manager")
 metadata/_custom_type_script = "uid://ksrrfg8nespk"
 
@@ -462,10 +454,8 @@ Select Target: D key
 Change Target:
 Up or Down key"
 
-[node name="AllySelect" type="Node" parent="UI/GUI" unique_id=1213257572 node_paths=PackedStringArray("on_next", "on_return", "battle_manager")]
+[node name="AllySelect" type="Node" parent="UI/GUI" unique_id=1213257572 node_paths=PackedStringArray("battle_manager")]
 script = ExtResource("11_1s3yx")
-on_next = NodePath("../../../Audio/forward")
-on_return = NodePath("../../../Audio/back")
 battle_manager = NodePath("../../../Battle Manager")
 metadata/_custom_type_script = "uid://cu3fde5oadtu6"
 
@@ -515,9 +505,8 @@ Select Target: D key
 Change Target:
 Up or Down key"
 
-[node name="SummaryView" type="Node" parent="UI/GUI" unique_id=1602715111 node_paths=PackedStringArray("on_return")]
+[node name="SummaryView" type="Node" parent="UI/GUI" unique_id=1602715111]
 script = ExtResource("13_dfi4p")
-on_return = NodePath("../../../Audio/back")
 metadata/_custom_type_script = "uid://h4a4ot22t1p1"
 
 [node name="Control" type="Control" parent="UI/GUI/SummaryView" unique_id=171783405]
@@ -563,9 +552,8 @@ layout_mode = 2
 size_flags_vertical = 0
 text = "Back: R key"
 
-[node name="LevelUp" type="Node" parent="UI/GUI" unique_id=390423655 node_paths=PackedStringArray("on_next")]
+[node name="LevelUp" type="Node" parent="UI/GUI" unique_id=390423655]
 script = ExtResource("15_u5lwd")
-on_next = NodePath("../../../Audio/forward")
 metadata/_custom_type_script = "uid://svsd3u7lru4x"
 
 [node name="Control" type="Control" parent="UI/GUI/LevelUp" unique_id=1412794307]
@@ -612,9 +600,8 @@ text = "Leveled Up!
 
 Press D or R"
 
-[node name="Victory" type="Node" parent="UI/GUI" unique_id=1518609935 node_paths=PackedStringArray("on_next")]
+[node name="Victory" type="Node" parent="UI/GUI" unique_id=1518609935]
 script = ExtResource("16_dfi4p")
-on_next = NodePath("../../../Audio/forward")
 metadata/_custom_type_script = "uid://c7dt77yn7kpfs"
 
 [node name="Control" type="Control" parent="UI/GUI/Victory" unique_id=1950448291]

@@ -36,6 +36,7 @@ func _ready() -> void:
 	while a < active_allies.size():
 		if a < ally_data.size():
 			active_allies[a].fighter = ally_data[a]
+			active_allies[a].fighter.level_up.connect(leveled_up)
 		else:
 			active_allies[a].get_parent().free()
 			active_allies.remove_at(a)
@@ -80,7 +81,7 @@ func planning_phase(index := turn_order.find(current_fighter)):
 		current_fighter = turn_order[0]
 	else:
 		current_fighter = turn_order[index + 1]
-	print(str(current_fighter.name) + "'s turn")
+	print(str(current_fighter.fighter.fighter_name) + "'s turn")
 	ui.current_fighter = current_fighter
 	
 	if current_fighter.alignment == ActiveFighter.Alignment.enemy:
@@ -105,7 +106,7 @@ func attack_phase(action : Action, target : ActiveFighter):
 	var action_done = current_fighter.action_finished
 	await action_done
 	
-	var level_up_done = $"../UI/GUI/LevelUp".done
+	var level_up_done = ui.states["levelup"].done
 	poll_level_up.emit.call_deferred()
 	await level_up_done
 	
@@ -114,6 +115,10 @@ func attack_phase(action : Action, target : ActiveFighter):
 
 
 func check_for_end():
+	var level_up_done = ui.states["levelup"].done
+	poll_level_up.emit.call_deferred()
+	await level_up_done
+	
 	if active_allies.size() == 0:
 		ui.on_transition("defeat")
 		is_battle_over = true
@@ -152,6 +157,13 @@ static func speed_ascending(a, b):
 
 
 # UI
+func leveled_up(old_stats, stats):
+	ui.on_transition("levelup")
+	ui.states["levelup"].old_stats = old_stats
+	ui.states["levelup"].new_stats = stats
+	pass
+
+
 func set_text(text : String, skip_char_time := false):
 	popup.text = text
 	

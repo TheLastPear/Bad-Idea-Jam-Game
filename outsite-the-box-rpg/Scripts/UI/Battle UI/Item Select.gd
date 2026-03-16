@@ -1,5 +1,8 @@
 class_name ItemSelect extends State
 
+@export var on_next : AudioStreamPlayer
+@export var on_return : AudioStreamPlayer
+
 @export var items : Array[InvItem]
 
 

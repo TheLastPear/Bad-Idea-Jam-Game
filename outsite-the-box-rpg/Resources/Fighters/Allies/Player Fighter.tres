@@ -3,9 +3,9 @@
 [ext_resource type="Resource" uid="uid://o3wxvq2pvf3u" path="res://Resources/Fighters/Stats/Player Stats.tres" id="1_gefgg"]
 [ext_resource type="Resource" uid="uid://cmj6afvwaioec" path="res://Resources/Fighters/Actions/Slash.tres" id="1_se8sy"]
 [ext_resource type="Resource" uid="uid://yld7yuy0cu2j" path="res://Resources/Fighters/Actions/Bash.tres" id="2_mrsvr"]
+[ext_resource type="Resource" uid="uid://4bthpxwgofhy" path="res://Resources/Fighters/Actions/Basic Attack.tres" id="2_xankg"]
 [ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="4_6bgf5"]
 [ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="4_mrsvr"]
-[ext_resource type="Resource" uid="uid://4bthpxwgofhy" path="res://Resources/Fighters/Actions/Player Basic Attack.tres" id="4_xankg"]
 
 [resource]
 resource_local_to_scene = true
@@ -13,6 +13,10 @@ script = ExtResource("4_mrsvr")
 fighter_name = "Player"
 description = "This is you"
 base_stats = ExtResource("1_gefgg")
-basic_attack = ExtResource("4_xankg")
-specials = Array[ExtResource("4_6bgf5")]([ExtResource("2_mrsvr"), ExtResource("1_se8sy")])
+level = 5
+basic_attack = ExtResource("2_xankg")
+learnset = Dictionary[int, ExtResource("4_6bgf5")]({
+2: ExtResource("1_se8sy"),
+5: ExtResource("2_mrsvr")
+})
 metadata/_custom_type_script = "uid://c1vcxghrix662"

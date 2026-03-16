@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Action" format=3 uid="uid://demy5ar885511"]
+
+[ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="1_pu7au"]
+
+[resource]
+script = ExtResource("1_pu7au")
+action_name = "Slam"
+description = "The user slams themself into the enemy"
+used_stamina = 3
+strength = 40
+metadata/_custom_type_script = "uid://cdj6bk5s6344v"

@@ -2,6 +2,11 @@ class_name LevelUp extends State
 
 signal done
 
+@export var on_next : AudioStreamPlayer
+
+var old_stats : Dictionary[String, int]
+var new_stats : Dictionary[String, int]
+
 func enter():
 	is_active = true
 	get_child(0).show()
@@ -20,6 +25,7 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("action") or event.is_action_pressed("back"):
 		transition.emit("hidden")
 		done.emit()
+		on_next.play()
 	pass
 
 

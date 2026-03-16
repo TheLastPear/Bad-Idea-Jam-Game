@@ -1,5 +1,8 @@
 class_name AllySelect extends State
 
+@export var on_next : AudioStreamPlayer
+@export var on_return : AudioStreamPlayer
+
 @export var battle_manager : BattleManager
 var loaded_action : Action
 var current_target : int
@@ -10,7 +13,11 @@ func enter():
 	is_active = true
 	get_child(0).show()
 	
+	targets.clear()
 	targets.append_array(battle_manager.active_allies)
+	
+	if current_target >= targets.size():
+		current_target = targets.size() - 1
 	pass
 
 
@@ -25,10 +32,10 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("action"):
 		battle_manager.attack_phase(loaded_action, targets[current_target]) # must pass the action and the target
-		
+		on_next.play()
 	elif event.is_action_pressed("back"):
 		transition.emit(previous_window)
-		
+		on_return.play()
 	elif event.is_action_pressed("movement_up"):
 		if current_target == 0:
 			current_target = targets.size() - 1

@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c0xlscaqb3lra"]
+
+[ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="1_kefi5"]
+[ext_resource type="Script" uid="uid://c7w0bigqpcbdq" path="res://Scripts/Overworld/Overworld Enemy.gd" id="1_v1aml"]
+[ext_resource type="Script" uid="uid://bc5u4dtuk0gos" path="res://Scripts/State Machine.gd" id="2_gmish"]
+[ext_resource type="Script" uid="uid://b4hsyo3ni6duy" path="res://Scripts/Overworld/Enemy Chase.gd" id="3_j8lde"]
+[ext_resource type="Script" uid="uid://bfof018l1ps4s" path="res://Scripts/Overworld/Enemy Idle.gd" id="4_d8et3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gmish"]
+size = Vector2(50, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aepba"]
+size = Vector2(60, 60)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=769499427]
+motion_mode = 1
+script = ExtResource("1_v1aml")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1711199434]
+scale = Vector2(0.390625, 0.390625)
+texture = ExtResource("1_kefi5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1724888068]
+shape = SubResource("RectangleShape2D_gmish")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1084739287]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=899803265]
+shape = SubResource("RectangleShape2D_aepba")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1613240547 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_gmish")
+initial_state = NodePath("EnemyIdle")
+metadata/_custom_type_script = "uid://bc5u4dtuk0gos"
+
+[node name="EnemyChase" type="Node" parent="StateMachine" unique_id=961626642 node_paths=PackedStringArray("this", "area")]
+script = ExtResource("3_j8lde")
+this = NodePath("../..")
+area = NodePath("../../Area2D")
+speed = 100
+sight_distance = 300
+spotted_delay = 0.5
+metadata/_custom_type_script = "uid://b4hsyo3ni6duy"
+
+[node name="EnemyIdle" type="Node" parent="StateMachine" unique_id=441758010 node_paths=PackedStringArray("this")]
+script = ExtResource("4_d8et3")
+this = NodePath("../..")
+sight_distance = 250
+speed = 50
+metadata/_custom_type_script = "uid://bfof018l1ps4s"

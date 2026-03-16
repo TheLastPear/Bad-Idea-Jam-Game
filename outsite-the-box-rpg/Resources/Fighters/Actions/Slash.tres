@@ -6,8 +6,6 @@
 script = ExtResource("1_n2w8t")
 action_name = "Slash"
 description = "The user swings a blade for little damage."
-type = null
-hits = null
+used_stamina = 2
 strength = 30
-heal = null
 metadata/_custom_type_script = "uid://cdj6bk5s6344v"

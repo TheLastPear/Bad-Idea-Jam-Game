@@ -5,16 +5,15 @@ signal level_up
 @export var fighter_name : String
 @export var description : String
 @export var base_stats : BaseStats
-@export var is_dead := false
+var is_dead := false
 
-@export_group("Stats")
-@export var hp : int:
+var hp : int:
 	set(v):
 		if v == hp: return
 		clampi(v, 0, stats["health"])
 		hp = v
 
-@export var bp : int:
+var bp : int:
 	set(v):
 		if v == bp: return
 		clampi(v, 0, stats["stamina"])
@@ -27,27 +26,14 @@ signal level_up
 		level = v
 		assign_stats()
 
-@export var exp := 0:
-	set(v):
-		if v == exp: return
-		clampi(v, 0, BattleMath.xp_curve.get_cumulative_xp(BattleMath.xp_curve.max_level) - BattleMath.xp_curve.get_cumulative_xp(level))
-		var can_level = true
-		while can_level == true:
-			if v >= next_exp:
-				v -= next_exp
-				level += 1
-				level_up.emit()
-				exp = v
-			else:
-				can_level = false
-				exp = v
+var xp := 0
 
-@export var next_exp : int:
+var next_exp : int:
 	get():
 		next_exp = BattleMath.xp_curve.get_xp_for_level(level + 1)
 		return next_exp
 
-@export var stats : Dictionary[String, int] = {
+var stats : Dictionary[String, int] = {
 	"health": 0,
 	"stamina": 0,
 	"attack": 0,
@@ -56,7 +42,7 @@ signal level_up
 	"luck": 0,
 }
 
-@export var stat_bonuses : Dictionary[String, int] = {
+var stat_bonuses : Dictionary[String, int] = {
 	"health": 0,
 	"stamina": 0,
 	"attack": 0,
@@ -69,12 +55,12 @@ signal level_up
 		stat_bonuses = v
 		assign_stats()
 
-@export var exp_to_give : int
+var exp_to_give : int
 
 @export_group("Attacks")
 @export var basic_attack : Action
-@export var specials : Array[Action]
-
+var specials : Array[Action]
+@export var learnset : Dictionary[int, Action]
 
 func assign_stats():
 	var old_stats := stats
@@ -89,5 +75,27 @@ func assign_stats():
 	
 	stats = new_stats
 	
-	exp_to_give = base_stats.exp_to_give * base_stats.stat_curve.sample(level)
+	exp_to_give = roundi(base_stats.exp_to_give * base_stats.stat_curve.sample(level))
+	
+	specials.clear()
+	for key in learnset:
+		if key <= level:
+			specials.append(learnset[key])
+		else: break
+	pass
+
+
+func gain_exp(value : int):
+	xp += value
+	
+	var old_stats := stats
+	
+	var can_level = true
+	while can_level == true:
+		if xp >= next_exp:
+			xp -= next_exp
+			level += 1
+			level_up.emit.call_deferred(old_stats, stats)
+		else:
+			can_level = false
 	pass

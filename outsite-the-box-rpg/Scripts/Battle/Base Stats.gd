@@ -1,6 +1,6 @@
 @tool class_name BaseStats extends Resource
 
-@export var stat_curve: Curve
+var stat_curve := preload("res://Scripts/Battle/Stat Curve.tres")
 
 @export var stats: Dictionary[String, int] = {
 	"health": 0,

@@ -6,6 +6,6 @@
 script = ExtResource("1_b10vh")
 action_name = "Bash"
 description = "The user hits the enemy with the pomel of their sword. Deals low damage, but is faster than most attacks."
+used_stamina = 2
 strength = 20
-speed = 1
 metadata/_custom_type_script = "uid://cdj6bk5s6344v"

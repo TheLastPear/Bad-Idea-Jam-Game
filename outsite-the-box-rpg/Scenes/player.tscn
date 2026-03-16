@@ -6,21 +6,22 @@
 [ext_resource type="PackedScene" uid="uid://dj18tqqq6ggk3" path="res://Scripts/inventory/inv_ui.tscn" id="3_fkybt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8od7v"]
-size = Vector2(105, 93.5)
+size = Vector2(55, 55)
 
 [node name="player" type="CharacterBody2D" unique_id=1436684235]
 script = ExtResource("1_6t5aa")
 inv = ExtResource("2_fkybt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1077020431]
-position = Vector2(0.5, 0.25)
 shape = SubResource("RectangleShape2D_8od7v")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=394707655]
-position = Vector2(3, -1)
+position = Vector2(-4.7683716e-07, -4.7683716e-07)
+scale = Vector2(0.4296875, 0.4296875)
 texture = ExtResource("2_vgqql")
 
 [node name="Inv_UI" parent="." unique_id=1598540736 instance=ExtResource("3_fkybt")]
+visible = false
 offset_left = -80.0
 offset_top = -149.0
 offset_right = 77.0

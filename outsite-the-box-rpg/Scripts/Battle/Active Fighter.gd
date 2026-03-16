@@ -29,8 +29,8 @@ func move_in():
 
 
 func do_action(action : Action, target : ActiveFighter):
-	print(name + " used " + action.action_name)
-	
+	fighter.bp -= action.used_stamina
+	print(fighter.fighter_name + " used " + action.action_name + ". Remaining stamina: " + str(fighter.bp))
 	var to_tween = get_tree().create_tween()
 	to_tween.tween_property(self, "global_position", Vector2(target.global_position.x + (150 * target.scale.x), target.global_position.y), manager.slide_speed)
 	await to_tween.finished
@@ -56,7 +56,7 @@ func take_damage(user : ActiveFighter, action : Action):
 		die(user)
 		return
 	
-	print(name + " took " + str(damage) + " damage. Remaining hp: " + str(fighter.hp))
+	print(fighter.fighter_name + " took " + str(damage) + " damage. Remaining hp: " + str(fighter.hp))
 	pass
 
 
@@ -68,10 +68,8 @@ func die(user : ActiveFighter):
 		manager.active_enemies.remove_at(manager.active_enemies.find(self))
 	print(name + " died")
 	if alignment == Alignment.enemy:
-		user.fighter.exp += fighter.exp_to_give
-		user.gained_exp.emit(fighter.exp_to_give)
+		user.fighter.gain_exp(fighter.exp_to_give)
 		print(user.name + " gained " + str(fighter.exp_to_give) + " exp")
-		manager.ui.on_transition("levelup")
 	
 	died.emit()
 	

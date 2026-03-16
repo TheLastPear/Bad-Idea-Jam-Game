@@ -1,5 +1,9 @@
 class_name OptionSelect extends State
 
+@export var on_next : AudioStreamPlayer
+@export var on_return : AudioStreamPlayer
+
+
 func enter():
 	is_active = true
 	get_child(0).show()
@@ -19,16 +23,17 @@ func _input(event: InputEvent) -> void:
 		transition.emit("targetselect")
 		$"../TargetSelect".loaded_action = controller.current_fighter.fighter.basic_attack
 		$"../TargetSelect".previous_window = "optionselect"
-		
+		on_next.play()
 	elif event.is_action_pressed("special_action"):
 		transition.emit("specialselect")
-		
+		on_next.play()
 	elif event.is_action_pressed("Inventory_open_close"):
 		transition.emit("itemselect")
-		
+		on_next.play()
 	elif event.is_action_pressed("view_party"):
 		transition.emit("summaryview")
-		
+		on_next.play()
 	elif event.is_action_pressed("run_away"):
+		on_return.play()
 		print("running")
 	pass

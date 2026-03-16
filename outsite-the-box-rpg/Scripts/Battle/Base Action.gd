@@ -9,6 +9,7 @@ enum Type {
 @export var action_name : String
 @export var description : String
 @export var type := Type.attack
+@export var used_stamina : int
 @export var hits := 1
 @export var strength := 0
 @export var heal := 0

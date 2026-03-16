@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BaseStats" format=3 uid="uid://1e8jcdpkenx3"]
+
+[ext_resource type="Script" uid="uid://c1vcxghrix662" path="res://Scripts/Battle/Base Stats.gd" id="1_tic6g"]
+
+[resource]
+script = ExtResource("1_tic6g")
+stats = Dictionary[String, int]({
+"attack": 3,
+"defense": 1,
+"health": 10,
+"luck": 2,
+"speed": 3,
+"stamina": 8
+})
+exp_to_give = 15
+metadata/_custom_type_script = "uid://c1vcxghrix662"
