@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 BattleMath="*uid://skb60l8yiyce"
+SceneLoader="*uid://o7joj6kuotqk"
 
 [display]
 

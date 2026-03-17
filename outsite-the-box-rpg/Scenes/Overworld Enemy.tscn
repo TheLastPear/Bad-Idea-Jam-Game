@@ -48,3 +48,5 @@ this = NodePath("../..")
 sight_distance = 250
 speed = 50
 metadata/_custom_type_script = "uid://bfof018l1ps4s"
+
+[connection signal="body_entered" from="Area2D" to="." method="on_area_enter"]

@@ -2,6 +2,7 @@ extends Node
 
 @export var area_info : AreaInfo
 @export var stored_enemies : Array[Fighter]
+@onready var player := $"/root/Node2D/player"
 
 
 func _ready() -> void:
@@ -20,4 +21,10 @@ func _ready() -> void:
 			for i in stored_enemies.size():
 				stored_enemies[i] = area_info.potential_enemies.pick_random()
 				pass
+	pass
+
+
+func on_area_enter(body : Node2D):
+	if body == player:
+		SceneLoader.load_scene("res://Scenes/Battle.tscn")
 	pass

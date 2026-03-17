@@ -25,9 +25,6 @@ func chase():
 		distance_to_player = (player.position - this.position).length()
 		var direction = this.position.direction_to(player.position)
 		this.move_and_collide(direction * speed * get_process_delta_time())
-		if area.overlaps_body(player):
-			caught_player = true
-			print("Battle start")
 		await get_tree().process_frame
 	
 	await get_tree().create_timer(spotted_delay).timeout
