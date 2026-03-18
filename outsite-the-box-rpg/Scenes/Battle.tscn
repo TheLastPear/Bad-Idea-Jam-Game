@@ -2,10 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0qpo0pbr1ulg" path="res://Scripts/Battle/Battle Manager.gd" id="1_6yjxy"]
 [ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
-[ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="2_qxnh6"]
 [ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
-[ext_resource type="Resource" uid="uid://bgpg8b6j7jkgk" path="res://Resources/Fighters/Enemies/Placeholder 1.tres" id="4_yahm3"]
-[ext_resource type="Resource" uid="uid://di088m71qpi21" path="res://Resources/Fighters/Enemies/Placeholder 2.tres" id="5_1s3yx"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="6_8teo4"]
 [ext_resource type="Script" uid="uid://gv4gy7bmohl7" path="res://Scripts/UI/Battle UI/Battle UI Manager.gd" id="6_nttxn"]
 [ext_resource type="Script" uid="uid://c8cc3jmugwd40" path="res://Scripts/UI/Battle UI/Option Select.gd" id="7_nttxn"]
@@ -68,8 +65,6 @@ script = ExtResource("1_6yjxy")
 battle_speed = 1
 slide_speed = 0.75
 text_step = 0.025
-ally_data = Array[ExtResource("2_qxnh6")]([ExtResource("2_vr6xi")])
-enemy_data = Array[ExtResource("2_qxnh6")]([ExtResource("4_yahm3"), ExtResource("5_1s3yx")])
 active_allies = [NodePath("Fighters/Ally Side/Ally1/ActiveAlly1"), NodePath("Fighters/Ally Side/Ally2/ActiveAlly2"), NodePath("Fighters/Ally Side/Ally3/ActiveAlly3"), NodePath("Fighters/Ally Side/Ally4/ActiveAlly4")]
 active_enemies = [NodePath("Fighters/Enemy Side/Enemy1/ActiveEnemy1"), NodePath("Fighters/Enemy Side/Enemy2/ActiveEnemy2"), NodePath("Fighters/Enemy Side/Enemy3/ActiveEnemy3"), NodePath("Fighters/Enemy Side/Enemy4/ActiveEnemy4")]
 ui = NodePath("../UI/GUI")

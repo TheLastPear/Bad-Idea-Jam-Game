@@ -13,6 +13,7 @@ func update_slots():
 	for i in range(min(inv.slots.size(), slots.size())):
 		slots[i].update(inv.slots[i])
 
+@warning_ignore("unused_parameter")
 func _process(delta):
 	if Input.is_action_just_pressed("Inventory_open_close"):
 		if is_open:

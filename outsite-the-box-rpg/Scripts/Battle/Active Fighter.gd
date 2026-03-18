@@ -2,6 +2,7 @@ class_name ActiveFighter extends Control
 
 signal has_slid_in
 signal action_finished
+@warning_ignore("unused_signal")
 signal gained_exp
 signal died
 

@@ -1,6 +1,5 @@
 extends Node
 
-signal progress_changed(progress : float)
 signal load_finished
 
 var loading_screen : PackedScene = preload("res://Scenes/loading_screen.tscn")

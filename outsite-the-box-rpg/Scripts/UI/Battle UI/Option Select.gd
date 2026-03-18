@@ -34,6 +34,7 @@ func _input(event: InputEvent) -> void:
 		transition.emit("summaryview")
 		on_next.play()
 	elif event.is_action_pressed("run_away"):
+		SceneLoader.load_scene(PlayerInfo.current_overworld_scene)
 		on_return.play()
 		print("running")
 	pass

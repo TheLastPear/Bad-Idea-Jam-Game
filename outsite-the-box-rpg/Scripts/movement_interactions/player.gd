@@ -4,6 +4,14 @@ extends CharacterBody2D
 
 @export var inv: Inv
 
+
+func _ready() -> void:
+	if !PlayerInfo.current_overworld_position:
+		PlayerInfo.current_overworld_position = position
+	
+	position = PlayerInfo.current_overworld_position
+
+
 func get_input():
 	var input_direction = Input.get_vector("movement_left","movement_right","movement_up","movement_down")
 	velocity = input_direction * speed

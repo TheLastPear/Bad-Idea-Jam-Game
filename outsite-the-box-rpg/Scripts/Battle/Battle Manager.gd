@@ -11,8 +11,8 @@ signal poll_level_up
 @export var text_step : float
 
 @export_group("Variables")
-@export var is_battle_over := false
-@export var current_fighter : ActiveFighter
+var is_battle_over := false
+var current_fighter : ActiveFighter
 @export var ally_data : Array[Fighter]
 @export var enemy_data : Array[Fighter]
 @export var active_allies : Array[ActiveFighter]
@@ -30,6 +30,12 @@ var turn_order : Array[ActiveFighter]
 @export var char_positions : Array[Control]
 
 func _ready() -> void:
+	if ally_data.size() == 0:
+		ally_data = PlayerInfo.party
+	
+	if enemy_data.size() == 0:
+		enemy_data = PlayerInfo.opposing_party
+	
 	is_battle_over = false
 	
 	var a = 0
@@ -124,6 +130,7 @@ func check_for_end():
 		is_battle_over = true
 	elif active_enemies.size() == 0:
 		ui.on_transition("victory")
+		PlayerInfo.area_enemies[PlayerInfo.opposing_overworld_enemy] = false
 		is_battle_over = true
 	pass
 
