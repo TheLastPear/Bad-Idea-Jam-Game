@@ -1,7 +1,7 @@
 class_name EnemyIdle extends State
 
 @export var this : CharacterBody2D
-@onready var player : CharacterBody2D = $"/root/Node2D/player"
+@onready var player : CharacterBody2D = $"/root/Base/player"
 @export var sight_distance : int
 @export var speed : int
 var spotted_player := false

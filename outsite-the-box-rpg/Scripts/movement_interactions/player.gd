@@ -4,6 +4,7 @@ extends CharacterBody2D
 
 @export var inv: Inv
 
+@export var camera : Camera2D
 
 func _ready() -> void:
 	if !PlayerInfo.current_overworld_position:

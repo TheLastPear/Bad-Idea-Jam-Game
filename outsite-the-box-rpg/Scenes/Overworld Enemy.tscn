@@ -28,9 +28,8 @@ shape = SubResource("RectangleShape2D_gmish")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=899803265]
 shape = SubResource("RectangleShape2D_aepba")
 
-[node name="StateMachine" type="Node" parent="." unique_id=1613240547 node_paths=PackedStringArray("initial_state")]
+[node name="StateMachine" type="Node" parent="." unique_id=1613240547]
 script = ExtResource("2_gmish")
-initial_state = NodePath("EnemyIdle")
 metadata/_custom_type_script = "uid://bc5u4dtuk0gos"
 
 [node name="EnemyChase" type="Node" parent="StateMachine" unique_id=961626642 node_paths=PackedStringArray("this", "area")]

@@ -2,7 +2,7 @@ class_name EnemyChase extends State
 
 @export var this : CharacterBody2D
 @export var area : Area2D
-@onready var player : CharacterBody2D = $"/root/Node2D/player"
+@onready var player : CharacterBody2D = $"/root/Base/player"
 @export var speed : int
 @export var sight_distance : int
 @export var spotted_delay : float

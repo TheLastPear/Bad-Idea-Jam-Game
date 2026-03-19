@@ -2,10 +2,14 @@ class_name OverworldEnemy extends Node2D
 
 @export var area_info : AreaInfo
 @export var stored_enemies : Array[Fighter]
-@onready var player : Node2D = $"/root/Node2D/player"
+@export var is_static := false
+@onready var player : Node2D = $"/root/Base/player"
 
 
 func _ready() -> void:
+	if !is_static:
+		$StateMachine.transition("enemyidle")
+	
 	if PlayerInfo.area_enemies.has(get_path()):
 		if PlayerInfo.area_enemies[get_path()] == false:
 			queue_free()

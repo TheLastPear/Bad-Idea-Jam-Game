@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b11nsxr3srgg3"]
+
+[ext_resource type="Script" uid="uid://csbt3gnffh5pg" path="res://Scripts/Overworld/Door.gd" id="1_38ogf"]
+
+[node name="Door" type="Node2D" unique_id=1605740744]
+script = ExtResource("1_38ogf")

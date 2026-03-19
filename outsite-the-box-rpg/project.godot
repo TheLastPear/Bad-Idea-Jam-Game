@@ -95,6 +95,10 @@ back={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Main"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
