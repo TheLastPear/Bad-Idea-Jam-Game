@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 BattleMath="*uid://skb60l8yiyce"
 SceneLoader="*uid://o7joj6kuotqk"
 PlayerInfo="*uid://c1uruy1o55n0x"
+LoadZoneKey="*uid://diwlohjmnhp58"
 
 [display]
 

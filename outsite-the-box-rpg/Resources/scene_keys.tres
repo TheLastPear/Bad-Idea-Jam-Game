@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SceneKeys" format=3 uid="uid://n0ip6c6hoqgl"]
+
+[ext_resource type="Script" uid="uid://bq0ca3thm6de" path="res://Scripts/Scene Keys.gd" id="1_gh1se"]
+
+[resource]
+script = ExtResource("1_gh1se")
+keys = Dictionary[NodePath, String]({
+NodePath("Environment/LoadingZone"): "res://Scenes/Test First Floor.tscn"
+})
+metadata/_custom_type_script = "uid://bq0ca3thm6de"

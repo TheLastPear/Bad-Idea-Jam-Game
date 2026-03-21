@@ -2,13 +2,14 @@ class_name EnemyChase extends State
 
 @export var this : CharacterBody2D
 @export var area : Area2D
-@onready var player : CharacterBody2D = $"/root/Base/player"
+@onready var player : CharacterBody2D
 @export var speed : int
 @export var sight_distance : int
 @export var spotted_delay : float
 var caught_player := false
 
 func enter():
+	player = this.player
 	await get_tree().create_timer(spotted_delay).timeout
 	chase()
 	pass

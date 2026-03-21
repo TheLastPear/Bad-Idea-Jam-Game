@@ -1,7 +1,7 @@
 class_name EnemyIdle extends State
 
 @export var this : CharacterBody2D
-@onready var player : CharacterBody2D = $"/root/Base/player"
+@onready var player : CharacterBody2D
 @export var sight_distance : int
 @export var speed : int
 var spotted_player := false
@@ -14,6 +14,7 @@ func _ready() -> void:
 
 
 func enter():
+	player = this.player
 	idle()
 	pass
 

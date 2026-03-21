@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://bku3km8xi482a"]
-
-[ext_resource type="Script" uid="uid://dyopmeq2231e5" path="res://Scripts/Overworld/Key.gd" id="1_og2wv"]
-
-[node name="Key" type="Node2D" unique_id=418707341]
-script = ExtResource("1_og2wv")

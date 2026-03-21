@@ -12,7 +12,7 @@ script = ExtResource("1_x2aa3")
 fighter_name = "Enemy Warrior"
 description = "Placeholder"
 base_stats = ExtResource("1_cbafp")
-level = 3
+level = 2
 basic_attack = ExtResource("2_b3yre")
 learnset = Dictionary[int, ExtResource("2_65jrp")]({
 1: ExtResource("4_8ndi0"),

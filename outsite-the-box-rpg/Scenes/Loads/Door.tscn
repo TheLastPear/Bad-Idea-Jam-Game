@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://b11nsxr3srgg3"]
+
+[ext_resource type="Script" uid="uid://csbt3gnffh5pg" path="res://Scripts/Overworld/Door.gd" id="1_38ogf"]
+[ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="2_ro51l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7a22"]
+size = Vector2(40, 40)
+
+[node name="Door" type="Node2D" unique_id=1605740744]
+script = ExtResource("1_38ogf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=60728260]
+position = Vector2(-9.536743e-07, -9.536743e-07)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("2_ro51l")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=958752172]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=10927133]
+shape = SubResource("RectangleShape2D_o7a22")

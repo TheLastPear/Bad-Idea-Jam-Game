@@ -4,6 +4,7 @@ signal load_finished
 
 var loading_screen : PackedScene = preload("res://Scenes/loading_screen.tscn")
 var loaded_resource : PackedScene
+var zone_to_exit : Node2D
 var scene_path : String
 var use_sub_threads : bool = true
 
