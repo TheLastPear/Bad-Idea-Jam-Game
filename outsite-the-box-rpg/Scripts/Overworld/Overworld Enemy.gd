@@ -45,8 +45,10 @@ func _ready() -> void:
 
 func on_area_enter(body : Node2D):
 	if body == player:
+		player.locked_movement = true
 		PlayerInfo.opposing_overworld_enemy = get_path()
 		PlayerInfo.opposing_party = stored_enemies
+		PlayerInfo.current_overworld_scene = get_tree().current_scene.scene_file_path
 		PlayerInfo.current_overworld_position = body.position
 		SceneLoader.load_scene("res://Scenes/Battle.tscn")
 	pass

@@ -8,6 +8,7 @@ func _ready() -> void:
 		position_smoothing_enabled = false
 		position = target.position
 		await get_tree().process_frame
+		await get_tree().process_frame
 		position_smoothing_enabled = true
 	pass
 

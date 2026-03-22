@@ -1,7 +1,7 @@
 @tool extends Node2D
 
 @export_range(1000, 9999, 1) var id = randi_range(1000, 9999)
-@onready var player : Node2D = $"/root/Base/player"
+@onready var player : Node2D = $"../../player"
 
 
 func _ready() -> void:
@@ -12,6 +12,7 @@ func _ready() -> void:
 			else:
 				await_open()
 	else:
+		print("Registered")
 		PlayerInfo.player_keys.get_or_add(id, [false, false])
 	pass
 

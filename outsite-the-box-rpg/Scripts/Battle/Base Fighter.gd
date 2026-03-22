@@ -86,6 +86,7 @@ func assign_stats():
 
 
 func gain_exp(value : int):
+	if level == XPCurve.max_level: return
 	xp += value
 	
 	var old_stats := stats
@@ -95,7 +96,10 @@ func gain_exp(value : int):
 		if xp >= next_exp:
 			xp -= next_exp
 			level += 1
-			level_up.emit.call_deferred(old_stats, stats)
 		else:
 			can_level = false
+	
+	if old_stats != stats:
+		level_up.emit.call_deferred(old_stats, stats)
+	
 	pass

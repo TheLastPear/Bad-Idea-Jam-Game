@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Outsite The Box RPG"
+run/main_scene="uid://byvdg3hfsmjk"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -99,6 +100,7 @@ back={
 [layer_names]
 
 2d_physics/layer_1="Main"
+2d_physics/layer_2="Interactable"
 
 [physics]
 

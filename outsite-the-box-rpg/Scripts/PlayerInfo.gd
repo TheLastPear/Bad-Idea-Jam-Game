@@ -1,6 +1,6 @@
 extends Node
 
-var current_overworld_scene := "res://Scenes/Overworld.tscn"
+var current_overworld_scene
 var current_overworld_position : Vector2
 var area_enemies : Dictionary[NodePath, bool]
 

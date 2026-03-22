@@ -1,10 +1,17 @@
 [gd_resource type="Resource" script_class="SceneKeys" format=3 uid="uid://n0ip6c6hoqgl"]
 
 [ext_resource type="Script" uid="uid://bq0ca3thm6de" path="res://Scripts/Scene Keys.gd" id="1_gh1se"]
+[ext_resource type="Script" uid="uid://wgxg5yhdrg5s" path="res://Scripts/SceneKey.gd" id="1_otaxl"]
+
+[sub_resource type="Resource" id="Resource_otaxl"]
+script = ExtResource("1_otaxl")
+key = Dictionary[NodePath, String]({
+NodePath("Environment/ToTestSecondFloor"): "res://Scenes/Test Second Floor.tscn",
+NodePath("Environment/ToTestFirstFloor"): "res://Scenes/Test First Floor.tscn"
+})
+metadata/_custom_type_script = "uid://wgxg5yhdrg5s"
 
 [resource]
 script = ExtResource("1_gh1se")
-keys = Dictionary[NodePath, String]({
-NodePath("Environment/LoadingZone"): "res://Scenes/Test First Floor.tscn"
-})
+keys = Array[ExtResource("1_otaxl")]([SubResource("Resource_otaxl")])
 metadata/_custom_type_script = "uid://bq0ca3thm6de"
