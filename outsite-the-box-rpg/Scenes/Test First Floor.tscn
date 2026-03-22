@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="15_ay7ew"]
 [ext_resource type="Script" uid="uid://ir4lrbbqg2st" path="res://Scripts/Overworld/Healpoint.gd" id="16_ay7ew"]
 [ext_resource type="Texture2D" uid="uid://cgc0hfwf1kdjg" path="res://Art/Placeholders/UI/Inventory ui placeholder.png" id="17_n7cpi"]
+[ext_resource type="PackedScene" uid="uid://cb6a5ykq42x4y" path="res://Scenes/Loads/status_window.tscn" id="18_n7cpi"]
 
 [sub_resource type="Resource" id="Resource_1q28a"]
 script = ExtResource("2_m4tog")
@@ -56,6 +57,7 @@ size = Vector2(40, 40)
 [node name="Test First Floor" type="Node2D" unique_id=1192634733]
 script = ExtResource("1_2lqub")
 potential_enemies = Array[ExtResource("2_m4tog")]([ExtResource("3_fp354"), ExtResource("4_ay7ew")])
+level_range = Array[int]([1, 2])
 
 [node name="player" parent="." unique_id=1436684235 instance=ExtResource("5_n7cpi")]
 position = Vector2(570, 500)
@@ -130,3 +132,8 @@ shape = SubResource("RectangleShape2D_x07gt")
 position = Vector2(-9.536743e-07, 0)
 scale = Vector2(0.06666668, 0.099999964)
 texture = ExtResource("17_n7cpi")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1559491196]
+layer = 5
+
+[node name="Status Window" parent="UI" unique_id=1166590265 instance=ExtResource("18_n7cpi")]

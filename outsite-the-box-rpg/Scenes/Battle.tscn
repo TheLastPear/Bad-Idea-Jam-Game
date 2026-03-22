@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://c0qpo0pbr1ulg" path="res://Scripts/Battle/Battle Manager.gd" id="1_6yjxy"]
 [ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
 [ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
+[ext_resource type="Resource" uid="uid://mm3mitsj0tnn" path="res://Scripts/inventory/items/place holder.tres" id="3_1s3yx"]
+[ext_resource type="Script" uid="uid://bwn8biixgvgiv" path="res://Scripts/inventory/inventory_item.gd" id="5_d13iw"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="6_8teo4"]
 [ext_resource type="Script" uid="uid://gv4gy7bmohl7" path="res://Scripts/UI/Battle UI/Battle UI Manager.gd" id="6_nttxn"]
 [ext_resource type="Script" uid="uid://c8cc3jmugwd40" path="res://Scripts/UI/Battle UI/Option Select.gd" id="7_nttxn"]
@@ -12,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="10_qxnh6"]
 [ext_resource type="Script" uid="uid://ksrrfg8nespk" path="res://Scripts/UI/Battle UI/Target Select.gd" id="10_yahm3"]
 [ext_resource type="Script" uid="uid://cu3fde5oadtu6" path="res://Scripts/UI/Battle UI/Ally Select.gd" id="11_1s3yx"]
-[ext_resource type="LabelSettings" uid="uid://bk3jhh880ci5g" path="res://Art/UI/Status Window Label Settings.tres" id="12_n5y6x"]
 [ext_resource type="AudioStream" uid="uid://c8p2hgemp031d" path="res://Art/Sound Effects/BattleUINeutral.ogg" id="12_tiokb"]
 [ext_resource type="AudioStream" uid="uid://b87qi0vtvxbra" path="res://Art/Sound Effects/BattleUIPositive.ogg" id="12_xmk5i"]
 [ext_resource type="AudioStream" uid="uid://b8ed2ciu6fw6j" path="res://Art/Sound Effects/BattleUINegative.ogg" id="13_0qgg5"]
@@ -20,35 +21,9 @@
 [ext_resource type="AudioStream" uid="uid://d1eegbmsc88yx" path="res://Art/Sound Effects/ShowMenu.ogg" id="13_tiokb"]
 [ext_resource type="Script" uid="uid://svsd3u7lru4x" path="res://Scripts/UI/Battle UI/Level Up.gd" id="15_u5lwd"]
 [ext_resource type="Script" uid="uid://c7dt77yn7kpfs" path="res://Scripts/UI/Battle UI/Victory.gd" id="16_dfi4p"]
+[ext_resource type="Script" uid="uid://dwqo3lfog1iu8" path="res://Scripts/UI/Battle UI/Got Item.gd" id="16_u5lwd"]
 [ext_resource type="Script" uid="uid://d4iqgfyg3hrvf" path="res://Scripts/UI/Battle UI/Defeat.gd" id="17_yahm3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jr0ro"]
-bg_color = Color(0.26293245, 0.26293248, 0.26293233, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xsll"]
-bg_color = Color(0.8495599, 3.2969565e-06, 1.540184e-06, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imcj7"]
-bg_color = Color(0.26293245, 0.26293248, 0.26293233, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7i387"]
-bg_color = Color(0, 0.5698662, 0.84269553, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
+[ext_resource type="PackedScene" uid="uid://cb6a5ykq42x4y" path="res://Scenes/Loads/status_window.tscn" id="20_yahm3"]
 
 [node name="Battle" type="Control" unique_id=624704362]
 layout_mode = 3
@@ -67,6 +42,7 @@ slide_speed = 0.75
 text_step = 0.025
 active_allies = [NodePath("Fighters/Ally Side/Ally1/ActiveAlly1"), NodePath("Fighters/Ally Side/Ally2/ActiveAlly2"), NodePath("Fighters/Ally Side/Ally3/ActiveAlly3"), NodePath("Fighters/Ally Side/Ally4/ActiveAlly4")]
 active_enemies = [NodePath("Fighters/Enemy Side/Enemy1/ActiveEnemy1"), NodePath("Fighters/Enemy Side/Enemy2/ActiveEnemy2"), NodePath("Fighters/Enemy Side/Enemy3/ActiveEnemy3"), NodePath("Fighters/Enemy Side/Enemy4/ActiveEnemy4")]
+potential_items = Array[ExtResource("5_d13iw")]([ExtResource("3_1s3yx")])
 ui = NodePath("../UI/GUI")
 
 [node name="Fighters" type="Control" parent="Battle Manager" unique_id=1026806911]
@@ -235,7 +211,6 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
 [node name="UI" type="Control" parent="." unique_id=2013751011]
-visible = false
 z_index = 10
 layout_mode = 1
 anchors_preset = 15
@@ -654,6 +629,53 @@ layout_mode = 2
 size_flags_vertical = 1
 text = "You Won!"
 
+[node name="GotItem" type="Node" parent="UI/GUI" unique_id=448954314 node_paths=PackedStringArray("label", "on_next")]
+script = ExtResource("16_u5lwd")
+label = NodePath("Control/NinePatchRect/MarginContainer/Label")
+on_next = NodePath("../../../Audio/forward")
+metadata/_custom_type_script = "uid://dwqo3lfog1iu8"
+
+[node name="Control" type="Control" parent="UI/GUI/GotItem" unique_id=1966589751]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/GotItem/Control" unique_id=416100633]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -75.0
+offset_top = 350.0
+offset_right = 95.0
+offset_bottom = 550.0
+grow_horizontal = 2
+texture = ExtResource("10_qxnh6")
+patch_margin_left = 4
+patch_margin_top = 4
+patch_margin_right = 4
+patch_margin_bottom = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/GotItem/Control/NinePatchRect" unique_id=1958238843]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="UI/GUI/GotItem/Control/NinePatchRect/MarginContainer" unique_id=171919317]
+layout_mode = 2
+size_flags_vertical = 1
+
 [node name="Defeat" type="Node" parent="UI/GUI" unique_id=339833374]
 script = ExtResource("17_yahm3")
 metadata/_custom_type_script = "uid://d4iqgfyg3hrvf"
@@ -700,194 +722,8 @@ layout_mode = 2
 size_flags_vertical = 1
 text = "You Lost"
 
-[node name="Status Window" type="VBoxContainer" parent="UI" unique_id=1363246495]
+[node name="Status Window" parent="UI" unique_id=1166590265 instance=ExtResource("20_yahm3")]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -150.0
-offset_bottom = 304.0
-grow_horizontal = 0
-
-[node name="Fighter Status" type="HBoxContainer" parent="UI/Status Window" unique_id=2079664989]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="UI/Status Window/Fighter Status" unique_id=924871697]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("6_8teo4")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Status Window/Fighter Status" unique_id=1728995063]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status/VBoxContainer" unique_id=177442055]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
-theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="UI/Status Window/Fighter Status/VBoxContainer" unique_id=460739953]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Health"
-label_settings = ExtResource("12_n5y6x")
-
-[node name="SP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status/VBoxContainer" unique_id=1290262329]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
-theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label2" type="Label" parent="UI/Status Window/Fighter Status/VBoxContainer" unique_id=1247560104]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Stamina"
-label_settings = ExtResource("12_n5y6x")
-
-[node name="Fighter Status2" type="HBoxContainer" parent="UI/Status Window" unique_id=1955800950]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="UI/Status Window/Fighter Status2" unique_id=963107601]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("6_8teo4")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Status Window/Fighter Status2" unique_id=575514688]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status2/VBoxContainer" unique_id=1828245084]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
-theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="UI/Status Window/Fighter Status2/VBoxContainer" unique_id=1352630017]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Health"
-label_settings = ExtResource("12_n5y6x")
-
-[node name="SP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status2/VBoxContainer" unique_id=480379741]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
-theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label2" type="Label" parent="UI/Status Window/Fighter Status2/VBoxContainer" unique_id=392479565]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Stamina"
-label_settings = ExtResource("12_n5y6x")
-
-[node name="Fighter Status3" type="HBoxContainer" parent="UI/Status Window" unique_id=538079298]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="UI/Status Window/Fighter Status3" unique_id=1461078610]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("6_8teo4")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Status Window/Fighter Status3" unique_id=868212230]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status3/VBoxContainer" unique_id=30378964]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
-theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="UI/Status Window/Fighter Status3/VBoxContainer" unique_id=669170901]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Health"
-label_settings = ExtResource("12_n5y6x")
-
-[node name="SP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status3/VBoxContainer" unique_id=602128236]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
-theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label2" type="Label" parent="UI/Status Window/Fighter Status3/VBoxContainer" unique_id=1844881309]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Stamina"
-label_settings = ExtResource("12_n5y6x")
-
-[node name="Fighter Status4" type="HBoxContainer" parent="UI/Status Window" unique_id=1316004644]
-layout_mode = 2
-size_flags_vertical = 0
-
-[node name="TextureRect" type="TextureRect" parent="UI/Status Window/Fighter Status4" unique_id=719849618]
-layout_mode = 2
-size_flags_horizontal = 3
-texture = ExtResource("6_8teo4")
-expand_mode = 5
-stretch_mode = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="UI/Status Window/Fighter Status4" unique_id=1047049486]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="HP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status4/VBoxContainer" unique_id=2107996125]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
-theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label" type="Label" parent="UI/Status Window/Fighter Status4/VBoxContainer" unique_id=1738609565]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Health"
-label_settings = ExtResource("12_n5y6x")
-
-[node name="SP Bar" type="ProgressBar" parent="UI/Status Window/Fighter Status4/VBoxContainer" unique_id=274793007]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
-theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
-step = 1.0
-value = 50.0
-show_percentage = false
-
-[node name="Label2" type="Label" parent="UI/Status Window/Fighter Status4/VBoxContainer" unique_id=217794012]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Stamina"
-label_settings = ExtResource("12_n5y6x")
 
 [node name="Audio" type="Node" parent="." unique_id=1880107458]
 

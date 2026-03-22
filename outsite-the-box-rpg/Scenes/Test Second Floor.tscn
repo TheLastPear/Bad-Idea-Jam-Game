@@ -12,6 +12,7 @@
 [ext_resource type="TileSet" uid="uid://cw5jwxplha2b0" path="res://Art/Placeholders/Placeholder Tileset.tres" id="10_xuf1h"]
 [ext_resource type="Script" uid="uid://dyopmeq2231e5" path="res://Scripts/Overworld/Key.gd" id="11_5pctc"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="12_eg3b3"]
+[ext_resource type="PackedScene" uid="uid://cb6a5ykq42x4y" path="res://Scenes/Loads/status_window.tscn" id="13_eg3b3"]
 
 [sub_resource type="Resource" id="Resource_5ukm8"]
 script = ExtResource("4_kfokb")
@@ -113,3 +114,8 @@ texture = ExtResource("12_eg3b3")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Key" unique_id=494227089]
 shape = SubResource("RectangleShape2D_kyvvr")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=510652366]
+layer = 5
+
+[node name="Status Window" parent="UI" unique_id=1166590265 instance=ExtResource("13_eg3b3")]

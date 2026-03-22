@@ -1,10 +1,12 @@
 class_name Fighter extends Resource
 
 signal level_up
+signal status_update
 
 @export var fighter_name : String
 @export var description : String
 @export var base_stats : BaseStats
+var status_ui : Control
 var is_dead := false
 
 var hp : int:
@@ -12,12 +14,20 @@ var hp : int:
 		if v == hp: return
 		clampi(v, 0, stats["health"])
 		hp = v
+		if status_ui:
+			if !status_update.is_connected(status_ui.update_status):
+				status_update.connect(status_ui.update_status)
+			status_update.emit()
 
 var bp : int:
 	set(v):
 		if v == bp: return
 		clampi(v, 0, stats["stamina"])
 		bp = v
+		if status_ui:
+			if !status_update.is_connected(status_ui.update_status):
+				status_update.connect(status_ui.update_status)
+			status_update.emit()
 
 @export var level := 1:
 	set(v):
@@ -61,6 +71,7 @@ var exp_to_give : int
 @export var basic_attack : Action
 var specials : Array[Action]
 @export var learnset : Dictionary[int, Action]
+
 
 func assign_stats():
 	var old_stats := stats

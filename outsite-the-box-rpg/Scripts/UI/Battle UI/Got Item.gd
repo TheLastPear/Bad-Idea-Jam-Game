@@ -1,7 +1,8 @@
-class_name Victory extends State
+class_name GotItem extends State
 
 signal done
 
+@export var label : Label
 @export var on_next : AudioStreamPlayer
 
 func enter():

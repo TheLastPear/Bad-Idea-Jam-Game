@@ -17,6 +17,8 @@ enum Alignment {
 
 
 func move_in():
+	fighter.status_ui = $/root.get_child(-1).get_node("UI/Status Window")
+	
 	fighter.assign_stats()
 	died.connect(manager.check_for_end)
 	

@@ -1,0 +1,225 @@
+[gd_scene format=3 uid="uid://cb6a5ykq42x4y"]
+
+[ext_resource type="Script" uid="uid://blkym4v8tjhw3" path="res://Scripts/UI/status_window.gd" id="1_2n2w3"]
+[ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="2_vcwx7"]
+[ext_resource type="LabelSettings" uid="uid://bk3jhh880ci5g" path="res://Art/UI/Status Window Label Settings.tres" id="3_hk7sp"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jr0ro"]
+bg_color = Color(0.26293245, 0.26293248, 0.26293233, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6xsll"]
+bg_color = Color(0.8495599, 3.2969565e-06, 1.540184e-06, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imcj7"]
+bg_color = Color(0.26293245, 0.26293248, 0.26293233, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7i387"]
+bg_color = Color(0, 0.5698662, 0.84269553, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Status Window" type="VBoxContainer" unique_id=1166590265]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -170.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 360.0
+grow_horizontal = 0
+theme_override_constants/separation = 16
+script = ExtResource("1_2n2w3")
+
+[node name="Fighter Status" type="HBoxContainer" parent="." unique_id=639087903]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Fighter Status" unique_id=1393181077]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_vcwx7")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fighter Status" unique_id=347014435]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HP Bar" type="ProgressBar" parent="Fighter Status/VBoxContainer" unique_id=1050427947]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Fighter Status/VBoxContainer" unique_id=1934495376]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Health"
+label_settings = ExtResource("3_hk7sp")
+
+[node name="SP Bar" type="ProgressBar" parent="Fighter Status/VBoxContainer" unique_id=642000798]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="Fighter Status/VBoxContainer" unique_id=1060229097]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Stamina"
+label_settings = ExtResource("3_hk7sp")
+
+[node name="Fighter Status2" type="HBoxContainer" parent="." unique_id=2134158327]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Fighter Status2" unique_id=190321560]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_vcwx7")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fighter Status2" unique_id=1543140242]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HP Bar" type="ProgressBar" parent="Fighter Status2/VBoxContainer" unique_id=1276084747]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Fighter Status2/VBoxContainer" unique_id=1769285861]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Health"
+label_settings = ExtResource("3_hk7sp")
+
+[node name="SP Bar" type="ProgressBar" parent="Fighter Status2/VBoxContainer" unique_id=126871042]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="Fighter Status2/VBoxContainer" unique_id=931779162]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Stamina"
+label_settings = ExtResource("3_hk7sp")
+
+[node name="Fighter Status3" type="HBoxContainer" parent="." unique_id=972614564]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Fighter Status3" unique_id=1080604692]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_vcwx7")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fighter Status3" unique_id=1767876514]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HP Bar" type="ProgressBar" parent="Fighter Status3/VBoxContainer" unique_id=166310436]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Fighter Status3/VBoxContainer" unique_id=1843707286]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Health"
+label_settings = ExtResource("3_hk7sp")
+
+[node name="SP Bar" type="ProgressBar" parent="Fighter Status3/VBoxContainer" unique_id=384610345]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="Fighter Status3/VBoxContainer" unique_id=1414958294]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Stamina"
+label_settings = ExtResource("3_hk7sp")
+
+[node name="Fighter Status4" type="HBoxContainer" parent="." unique_id=2125001465]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="Fighter Status4" unique_id=774841850]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_vcwx7")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Fighter Status4" unique_id=174898234]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HP Bar" type="ProgressBar" parent="Fighter Status4/VBoxContainer" unique_id=945872938]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_jr0ro")
+theme_override_styles/fill = SubResource("StyleBoxFlat_6xsll")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="Fighter Status4/VBoxContainer" unique_id=569509836]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Health"
+label_settings = ExtResource("3_hk7sp")
+
+[node name="SP Bar" type="ProgressBar" parent="Fighter Status4/VBoxContainer" unique_id=478160228]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/background = SubResource("StyleBoxFlat_imcj7")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7i387")
+step = 1.0
+value = 50.0
+show_percentage = false
+
+[node name="Label2" type="Label" parent="Fighter Status4/VBoxContainer" unique_id=728739450]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Stamina"
+label_settings = ExtResource("3_hk7sp")

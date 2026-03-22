@@ -3,10 +3,7 @@ class_name BattleManager extends Node
 signal poll_level_up
 
 @export_group("Battle Settings")
-@export var battle_speed : int:
-	set(value):
-		clampi(value, 1, 2)
-		battle_speed = value
+@export_range(1, 2, 1) var battle_speed : int
 @export var slide_speed : float
 @export var text_step : float
 
@@ -17,7 +14,9 @@ var current_fighter : ActiveFighter
 @export var enemy_data : Array[Fighter]
 @export var active_allies : Array[ActiveFighter]
 @export var active_enemies : Array[ActiveFighter]
+@export var potential_items : Array[InvItem]
 var turn_order : Array[ActiveFighter]
+var item_chance := 4
 
 @export_group("Wait times")
 @export var init_wait_time : float = 1
@@ -132,6 +131,17 @@ func check_for_end():
 		ui.on_transition("victory")
 		PlayerInfo.area_enemies[PlayerInfo.opposing_overworld_enemy] = false
 		is_battle_over = true
+		
+		var victory_done = ui.states["victory"].done
+		await victory_done
+		
+		if randi_range(1, item_chance) == 1:
+			ui.on_transition("gotitem")
+			ui.states["gotitem"].label.text = "You got a " + potential_items.pick_random().name + "!"
+			var gotitem_done = ui.states["gotitem"].done
+			await gotitem_done
+		
+		SceneLoader.load_scene(PlayerInfo.current_overworld_scene)
 	pass
 
 
