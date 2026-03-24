@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bq4udlx5h3vg7"]
 
-[ext_resource type="Script" uid="uid://plgpn0jsii6i" path="res://Scripts/Interactable.gd" id="1_76jvo"]
+[ext_resource type="Script" uid="uid://plgpn0jsii6i" path="res://Scripts/Overworld/Interactable.gd" id="1_76jvo"]
 [ext_resource type="Texture2D" uid="uid://cgc0hfwf1kdjg" path="res://Art/Placeholders/UI/Inventory ui placeholder.png" id="2_x07gt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x07gt"]

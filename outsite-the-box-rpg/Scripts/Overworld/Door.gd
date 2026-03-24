@@ -5,6 +5,7 @@
 
 
 func _ready() -> void:
+	if !can_process(): return
 	if PlayerInfo.player_keys.has(id):
 		if PlayerInfo.player_keys[id]:
 			if PlayerInfo.player_keys[id][1]:
@@ -12,7 +13,6 @@ func _ready() -> void:
 			else:
 				await_open()
 	else:
-		print("Registered")
 		PlayerInfo.player_keys.get_or_add(id, [false, false])
 	pass
 

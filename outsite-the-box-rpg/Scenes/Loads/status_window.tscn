@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://blkym4v8tjhw3" path="res://Scripts/UI/status_window.gd" id="1_2n2w3"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="2_vcwx7"]
-[ext_resource type="LabelSettings" uid="uid://bk3jhh880ci5g" path="res://Art/UI/Status Window Label Settings.tres" id="3_hk7sp"]
+[ext_resource type="LabelSettings" uid="uid://bk3jhh880ci5g" path="res://Art/UI/Themes/Status Window Label Settings.tres" id="3_hk7sp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jr0ro"]
 bg_color = Color(0.26293245, 0.26293248, 0.26293233, 1)

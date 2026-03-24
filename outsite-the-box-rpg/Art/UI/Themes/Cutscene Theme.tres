@@ -1,0 +1,7 @@
+[gd_resource type="Theme" format=3 uid="uid://cjgaq40gtcmtr"]
+
+[resource]
+MarginContainer/constants/margin_bottom = 40
+MarginContainer/constants/margin_left = 150
+MarginContainer/constants/margin_right = 150
+MarginContainer/constants/margin_top = 40
