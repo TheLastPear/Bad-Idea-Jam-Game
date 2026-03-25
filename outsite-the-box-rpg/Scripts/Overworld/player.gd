@@ -10,8 +10,6 @@ signal interact
 
 @onready var ray : RayCast2D = $"RayCast2D"
 
-var locked_movement := false
-
 func _ready() -> void:
 	if !PlayerInfo.current_overworld_position:
 		PlayerInfo.current_overworld_position = position
@@ -35,7 +33,7 @@ func get_input():
 				interact.emit(other)
 
 func _physics_process(_delta):
-	if !locked_movement:
+	if !PlayerInfo.is_world_frozen:
 		get_input()
 	else:
 		velocity = Vector2.ZERO

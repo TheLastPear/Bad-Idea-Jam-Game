@@ -31,7 +31,6 @@ func zone_enter(body : Node2D, emitter : Node2D):
 	var this_key
 	if body.name == "player":
 		var player = $/root.get_child(-1).get_node("player")
-		player.locked_movement = true
 		for key in keys:
 			for path in key.key:
 				if path == emitter_path:

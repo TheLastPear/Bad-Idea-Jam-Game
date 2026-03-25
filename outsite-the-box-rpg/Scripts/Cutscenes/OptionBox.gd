@@ -1,24 +1,40 @@
-extends Control
+@tool extends Control
 
 signal next
+signal on_choose(option : String)
 
 @export var speaker : Texture2D
 @export var collucuter : Texture2D
 @export_enum("MC", "Sister", "Letter from Mom") var speaker_name : String
 @export var text : String
-@export var text_speed : float = 0.1
+@export var options : Dictionary[String, Node]
+@export var text_speed := 0.1
 @onready var name_text : Label = $MarginContainer/VBoxContainer/HBoxContainer/SpeakerName
 @onready var dialogue_text : Label = $MarginContainer/VBoxContainer/Dialogue
+@onready var options_parent = $MarginContainer/VBoxContainer/HBoxContainer2
 @onready var manager = get_parent()
 
+var selected_option = 0
 var is_active := false
 var was_skipped := false
 var can_advance := false
 
 func start():
 	is_active = true
+	
 	if !next.is_connected(manager.next_node):
 		next.connect(manager.next_node)
+	
+	var labels = options_parent.get_children() as Array[Label]
+	for i in options.keys().size():
+		if i > labels.size():
+			var label = Label.new()
+			options_parent.add_child(label)
+			labels.append(label)
+			label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		labels[i].text = options.keys()[i]
+		labels[i].hide()
+	
 	show()
 	handle_text()
 	pass
@@ -45,15 +61,26 @@ func handle_text():
 	
 	can_advance = true
 	dialogue_text.visible_characters = -1
+	
+	for child in options_parent.get_children():
+		child.show()
 	pass
 
 
 func _input(event: InputEvent) -> void:
 	if !is_active: return
 	
-	if event.is_action_pressed("action") or event.is_action_pressed("back"):
+	if event.is_action_pressed("movement_left"):
+		selected_option = Utils.subtract_and_wrap(selected_option, -1, options.keys().size() - 1)
+		print(selected_option)
+	elif event.is_action_pressed("movement_right"):
+		selected_option = Utils.add_and_wrap(selected_option, options.keys().size(), 0)
+		print(selected_option)
+	
+	if event.is_action_pressed("action"):
 		if can_advance:
-			next.emit(self)
+			on_choose.emit(options.keys()[selected_option])
+			next.emit(self, options[options.keys()[selected_option]])
 		else:
 			was_skipped = true
 	pass

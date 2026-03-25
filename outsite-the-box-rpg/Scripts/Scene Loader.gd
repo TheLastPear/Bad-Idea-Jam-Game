@@ -15,6 +15,7 @@ func _ready() -> void:
 
 
 func load_scene(new_scene_path : String) -> void:
+	PlayerInfo.is_world_frozen = true
 	scene_path = new_scene_path
 	
 	var new_loading_screen = loading_screen.instantiate()
@@ -43,5 +44,6 @@ func _process(delta: float) -> void:
 			loaded_resource = ResourceLoader.load_threaded_get(scene_path)
 			get_tree().change_scene_to_packed(loaded_resource)
 			load_finished.emit()
+			PlayerInfo.is_world_frozen = false
 			$"../LoadZoneKey".prepare_zones()
 	pass

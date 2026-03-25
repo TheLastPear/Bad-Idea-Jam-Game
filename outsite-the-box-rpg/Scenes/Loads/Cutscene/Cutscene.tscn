@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://clphjosesoijw"]
+
+[ext_resource type="Script" uid="uid://bh6rffaiukr2b" path="res://Scripts/Cutscenes/Cutscene.gd" id="1_6r3tt"]
+[ext_resource type="PackedScene" uid="uid://b1t730gdi03w5" path="res://Scenes/Loads/Cutscene/AdvanceBox.tscn" id="2_oasr8"]
+[ext_resource type="PackedScene" uid="uid://cf4oh81eg5p0n" path="res://Scenes/Loads/Cutscene/OptionBox.tscn" id="3_wt1p7"]
+
+[node name="Cutscene" type="Node" unique_id=1539740746]
+script = ExtResource("1_6r3tt")
+
+[node name="AdvanceBox" parent="." unique_id=602879474 instance=ExtResource("2_oasr8")]
+visible = false
+speaker_name = "MC"
+text = "Hello!"
+
+[node name="OptionBox" parent="." unique_id=1800522216 node_paths=PackedStringArray("options") instance=ExtResource("3_wt1p7")]
+visible = false
+speaker_name = "Sister"
+text = "DO YOU LIKE IT WHEN I TALK REALLY FAST AND LOUD!?!?!?!?!?!?"
+options = {
+"No": null,
+"Yes": null
+}
+text_speed = 0.025

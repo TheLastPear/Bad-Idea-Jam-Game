@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dutwkm5hm4jth"]
+
+[ext_resource type="Script" uid="uid://dmmhsqgs7bo71" path="res://Scripts/Cutscenes/CutsceneAction.gd" id="1_lo48g"]
+[ext_resource type="Script" uid="uid://jdoamclgt4cb" path="res://Scripts/TweenNode.gd" id="1_prhnw"]
+
+[node name="CutsceneAction" type="Control" unique_id=1716008379]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lo48g")
+
+[node name="TweenNode" type="Node" parent="." unique_id=1189044062]
+script = ExtResource("1_prhnw")
+metadata/_custom_type_script = "uid://jdoamclgt4cb"

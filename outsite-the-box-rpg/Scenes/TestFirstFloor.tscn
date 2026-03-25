@@ -17,9 +17,13 @@
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="15_ay7ew"]
 [ext_resource type="Script" uid="uid://ir4lrbbqg2st" path="res://Scripts/Overworld/Healpoint.gd" id="16_ay7ew"]
 [ext_resource type="Texture2D" uid="uid://cgc0hfwf1kdjg" path="res://Art/Placeholders/UI/Inventory ui placeholder.png" id="17_n7cpi"]
+[ext_resource type="PackedScene" uid="uid://dvfpwp4kv1puh" path="res://Scenes/Loads/Sister.tscn" id="18_gr0sk"]
 [ext_resource type="PackedScene" uid="uid://cb6a5ykq42x4y" path="res://Scenes/Loads/status_window.tscn" id="18_n7cpi"]
 [ext_resource type="Script" uid="uid://bh6rffaiukr2b" path="res://Scripts/Cutscenes/Cutscene.gd" id="19_w4ur3"]
+[ext_resource type="PackedScene" uid="uid://cf4oh81eg5p0n" path="res://Scenes/Loads/Cutscene/OptionBox.tscn" id="20_kwnse"]
 [ext_resource type="PackedScene" uid="uid://b1t730gdi03w5" path="res://Scenes/Loads/Cutscene/AdvanceBox.tscn" id="20_rwy0f"]
+[ext_resource type="Script" uid="uid://dmmhsqgs7bo71" path="res://Scripts/Cutscenes/CutsceneAction.gd" id="21_narkk"]
+[ext_resource type="Script" uid="uid://jdoamclgt4cb" path="res://Scripts/TweenNode.gd" id="22_03cbu"]
 
 [sub_resource type="Resource" id="Resource_1q28a"]
 script = ExtResource("2_m4tog")
@@ -62,7 +66,7 @@ potential_enemies = Array[ExtResource("2_m4tog")]([ExtResource("3_fp354"), ExtRe
 level_range = Array[int]([1, 2])
 
 [node name="player" parent="." unique_id=1436684235 instance=ExtResource("5_n7cpi")]
-position = Vector2(570, 500)
+position = Vector2(800, 554)
 speed = 250
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=141939652 node_paths=PackedStringArray("target")]
@@ -119,11 +123,12 @@ position = Vector2(1344, -124)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/ToTestSecondFloor/Area2D" unique_id=149111750]
 shape = SubResource("RectangleShape2D_3aq3e")
 
-[node name="Healpoint" type="StaticBody2D" parent="Environment" unique_id=1642036024 node_paths=PackedStringArray("player")]
+[node name="Healpoint" type="StaticBody2D" parent="Environment" unique_id=1642036024 node_paths=PackedStringArray("cutscene", "player")]
 position = Vector2(951, 480)
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("16_ay7ew")
+cutscene = NodePath("../../UI/Cutscenes/Heal")
 player = NodePath("../../player")
 metadata/_custom_type_script = "uid://plgpn0jsii6i"
 
@@ -134,6 +139,11 @@ shape = SubResource("RectangleShape2D_x07gt")
 position = Vector2(-9.536743e-07, 0)
 scale = Vector2(0.06666668, 0.099999964)
 texture = ExtResource("17_n7cpi")
+
+[node name="Sister" parent="Environment" unique_id=55862111 node_paths=PackedStringArray("cutscene_to_play", "player") instance=ExtResource("18_gr0sk")]
+position = Vector2(0, -56)
+cutscene_to_play = NodePath("../../UI/Cutscenes/Sister Safe")
+player = NodePath("../../player")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1559491196]
 layer = 5
@@ -146,16 +156,99 @@ layer = 5
 
 [node name="RightChar" type="Sprite2D" parent="UI/Cutscenes" unique_id=380802964]
 
-[node name="Test" type="Node" parent="UI/Cutscenes" unique_id=1342937531]
+[node name="Area Intro" type="Node" parent="UI/Cutscenes" unique_id=908099360]
 script = ExtResource("19_w4ur3")
 
-[node name="AdvanceBox" parent="UI/Cutscenes/Test" unique_id=602879474 instance=ExtResource("20_rwy0f")]
+[node name="CutsceneAction" type="Control" parent="UI/Cutscenes/Area Intro" unique_id=1716008379]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("21_narkk")
+
+[node name="Node" type="Node" parent="UI/Cutscenes/Area Intro/CutsceneAction" unique_id=729121626 node_paths=PackedStringArray("object_to_tween")]
+script = ExtResource("22_03cbu")
+object_to_tween = NodePath("../../../../../player")
+property_to_tween = "position"
+end_value = Vector2(800, -50)
+duration = 3.0
+
+[node name="Node2" type="Node" parent="UI/Cutscenes/Area Intro/CutsceneAction" unique_id=303770893 node_paths=PackedStringArray("object_to_tween")]
+script = ExtResource("22_03cbu")
+object_to_tween = NodePath("../../../../../player")
+property_to_tween = "position"
+end_value = Vector2(200, -50)
+duration = 2.0
+chain = true
+
+[node name="AdvanceBox" parent="UI/Cutscenes/Area Intro" unique_id=602879474 instance=ExtResource("20_rwy0f")]
+visible = false
+speaker_name = "Sister"
+text = "HELP ME!!!"
+text_speed = 0.2
+
+[node name="Sister Safe" type="Node" parent="UI/Cutscenes" unique_id=1342937531]
+script = ExtResource("19_w4ur3")
+
+[node name="AdvanceBox" parent="UI/Cutscenes/Sister Safe" unique_id=1760090621 instance=ExtResource("20_rwy0f")]
 visible = false
 speaker_name = "MC"
 text = "Hello!"
 
-[node name="AdvanceBox2" parent="UI/Cutscenes/Test" unique_id=524092588 instance=ExtResource("20_rwy0f")]
+[node name="OptionBox" parent="UI/Cutscenes/Sister Safe" unique_id=1839358452 node_paths=PackedStringArray("options") instance=ExtResource("20_kwnse")]
+visible = false
+offset_top = -200.0
+speaker_name = "MC"
+text = "DO YOU LIKE IT WHEN I TALK REALLY LOUD AND FAST LIKE THIS?!?!?!?!"
+options = {
+"No": NodePath("../No"),
+"Yes": NodePath("../Yes")
+}
+text_speed = 0.01
+
+[node name="Yes" type="Node" parent="UI/Cutscenes/Sister Safe" unique_id=1539740746]
+script = ExtResource("19_w4ur3")
+
+[node name="AdvanceBox3" parent="UI/Cutscenes/Sister Safe/Yes" unique_id=1037325517 instance=ExtResource("20_rwy0f")]
+visible = false
+offset_top = -200.0
+speaker_name = "MC"
+text = "I suppose... (I don't feel like making her sad right now.)"
+
+[node name="AdvanceBox2" parent="UI/Cutscenes/Sister Safe/Yes" unique_id=1509807309 instance=ExtResource("20_rwy0f")]
 visible = false
 speaker_name = "Sister"
-text = "Hello brother do you like it when I talk fast? Everyone says I'm really annoying and that I should calm down but I just caaaaaaaaan't!"
-text_speed = 0.025
+text = "YIPEEEEEEEEEEE"
+
+[node name="No" type="Node" parent="UI/Cutscenes/Sister Safe" unique_id=1446324128]
+script = ExtResource("19_w4ur3")
+
+[node name="AdvanceBox3" parent="UI/Cutscenes/Sister Safe/No" unique_id=1097120470 instance=ExtResource("20_rwy0f")]
+visible = false
+offset_top = -200.0
+speaker_name = "MC"
+text = "Not really, it's annoying and it hurts my ears."
+
+[node name="AdvanceBox2" parent="UI/Cutscenes/Sister Safe/No" unique_id=1622637558 instance=ExtResource("20_rwy0f")]
+visible = false
+speaker_name = "Sister"
+text = "Oh...                           ok"
+text_speed = 0.2
+
+[node name="Heal" type="Node" parent="UI/Cutscenes" unique_id=228002077]
+script = ExtResource("19_w4ur3")
+
+[node name="OptionBox" parent="UI/Cutscenes/Heal" unique_id=1393064534 node_paths=PackedStringArray("options") instance=ExtResource("20_kwnse")]
+visible = false
+offset_top = -200.0
+speaker_name = "MC"
+text = "Would you like to heal?"
+options = {
+"No": null,
+"Yes": null
+}
+text_speed = 0.01
+
+[connection signal="on_choose" from="UI/Cutscenes/Heal/OptionBox" to="Environment/Healpoint" method="answer"]

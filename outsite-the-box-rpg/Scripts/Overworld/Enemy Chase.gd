@@ -23,6 +23,9 @@ func exit():
 func chase():
 	var distance_to_player = (player.position - this.position).length()
 	while distance_to_player <= sight_distance and !caught_player:
+		if PlayerInfo.is_world_frozen:
+			await get_tree().process_frame
+			continue
 		distance_to_player = (player.position - this.position).length()
 		var direction = this.position.direction_to(player.position)
 		this.move_and_collide(direction * speed * get_process_delta_time())

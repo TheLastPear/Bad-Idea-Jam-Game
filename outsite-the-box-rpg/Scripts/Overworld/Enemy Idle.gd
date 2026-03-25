@@ -22,6 +22,7 @@ func enter():
 func idle():
 	while !spotted_player:
 		await get_tree().create_timer(randi_range(1, 3)).timeout
+		if PlayerInfo.is_world_frozen: continue
 		var tween = get_tree().create_tween()
 		
 		var direction : Vector2

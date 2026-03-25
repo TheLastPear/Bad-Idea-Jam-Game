@@ -1,9 +1,25 @@
 extends Interactable
 
+@export var cutscene : Cutscene
 
 func do_function():
+	PlayerInfo.is_world_frozen = true
+	cutscene.start()
+	pass
+
+
+func answer(choice : String):
+	if choice == "Yes":
+		heal()
+	if choice == "No":
+		await get_tree().create_timer(0.1).timeout
+		PlayerInfo.is_world_frozen = false
+	pass
+
+
+func heal():
 	print("Healing")
-	player.locked_movement = true
+	PlayerInfo.is_world_frozen = true
 	for character in PlayerInfo.party:
 		character.hp = character.stats["health"]
 		character.bp = character.stats["stamina"]
