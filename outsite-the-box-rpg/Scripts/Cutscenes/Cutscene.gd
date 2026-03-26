@@ -80,9 +80,3 @@ func next_node(caller : Node, next = null):
 		else:
 			done.emit()
 	pass
-
-
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("run_away") and get_parent() is not Cutscene:
-		start()
-	pass

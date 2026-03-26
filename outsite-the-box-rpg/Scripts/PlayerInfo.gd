@@ -2,6 +2,7 @@ extends Node
 
 var current_overworld_scene
 var current_overworld_position : Vector2
+var last_heal_position : Vector2
 var area_enemies : Dictionary[NodePath, bool]
 var entered_areas : Dictionary[NodePath, bool]
 

@@ -14,6 +14,9 @@ func _ready() -> void:
 	if !PlayerInfo.current_overworld_position:
 		PlayerInfo.current_overworld_position = position
 	
+	if !PlayerInfo.last_heal_position:
+		PlayerInfo.current_overworld_position = position
+	
 	position = PlayerInfo.current_overworld_position
 
 

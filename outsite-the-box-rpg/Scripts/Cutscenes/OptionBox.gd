@@ -72,10 +72,8 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("movement_left"):
 		selected_option = Utils.subtract_and_wrap(selected_option, -1, options.keys().size() - 1)
-		print(selected_option)
 	elif event.is_action_pressed("movement_right"):
 		selected_option = Utils.add_and_wrap(selected_option, options.keys().size(), 0)
-		print(selected_option)
 	
 	if event.is_action_pressed("action"):
 		if can_advance:

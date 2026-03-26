@@ -4,7 +4,7 @@ signal next
 
 @export var speaker : Texture2D
 @export var collucuter : Texture2D
-@export_enum("MC", "Sister", "Letter from Mom") var speaker_name : String
+@export_enum("None","MC", "Sister", "Letter from Mom") var speaker_name : String
 @export var text : String
 @export var text_speed : float = 0.1
 @onready var name_text : Label = $MarginContainer/VBoxContainer/HBoxContainer/SpeakerName
@@ -31,7 +31,10 @@ func exit():
 
 
 func handle_text():
-	name_text.text = speaker_name
+	if speaker_name != "None":
+		name_text.text = speaker_name
+	else:
+		name_text.text = ""
 	dialogue_text.text = text
 	
 	was_skipped = false

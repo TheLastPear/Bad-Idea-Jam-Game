@@ -24,8 +24,6 @@ LoadZoneKey="*uid://diwlohjmnhp58"
 
 [display]
 
-window/size/viewport_width=1150
-window/size/viewport_height=650
 window/stretch/mode="canvas_items"
 window/vsync/vsync_mode=0
 

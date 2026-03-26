@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://cdj6bk5s6344v" path="res://Scripts/Battle/Base Action.gd" id="7_sqqpl"]
 [ext_resource type="Resource" uid="uid://cmj6afvwaioec" path="res://Resources/Fighters/Actions/Slash.tres" id="8_v4t4h"]
 [ext_resource type="Resource" uid="uid://demy5ar885511" path="res://Resources/Fighters/Actions/Slam.tres" id="9_xhaq3"]
-[ext_resource type="TileSet" uid="uid://cw5jwxplha2b0" path="res://Art/Placeholders/Placeholder Tileset.tres" id="10_xuf1h"]
+[ext_resource type="TileSet" uid="uid://cw5jwxplha2b0" path="res://Art/Environment/Overworld Tileset.tres" id="10_xuf1h"]
 [ext_resource type="Script" uid="uid://dyopmeq2231e5" path="res://Scripts/Overworld/Key.gd" id="11_5pctc"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="12_eg3b3"]
 [ext_resource type="PackedScene" uid="uid://cb6a5ykq42x4y" path="res://Scenes/Loads/status_window.tscn" id="13_eg3b3"]

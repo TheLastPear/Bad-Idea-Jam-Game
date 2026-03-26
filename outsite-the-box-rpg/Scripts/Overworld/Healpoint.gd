@@ -20,6 +20,7 @@ func answer(choice : String):
 func heal():
 	print("Healing")
 	PlayerInfo.is_world_frozen = true
+	PlayerInfo.last_heal_position = player.position
 	for character in PlayerInfo.party:
 		character.hp = character.stats["health"]
 		character.bp = character.stats["stamina"]
