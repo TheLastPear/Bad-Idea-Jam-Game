@@ -157,9 +157,11 @@ position = Vector2(810, 79)
 cutscene_to_play = NodePath("../../UI/Cutscenes/Hello")
 player = NodePath("../../player")
 
-[node name="Key" parent="Environment" unique_id=45312877 instance=ExtResource("19_7qh7o")]
+[node name="Key" parent="Environment" unique_id=45312877 node_paths=PackedStringArray("cutscene", "player") instance=ExtResource("19_7qh7o")]
 position = Vector2(1920, -960)
 id = 4096
+cutscene = NodePath("../../UI/Cutscenes/GotKey")
+player = NodePath("../../player")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1559491196]
 layer = 5
@@ -242,5 +244,14 @@ text = "Hello"
 visible = false
 speaker_name = "Sister"
 text = "Hello brother!"
+
+[node name="GotKey" type="Node" parent="UI/Cutscenes" unique_id=1879047393]
+script = ExtResource("20_bmuyg")
+metadata/_custom_type_script = "uid://bh6rffaiukr2b"
+
+[node name="AdvanceBox" parent="UI/Cutscenes/GotKey" unique_id=1080213462 instance=ExtResource("23_3xfcr")]
+visible = false
+speaker_name = "None"
+text = "You got a key!"
 
 [connection signal="on_choose" from="UI/Cutscenes/Heal/OptionBox" to="Environment/Healpoint" method="answer"]

@@ -3,18 +3,22 @@
 [ext_resource type="Script" uid="uid://csbt3gnffh5pg" path="res://Scripts/Overworld/Door.gd" id="1_38ogf"]
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="2_ro51l"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o7a22"]
-size = Vector2(40, 40)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ro51l"]
+size = Vector2(128, 40)
 
-[node name="Door" type="Node2D" unique_id=1605740744]
+[node name="Door" type="StaticBody2D" unique_id=1562039073 node_paths=PackedStringArray("cutscene", "player")]
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_38ogf")
+id = 4096
+cutscene = NodePath("")
+player = NodePath("")
+metadata/_custom_type_script = "uid://plgpn0jsii6i"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=60728260]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=972572769]
 position = Vector2(-9.536743e-07, -9.536743e-07)
 scale = Vector2(2.5, 2.5)
 texture = ExtResource("2_ro51l")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=958752172]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=10927133]
-shape = SubResource("RectangleShape2D_o7a22")
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1483675764]
+shape = SubResource("RectangleShape2D_ro51l")
