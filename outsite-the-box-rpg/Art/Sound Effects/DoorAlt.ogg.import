@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://q54pq5jwggmk"
+path="res://.godot/imported/DoorAlt.ogg-75de8d54338fd3edca8ac2085d231ccf.oggvorbisstr"
+
+[deps]
+
+source_file="res://Art/Sound Effects/DoorAlt.ogg"
+dest_files=["res://.godot/imported/DoorAlt.ogg-75de8d54338fd3edca8ac2085d231ccf.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

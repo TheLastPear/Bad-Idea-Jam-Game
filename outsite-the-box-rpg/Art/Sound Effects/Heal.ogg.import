@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c56kylg200rvg"
+path="res://.godot/imported/Heal.ogg-1f5aba5db8c6c326a48cff7da001c3ec.oggvorbisstr"
+
+[deps]
+
+source_file="res://Art/Sound Effects/Heal.ogg"
+dest_files=["res://.godot/imported/Heal.ogg-1f5aba5db8c6c326a48cff7da001c3ec.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

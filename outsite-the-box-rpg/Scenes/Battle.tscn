@@ -24,6 +24,9 @@
 [ext_resource type="Script" uid="uid://dwqo3lfog1iu8" path="res://Scripts/UI/Battle UI/Got Item.gd" id="16_u5lwd"]
 [ext_resource type="Script" uid="uid://d4iqgfyg3hrvf" path="res://Scripts/UI/Battle UI/Defeat.gd" id="17_yahm3"]
 [ext_resource type="PackedScene" uid="uid://cb6a5ykq42x4y" path="res://Scenes/Loads/status_window.tscn" id="20_yahm3"]
+[ext_resource type="AudioStream" uid="uid://d1j4et7s2i7j" path="res://Art/Sound Effects/SwordAttack.ogg" id="25_d13iw"]
+[ext_resource type="AudioStream" uid="uid://bmtj81ri0a74k" path="res://Art/Sound Effects/ProjectileAttack.ogg" id="26_4nbmx"]
+[ext_resource type="AudioStream" uid="uid://iosk4ouvi1pp" path="res://Art/Sound Effects/NormalEnemyAttack.ogg" id="27_3quo0"]
 
 [node name="Battle" type="Control" unique_id=624704362]
 layout_mode = 3
@@ -741,6 +744,18 @@ volume_db = -12.0
 
 [node name="menu" type="AudioStreamPlayer" parent="Audio" unique_id=1481956420]
 stream = ExtResource("13_tiokb")
+volume_db = -12.0
+
+[node name="SwordAttack" type="AudioStreamPlayer" parent="Audio" unique_id=223126706]
+stream = ExtResource("25_d13iw")
+volume_db = -12.0
+
+[node name="ProjectileAttack" type="AudioStreamPlayer" parent="Audio" unique_id=905914172]
+stream = ExtResource("26_4nbmx")
+volume_db = -12.0
+
+[node name="NormalEnemyAttack" type="AudioStreamPlayer" parent="Audio" unique_id=681093263]
+stream = ExtResource("27_3quo0")
 volume_db = -12.0
 
 [connection signal="poll_level_up" from="Battle Manager" to="UI/GUI/LevelUp" method="on_poll"]
