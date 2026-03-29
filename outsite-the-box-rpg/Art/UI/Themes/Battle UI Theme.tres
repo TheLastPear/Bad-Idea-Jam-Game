@@ -1,7 +1,14 @@
 [gd_resource type="Theme" format=3 uid="uid://cf2u73paxhgyy"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tjju7"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+shadow_color = Color(0, 0.44705883, 0.7764706, 1)
+shadow_size = 1
+shadow_offset = Vector2(-4, 4)
+
 [resource]
 MarginContainer/constants/margin_bottom = 20
 MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_tjju7")

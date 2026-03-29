@@ -2,31 +2,25 @@
 
 [ext_resource type="Script" uid="uid://b7n1w076uoteb" path="res://Scripts/Overworld/player.gd" id="1_6t5aa"]
 [ext_resource type="Resource" uid="uid://x4a47vh6dj7k" path="res://Scripts/inventory/playerinv.tres" id="2_fkybt"]
-[ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="2_vgqql"]
-[ext_resource type="PackedScene" uid="uid://dj18tqqq6ggk3" path="res://Scripts/inventory/inv_ui.tscn" id="3_fkybt"]
+[ext_resource type="SpriteFrames" uid="uid://cnrtf3eue1si3" path="res://Art/SpriteSheets/Player/PlayerFrames.tres" id="3_vgqql"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8od7v"]
-size = Vector2(55, 55)
+[sub_resource type="CircleShape2D" id="CircleShape2D_6t5aa"]
+radius = 20.0
 
 [node name="player" type="CharacterBody2D" unique_id=1436684235]
+y_sort_enabled = true
 collision_mask = 3
 script = ExtResource("1_6t5aa")
 inv = ExtResource("2_fkybt")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1077020431]
-shape = SubResource("RectangleShape2D_8od7v")
+shape = SubResource("CircleShape2D_6t5aa")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=394707655]
-position = Vector2(-4.7683716e-07, -4.7683716e-07)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1416122628]
+position = Vector2(0, -39.999996)
 scale = Vector2(0.4296875, 0.4296875)
-texture = ExtResource("2_vgqql")
-
-[node name="Inv_UI" parent="." unique_id=1598540736 instance=ExtResource("3_fkybt")]
-visible = false
-offset_left = -80.0
-offset_top = -149.0
-offset_right = 77.0
-offset_bottom = -65.0
+sprite_frames = ExtResource("3_vgqql")
+animation = &"idle_up"
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=300648982]
 target_position = Vector2(0, 40)

@@ -3,7 +3,7 @@ class_name OverworldEnemy extends Node2D
 @export var area_info : AreaInfo
 @export var stored_enemies : Array[Fighter]
 @export var is_static := false
-@onready var player : Node2D = $"../../player"
+@onready var player : Node2D = $"../../Environment/Objects/player"
 
 
 func _ready() -> void:

@@ -4,10 +4,12 @@ class_name ItemSelect extends State
 @export var on_return : AudioStreamPlayer
 
 @export var items : Array[InvItem]
+var selected_item := 0
 
 
 func enter():
 	is_active = true
+	selected_item = 0
 	get_child(0).show()
 	pass
 
@@ -33,4 +35,11 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("back"):
 		transition.emit("optionselect")
+	elif event.is_action_pressed("action"):
+		assign_item(selected_item)
+	
+	if event.is_action_pressed("movement_up"):
+		selected_item = Utils.subtract_and_wrap(selected_item, -1, items.size())
+	elif event.is_action_pressed("movement_down"):
+		selected_item = Utils.add_and_wrap(selected_item, items.size() + 1, 0)
 	pass

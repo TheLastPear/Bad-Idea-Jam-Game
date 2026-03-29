@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://c0x7qnto71x0m"]
 
+[ext_resource type="Theme" uid="uid://cf2u73paxhgyy" path="res://Art/UI/Themes/Battle UI Theme.tres" id="1_1s3yx"]
 [ext_resource type="Script" uid="uid://c0qpo0pbr1ulg" path="res://Scripts/Battle/Battle Manager.gd" id="1_6yjxy"]
 [ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
 [ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
@@ -37,6 +38,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme = ExtResource("1_1s3yx")
 
 [node name="Battle Manager" type="Node" parent="." unique_id=1405131880 node_paths=PackedStringArray("active_allies", "active_enemies", "ui")]
 script = ExtResource("1_6yjxy")
