@@ -5,6 +5,7 @@ signal status_update
 
 @export var fighter_name : String
 @export var description : String
+@export var texture : Texture2D
 @export var base_stats : BaseStats
 var status_ui : Control
 var is_dead := false

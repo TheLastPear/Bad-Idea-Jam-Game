@@ -17,15 +17,12 @@ enum Alignment {
 
 
 func move_in():
+	$Sprite2D.texture = fighter.texture
+	
 	fighter.status_ui = $/root.get_child(-1).get_node("UI/Status Window")
 	
 	fighter.assign_stats()
 	died.connect(manager.check_for_end)
-	
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", Vector2(0, 0), 0.5)
-	
-	await tween.finished
 	
 	has_slid_in.emit()
 	pass
@@ -34,18 +31,11 @@ func move_in():
 func do_action(action : Action, target : ActiveFighter):
 	fighter.bp -= action.used_stamina
 	print(fighter.fighter_name + " used " + action.action_name + ". Remaining stamina: " + str(fighter.bp))
-	var to_tween = get_tree().create_tween()
-	to_tween.tween_property(self, "global_position", Vector2(target.global_position.x + (150 * target.scale.x), target.global_position.y), manager.slide_speed)
-	await to_tween.finished
 	
 	await get_tree().create_timer(0.5).timeout
 	
 	for hit in action.hits:
 		target.take_damage(self, action)
-	
-	var back_tween = get_tree().create_tween()
-	back_tween.tween_property(self, "position", Vector2(0, 0), manager.slide_speed)
-	await back_tween.finished
 	
 	action_finished.emit()
 	pass

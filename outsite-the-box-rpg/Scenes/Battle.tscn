@@ -5,13 +5,18 @@
 [ext_resource type="Script" uid="uid://tdh8pwv4xj7n" path="res://Scripts/Battle/Active Fighter.gd" id="1_wvl2i"]
 [ext_resource type="Resource" uid="uid://bp8eckn1vqn61" path="res://Resources/Fighters/Allies/Player Fighter.tres" id="2_vr6xi"]
 [ext_resource type="Resource" uid="uid://mm3mitsj0tnn" path="res://Scripts/inventory/items/place holder.tres" id="3_1s3yx"]
+[ext_resource type="Script" uid="uid://c0b5ljcpfxw1w" path="res://Scripts/Battle/Base Fighter.gd" id="3_g2ol7"]
 [ext_resource type="Script" uid="uid://bwn8biixgvgiv" path="res://Scripts/inventory/inventory_item.gd" id="5_d13iw"]
+[ext_resource type="Resource" uid="uid://bgpg8b6j7jkgk" path="res://Resources/Fighters/Enemies/Placeholder 1.tres" id="5_rr0am"]
 [ext_resource type="Texture2D" uid="uid://ceqn86jm2v58s" path="res://icon.svg" id="6_8teo4"]
 [ext_resource type="Script" uid="uid://gv4gy7bmohl7" path="res://Scripts/UI/Battle UI/Battle UI Manager.gd" id="6_nttxn"]
+[ext_resource type="Texture2D" uid="uid://cmio57hbu5p78" path="res://Art/SpriteSheets/buggyguy2.png" id="7_hjq1m"]
 [ext_resource type="Script" uid="uid://c8cc3jmugwd40" path="res://Scripts/UI/Battle UI/Option Select.gd" id="7_nttxn"]
 [ext_resource type="Script" uid="uid://b773o4chb6rq" path="res://Scripts/UI/Battle UI/Hidden.gd" id="7_u5lwd"]
+[ext_resource type="Texture2D" uid="uid://fp6tvdbxghis" path="res://Art/UI/opponenthealthbar.png" id="8_hqpwi"]
 [ext_resource type="Script" uid="uid://drv7mkwm7pj1g" path="res://Scripts/UI/Battle UI/Special Select.gd" id="8_u5lwd"]
 [ext_resource type="Script" uid="uid://covbotdoocv2a" path="res://Scripts/UI/Battle UI/Item Select.gd" id="9_dfi4p"]
+[ext_resource type="Script" uid="uid://cv62uxdfkbbtc" path="res://Scripts/Battle/health_bar.gd" id="9_rfinx"]
 [ext_resource type="Texture2D" uid="uid://dh62msr5hi1c0" path="res://Art/Placeholders/UI/Battle UI.png" id="10_qxnh6"]
 [ext_resource type="Script" uid="uid://ksrrfg8nespk" path="res://Scripts/UI/Battle UI/Target Select.gd" id="10_yahm3"]
 [ext_resource type="Script" uid="uid://cu3fde5oadtu6" path="res://Scripts/UI/Battle UI/Ally Select.gd" id="11_1s3yx"]
@@ -25,9 +30,21 @@
 [ext_resource type="Script" uid="uid://dwqo3lfog1iu8" path="res://Scripts/UI/Battle UI/Got Item.gd" id="16_u5lwd"]
 [ext_resource type="Script" uid="uid://d4iqgfyg3hrvf" path="res://Scripts/UI/Battle UI/Defeat.gd" id="17_yahm3"]
 [ext_resource type="PackedScene" uid="uid://cb6a5ykq42x4y" path="res://Scenes/Loads/status_window.tscn" id="20_yahm3"]
+[ext_resource type="Texture2D" uid="uid://dtko2vb5og4b3" path="res://Art/UI/backgroundtiles.png" id="21_hibfo"]
+[ext_resource type="Texture2D" uid="uid://tafsd66qs3qi" path="res://Art/UI/attack.png" id="22_hjq1m"]
+[ext_resource type="Texture2D" uid="uid://dv3d7hdsrjkld" path="res://Art/UI/escape.png" id="23_0gu8g"]
+[ext_resource type="Texture2D" uid="uid://cdfttwdeaqvb3" path="res://Art/UI/special.png" id="24_gigvg"]
 [ext_resource type="AudioStream" uid="uid://d1j4et7s2i7j" path="res://Art/Sound Effects/SwordAttack.ogg" id="25_d13iw"]
+[ext_resource type="Texture2D" uid="uid://2y3sobmj1kai" path="res://Art/UI/inventory.png" id="25_hqpwi"]
 [ext_resource type="AudioStream" uid="uid://bmtj81ri0a74k" path="res://Art/Sound Effects/ProjectileAttack.ogg" id="26_4nbmx"]
+[ext_resource type="Texture2D" uid="uid://ud178v0cqig8" path="res://Art/UI/party view.png" id="26_rfinx"]
 [ext_resource type="AudioStream" uid="uid://iosk4ouvi1pp" path="res://Art/Sound Effects/NormalEnemyAttack.ogg" id="27_3quo0"]
+[ext_resource type="Texture2D" uid="uid://cqwh8x3wr2j8h" path="res://Art/UI/health bar.png" id="27_52lfc"]
+[ext_resource type="Texture2D" uid="uid://bvy87cfvk30ue" path="res://Art/Environment/background1.png" id="29_gigvg"]
+[ext_resource type="Texture2D" uid="uid://pb7cfgvyt5be" path="res://Art/Environment/background2.png" id="30_hqpwi"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hqpwi"]
+bg_color = Color(1, 0, 0.18431373, 1)
 
 [node name="Battle" type="Control" unique_id=624704362]
 layout_mode = 3
@@ -45,8 +62,10 @@ script = ExtResource("1_6yjxy")
 battle_speed = 1
 slide_speed = 0.75
 text_step = 0.025
-active_allies = [NodePath("Fighters/Ally Side/Ally1/ActiveAlly1"), NodePath("Fighters/Ally Side/Ally2/ActiveAlly2"), NodePath("Fighters/Ally Side/Ally3/ActiveAlly3"), NodePath("Fighters/Ally Side/Ally4/ActiveAlly4")]
-active_enemies = [NodePath("Fighters/Enemy Side/Enemy1/ActiveEnemy1"), NodePath("Fighters/Enemy Side/Enemy2/ActiveEnemy2"), NodePath("Fighters/Enemy Side/Enemy3/ActiveEnemy3"), NodePath("Fighters/Enemy Side/Enemy4/ActiveEnemy4")]
+ally_data = Array[ExtResource("3_g2ol7")]([ExtResource("2_vr6xi")])
+enemy_data = Array[ExtResource("3_g2ol7")]([ExtResource("5_rr0am")])
+active_allies = [NodePath("Fighters/ActiveAlly1")]
+active_enemies = [NodePath("Fighters/ActiveEnemy1")]
 potential_items = Array[ExtResource("5_d13iw")]([ExtResource("3_1s3yx")])
 ui = NodePath("../UI/GUI")
 
@@ -58,162 +77,68 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Ally Side" type="VBoxContainer" parent="Battle Manager/Fighters" unique_id=856561243]
+[node name="ActiveAlly1" type="Control" parent="Battle Manager/Fighters" unique_id=344201536 node_paths=PackedStringArray("manager")]
 layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = 100.0
-offset_right = -830.0
-offset_bottom = -100.0
-
-[node name="Ally1" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=265123238]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveAlly1" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally1" unique_id=344201536 node_paths=PackedStringArray("manager")]
-anchors_preset = 0
-offset_left = -300.0
-offset_right = -300.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -635.0
+offset_top = -170.0
+offset_right = -635.0
+offset_bottom = -170.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_wvl2i")
-fighter = ExtResource("2_vr6xi")
-manager = NodePath("../../../..")
+manager = NodePath("../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally1/ActiveAlly1" unique_id=1712840099]
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/ActiveAlly1" unique_id=1712840099]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("6_8teo4")
 
-[node name="Ally2" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=1229996079]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveAlly2" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally2" unique_id=2062213883 node_paths=PackedStringArray("manager")]
+[node name="ActiveEnemy1" type="Control" parent="Battle Manager/Fighters" unique_id=2098999983 node_paths=PackedStringArray("manager")]
 anchors_preset = 0
-offset_left = -300.0
-offset_right = -300.0
-script = ExtResource("1_wvl2i")
-manager = NodePath("../../../..")
-
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally2/ActiveAlly2" unique_id=1042077113]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8teo4")
-
-[node name="Ally3" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=954323676]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveAlly3" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally3" unique_id=299587568 node_paths=PackedStringArray("manager")]
-anchors_preset = 0
-offset_left = -300.0
-offset_right = -300.0
-script = ExtResource("1_wvl2i")
-manager = NodePath("../../../..")
-
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally3/ActiveAlly3" unique_id=4037461]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8teo4")
-
-[node name="Ally4" type="Control" parent="Battle Manager/Fighters/Ally Side" unique_id=121099075]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveAlly4" type="Control" parent="Battle Manager/Fighters/Ally Side/Ally4" unique_id=874239460 node_paths=PackedStringArray("manager")]
-anchors_preset = 0
-offset_left = -300.0
-offset_right = -300.0
-script = ExtResource("1_wvl2i")
-manager = NodePath("../../../..")
-
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Ally Side/Ally4/ActiveAlly4" unique_id=642587944]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8teo4")
-
-[node name="Enemy Side" type="VBoxContainer" parent="Battle Manager/Fighters" unique_id=2121959216]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 830.0
-offset_top = 100.0
-offset_right = -160.0
-offset_bottom = -100.0
-
-[node name="Enemy1" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=1073208047]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveEnemy1" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy1" unique_id=2098999983 node_paths=PackedStringArray("manager")]
-anchors_preset = 0
-offset_left = 300.0
-offset_right = 300.0
-scale = Vector2(-1, 1)
+offset_left = 712.0
+offset_top = 351.0
+offset_right = 712.0
+offset_bottom = 351.0
 script = ExtResource("1_wvl2i")
 alignment = 1
-manager = NodePath("../../../..")
+manager = NodePath("../..")
 
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy1/ActiveEnemy1" unique_id=2105897014]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8teo4")
+[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/ActiveEnemy1" unique_id=2105897014]
+scale = Vector2(0.14648478, 0.14648478)
+texture = ExtResource("7_hjq1m")
 
-[node name="Enemy2" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=288162587]
-layout_mode = 2
+[node name="HealthRect" type="Sprite2D" parent="Battle Manager/Fighters/ActiveEnemy1" unique_id=77688966]
+position = Vector2(-8.0000305, -205)
+scale = Vector2(0.28647685, 0.28647688)
+texture = ExtResource("8_hqpwi")
+
+[node name="ProgressBar" type="ProgressBar" parent="Battle Manager/Fighters/ActiveEnemy1/HealthRect" unique_id=295761524 node_paths=PackedStringArray("target")]
+custom_minimum_size = Vector2(200, 80)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -453.1552
+offset_top = -287.98138
+offset_right = -203.15523
+offset_bottom = -207.98137
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.34906584
 size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveEnemy2" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy2" unique_id=1415017731 node_paths=PackedStringArray("manager")]
-anchors_preset = 0
-offset_left = 300.0
-offset_right = 300.0
-scale = Vector2(-1, 1)
-script = ExtResource("1_wvl2i")
-alignment = 1
-manager = NodePath("../../../..")
-
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy2/ActiveEnemy2" unique_id=417690020]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8teo4")
-
-[node name="Enemy3" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=602500773]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveEnemy3" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy3" unique_id=206656034 node_paths=PackedStringArray("manager")]
-anchors_preset = 0
-offset_left = 300.0
-offset_right = 300.0
-scale = Vector2(-1, 1)
-script = ExtResource("1_wvl2i")
-alignment = 1
-manager = NodePath("../../../..")
-
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy3/ActiveEnemy3" unique_id=644595762]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8teo4")
-
-[node name="Enemy4" type="Control" parent="Battle Manager/Fighters/Enemy Side" unique_id=11205812]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="ActiveEnemy4" type="Control" parent="Battle Manager/Fighters/Enemy Side/Enemy4" unique_id=1837628930 node_paths=PackedStringArray("manager")]
-anchors_preset = 0
-offset_left = 300.0
-offset_right = 300.0
-scale = Vector2(-1, 1)
-script = ExtResource("1_wvl2i")
-alignment = 1
-manager = NodePath("../../../..")
-
-[node name="Sprite2D" type="Sprite2D" parent="Battle Manager/Fighters/Enemy Side/Enemy4/ActiveEnemy4" unique_id=1007903931]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("6_8teo4")
+size_flags_vertical = 4
+theme_override_styles/fill = SubResource("StyleBoxFlat_hqpwi")
+step = 1.0
+value = 50.0
+rounded = true
+show_percentage = false
+script = ExtResource("9_rfinx")
+target = NodePath("../..")
 
 [node name="UI" type="Control" parent="." unique_id=2013751011]
 z_index = 10
@@ -239,7 +164,6 @@ on_return = NodePath("../../../Audio/back")
 metadata/_custom_type_script = "uid://c8cc3jmugwd40"
 
 [node name="Control" type="Control" parent="UI/GUI/OptionSelect" unique_id=1593086285]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -293,7 +217,6 @@ target_state = NodePath("../TargetSelect")
 metadata/_custom_type_script = "uid://drv7mkwm7pj1g"
 
 [node name="Control" type="Control" parent="UI/GUI/SpecialSelect" unique_id=2125472857]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -301,39 +224,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/SpecialSelect/Control" unique_id=1876577346]
-custom_minimum_size = Vector2(200, 200)
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -95.0
-offset_top = 20.0
-offset_right = 105.0
-offset_bottom = 120.0
-grow_horizontal = 2
-texture = ExtResource("10_qxnh6")
-patch_margin_left = 4
-patch_margin_top = 4
-patch_margin_right = 4
-patch_margin_bottom = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/GUI/SpecialSelect/Control/NinePatchRect" unique_id=683847930]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 20
-theme_override_constants/margin_top = 20
-theme_override_constants/margin_right = 20
-theme_override_constants/margin_bottom = 20
-
-[node name="Label" type="Label" parent="UI/GUI/SpecialSelect/Control/NinePatchRect/MarginContainer" unique_id=1584677524]
-layout_mode = 2
-size_flags_vertical = 0
-text = "Back: R key"
+[node name="NinePatchRect" type="NinePatchRect" parent="UI/GUI/SpecialSelect/Control" unique_id=343707676]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="ItemSelect" type="Node" parent="UI/GUI" unique_id=663506840 node_paths=PackedStringArray("on_next", "on_return")]
 script = ExtResource("9_dfi4p")
@@ -729,6 +623,95 @@ text = "You Lost"
 
 [node name="Status Window" parent="UI" unique_id=1166590265 instance=ExtResource("20_yahm3")]
 layout_mode = 1
+
+[node name="Options" type="TextureRect" parent="UI" unique_id=854089694]
+layout_mode = 1
+offset_left = 225.0
+offset_top = 38.000004
+offset_right = 1484.1819
+offset_bottom = 2008.3865
+scale = Vector2(0.18106996, 0.18106996)
+texture = ExtResource("21_hibfo")
+
+[node name="Sprite" type="TextureRect" parent="UI/Options" unique_id=133191452]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_hjq1m")
+
+[node name="Sprite2" type="TextureRect" parent="UI/Options" unique_id=865307000]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("23_0gu8g")
+
+[node name="Sprite3" type="TextureRect" parent="UI/Options" unique_id=506447724]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("24_gigvg")
+
+[node name="Sprite4" type="TextureRect" parent="UI/Options" unique_id=118064915]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("25_hqpwi")
+
+[node name="Sprite5" type="TextureRect" parent="UI/Options" unique_id=1880089517]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("26_rfinx")
+
+[node name="Sprite6" type="TextureRect" parent="UI/Options" unique_id=822360610]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("27_52lfc")
+
+[node name="Background" type="TextureRect" parent="UI" unique_id=228294003]
+z_index = -1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -29.08844
+offset_bottom = 29.08844
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("29_gigvg")
+expand_mode = 5
+
+[node name="FrontBackground" type="TextureRect" parent="UI" unique_id=1986605166]
+z_index = -1
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("30_hqpwi")
+expand_mode = 5
 
 [node name="Audio" type="Node" parent="." unique_id=1880107458]
 

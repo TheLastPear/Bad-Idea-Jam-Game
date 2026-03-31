@@ -6,11 +6,13 @@
 [ext_resource type="Resource" uid="uid://4bthpxwgofhy" path="res://Resources/Fighters/Actions/Basic Attack.tres" id="2_lirgy"]
 [ext_resource type="Resource" uid="uid://yld7yuy0cu2j" path="res://Resources/Fighters/Actions/Bash.tres" id="4_w5tob"]
 [ext_resource type="Resource" uid="uid://demy5ar885511" path="res://Resources/Fighters/Actions/Slam.tres" id="5_16yqf"]
+[ext_resource type="Texture2D" uid="uid://cmio57hbu5p78" path="res://Art/SpriteSheets/buggyguy2.png" id="7_w5tob"]
 
 [resource]
 script = ExtResource("1_das13")
 fighter_name = "Enemy Tank"
 description = "Placeholder"
+texture = ExtResource("7_w5tob")
 base_stats = ExtResource("1_gpuyi")
 basic_attack = ExtResource("2_lirgy")
 learnset = Dictionary[int, ExtResource("2_gpuyi")]({
